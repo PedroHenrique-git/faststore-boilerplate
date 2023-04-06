@@ -16,8 +16,12 @@
     "jsx": "preserve",
     "incremental": true,
     "paths": {
-      "@containers/*": ["./src/containers/*"],
-      "@components/*": ["./src/components/*"],
+      "@atoms/*": ["./src/components/atoms/*"],
+      "@molecules/*": ["./src/components/molecules/*"],
+      "@organisms/*": ["./src/components/organisms/*"],
+      "@templates/*": ["./src/components/organisms/*"],
+      "@pages/*": ["./src/components/organisms/*"],
+      "@components/*": ["./src/components/components/*"],
       "@utils/*": ["./src/utils/*"],
       "@config/*": ["./src/config/*"]
     }

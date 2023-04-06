@@ -1,36 +1,47 @@
 import { Options } from '@faststore/api';
 
-export const storeConfig = {
-  platform: 'vtex',
+function generateConfig() {
+  const base = {
+    platform: 'vtex',
 
-  api: {
-    storeId: 'storeframework',
-    workspace: 'master',
-    environment: 'vtexcommercestable',
-    hideUnavailableItems: true,
-  },
+    storeName: 'Open store',
 
-  session: {
-    currency: {
-      code: 'USD',
-      symbol: '$',
+    api: {
+      storeId: 'storeframework',
+      workspace: 'master',
+      environment: 'vtexcommercestable',
+      hideUnavailableItems: true,
     },
-    locale: 'en-US',
-    channel: '{"salesChannel":"1","regionId":""}',
-    country: 'USA',
-    postalCode: null,
-    person: null,
-  },
-};
 
-export const apiOptions: Options = {
-  account: storeConfig.api.storeId,
-  channel: storeConfig.session.channel,
-  environment: storeConfig.api.environment as Options['environment'],
-  hideUnavailableItems: storeConfig.api.hideUnavailableItems,
-  locale: storeConfig.session.locale,
-  platform: storeConfig.platform as Options['platform'],
-  flags: {
-    enableOrderFormSync: true,
-  },
-};
+    session: {
+      currency: {
+        code: 'USD',
+        symbol: '$',
+      },
+      locale: 'en-US',
+      channel: '{"salesChannel":"1","regionId":""}',
+      country: 'USA',
+      postalCode: null,
+      person: null,
+    },
+  };
+
+  const apiOptions: Options = {
+    account: base.api.storeId,
+    channel: base.session.channel,
+    environment: base.api.environment as Options['environment'],
+    hideUnavailableItems: base.api.hideUnavailableItems,
+    locale: base.session.locale,
+    platform: base.platform as Options['platform'],
+    flags: {
+      enableOrderFormSync: true,
+    },
+  };
+
+  return {
+    base,
+    apiOptions,
+  };
+}
+
+export const config = generateConfig();

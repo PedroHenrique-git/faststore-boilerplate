@@ -1,16 +1,21 @@
-import { apiOptions } from '@config/store';
-import { getContextFactory } from '@faststore/api';
-import { createSchema, createYoga } from 'graphql-yoga';
-import resolvers from 'src/server/graphql/resolvers';
-import typedefs from 'src/server/graphql/typedefs';
+/* eslint-disable react-hooks/rules-of-hooks */
 
-const schema = createSchema({
-  resolvers,
-  typeDefs: typedefs,
-});
+import { config } from '@config/store';
+import { getContextFactory } from '@faststore/api';
+import { useDisableIntrospection } from '@graphql-yoga/plugin-disable-introspection';
+import { createSchema, createYoga } from 'graphql-yoga';
+import graphqlSchema from 'src/server/graphql';
+
+const schema = createSchema(graphqlSchema);
 
 export default createYoga({
   schema,
   graphqlEndpoint: '/api/graphql',
-  context: getContextFactory(apiOptions),
+  context: getContextFactory(config.apiOptions),
+  graphiql: process.env.NODE_ENV === 'development',
+  plugins: [
+    ...(process.env.NODE_ENV === 'production'
+      ? [useDisableIntrospection()]
+      : []),
+  ],
 });

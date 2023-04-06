@@ -1,4 +1,6 @@
-import { apiOptions } from '@config/store';
+import { config } from '@config/store';
 import { getResolvers } from '@faststore/api';
 
-export default { ...getResolvers(apiOptions) };
+export default {
+  ...getResolvers(config.apiOptions),
+};

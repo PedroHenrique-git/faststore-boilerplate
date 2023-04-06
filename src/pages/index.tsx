@@ -1,7 +1,17 @@
-import { Home } from '@containers/Home/Home';
+import { Box } from '@chakra-ui/react';
 
-function Index() {
-  return <Home title="Next template" />;
+function Home() {
+  return (
+    <>
+      <Box minH={'500px'}></Box>
+      <Box minH={'500px'}></Box>
+      <Box minH={'500px'}></Box>
+      <Box minH={'500px'}></Box>
+      <Box minH={'500px'}></Box>
+      <Box minH={'500px'}></Box>
+      <Box minH={'500px'}></Box>
+    </>
+  );
 }
 
-export default Index;
+export default Home;

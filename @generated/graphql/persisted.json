@@ -1,0 +1,3 @@
+{
+  "getCollection": "query getCollection($first: Int!, $after: String) {\n  allCollections(first: $first, after: $after) {\n    pageInfo {\n      hasNextPage\n      hasPreviousPage\n      startCursor\n      endCursor\n      totalCount\n      __typename\n    }\n    edges {\n      node {\n        seo {\n          title\n          titleTemplate\n          description\n          canonical\n        }\n        breadcrumbList {\n          itemListElement {\n            item\n            name\n            position\n          }\n          numberOfItems\n        }\n        slug\n        type\n      }\n    }\n  }\n}"
+}

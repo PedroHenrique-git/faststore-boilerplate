@@ -33,6 +33,9 @@
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
     "@faststore/api": "^1.12.38",
+    "@faststore/graphql-utils": "^1.12.37",
+    "@fontsource/inter": "^4.5.15",
+    "@graphql-yoga/plugin-disable-introspection": "^0.7.0",
     "@next/font": "13.1.1",
     "@types/node": "18.11.18",
     "@types/react": "18.0.26",
@@ -45,6 +48,7 @@
     "next": "13.1.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-query": "^3.39.3",
     "react-use": "^17.4.0",
     "typescript": "4.9.4"
   },
