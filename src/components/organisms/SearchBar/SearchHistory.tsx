@@ -24,11 +24,7 @@ export const SearchHistory = () => {
         justifyContent={'space-between'}
         alignItems={'center'}
       >
-        <Heading
-          fontSize={'medium'}
-          color={'blackAlpha.700'}
-          lineHeight={'initial'}
-        >
+        <Heading fontSize={'medium'} color={'blackAlpha.700'} lineHeight={'1'}>
           Search History
         </Heading>
         <Button
@@ -37,15 +33,13 @@ export const SearchHistory = () => {
           background={'transparent'}
           _hover={{ background: 'transparent' }}
           _active={{ background: 'transparent' }}
-          textAlign={'end'}
-          display={'flex'}
-          alignItems={'flex-start'}
           color={'blackAlpha.700'}
+          lineHeight={'1'}
         >
           clear history
         </Button>
       </Box>
-      <List padding={'16px 0'}>
+      <List paddingBottom={'16px'}>
         {terms?.map(({ value }, index) => (
           <ListItem
             key={value}

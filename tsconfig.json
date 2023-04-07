@@ -26,6 +26,11 @@
       "@config/*": ["./src/config/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "src/components/organisms/Cart/index.ts["
+  ],
   "exclude": ["node_modules"]
 }

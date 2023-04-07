@@ -17,5 +17,6 @@ export function useDebouncedValue<T = unknown>(initialValue: T, delay = 1000) {
     value,
     setValue,
     debouncedValue,
+    setDebouncedValue,
   };
 }

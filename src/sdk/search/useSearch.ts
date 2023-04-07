@@ -9,7 +9,12 @@ import { useSearchHistory } from './useSearchHistory';
 
 export const MAX_TOP_SEARCH_TERMS = 5;
 
-export function useSearch(term: string) {
+interface Params {
+  term: string;
+  clear?(): void;
+}
+
+export function useSearch({ term, clear }: Params) {
   const { add } = useSearchHistory();
 
   const { data, isLoading, isError, refetch } = useQuery({
@@ -21,12 +26,12 @@ export function useSearch(term: string) {
       >(SearchProduct, {
         first: MAX_TOP_SEARCH_TERMS,
         term,
-        sort: 'price_desc',
       });
     },
     onSuccess: () => {
       if (term) {
         add({ value: term });
+        clear?.();
       }
     },
   });

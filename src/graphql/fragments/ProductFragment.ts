@@ -1,7 +1,7 @@
 import { gql } from 'graphql-request';
 
 export const ProductFragment = gql`
-  fragment ProductFragment on StoreProduct {
+  fragment Product on StoreProduct {
     slug
     name
     image {

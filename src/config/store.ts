@@ -16,6 +16,18 @@ function generateConfig() {
 
     storeName: 'Open store',
 
+    useLocalLogin: false,
+    useLocalCheckout: false,
+    useLocalMyAccount: false,
+
+    externalUrls: {
+      storeUrl: 'https://vtexfaststore.com',
+      secureSubdomain: 'https://secure.vtexfaststore.com',
+      checkoutUrl: 'https://secure.vtexfaststore.com/checkout',
+      loginUrl: 'https://secure.vtexfaststore.com/api/io/login',
+      accountUrl: 'https://secure.vtexfaststore.com/api/io/account',
+    },
+
     api: {
       storeId: 'storeframework',
       workspace: 'master',
@@ -25,12 +37,12 @@ function generateConfig() {
 
     session: {
       currency: {
-        code: 'USD',
-        symbol: '$',
+        code: 'BRL',
+        symbol: 'R$',
       },
-      locale: 'en-US',
+      locale: 'pt-BR',
       channel: '{"salesChannel":"1","regionId":""}',
-      country: 'USA',
+      country: 'BR',
       postalCode: null,
       person: null,
     },

@@ -16,7 +16,7 @@ export const SearchTop = ({ terms = [] }: Props) => {
       >
         Top Search
       </Heading>
-      <List padding={'16px 0'}>
+      <List paddingTop={'16px'}>
         {terms.slice(0, MAX_TOP_SEARCH_TERMS).map((term, index) => (
           <ListItem
             key={term.value}

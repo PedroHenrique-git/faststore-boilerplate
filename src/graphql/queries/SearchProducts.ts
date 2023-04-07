@@ -19,7 +19,7 @@ export const SearchProduct = gql`
       selectedFacets: $selectedFacets
     ) {
       suggestions {
-        ...SuggestionsFragment
+        ...Suggestions
       }
     }
   }

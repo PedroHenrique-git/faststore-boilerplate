@@ -4,12 +4,12 @@ import { ProductFragment } from './ProductFragment';
 export const SuggestionsFragment = gql`
   ${ProductFragment}
 
-  fragment SuggestionsFragment on StoreSuggestions {
+  fragment Suggestions on StoreSuggestions {
     terms {
       value
     }
     products {
-      ...ProductFragment
+      ...Product
     }
   }
 `;

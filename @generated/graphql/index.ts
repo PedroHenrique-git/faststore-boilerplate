@@ -880,7 +880,7 @@ export type StoreSuggestions = {
   terms: Array<StoreSuggestionTerm>;
 };
 
-export type ProductFragmentFragment = {
+export type ProductFragment = {
   slug: string;
   name: string;
   description: string;
@@ -904,7 +904,7 @@ export type ProductFragmentFragment = {
   };
 };
 
-export type SuggestionsFragmentFragment = {
+export type SuggestionsFragment = {
   terms: Array<{ value: string }>;
   products: Array<{
     slug: string;
