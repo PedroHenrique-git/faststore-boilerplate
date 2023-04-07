@@ -3,9 +3,7 @@ import resolvers from './resolvers';
 import typedefs from './typedefs';
 
 export const graphqlClient = new GraphQLClient(
-  process.env.NODE_ENV === 'development'
-    ? 'http://localhost:3000/api/graphql'
-    : '',
+  `${process.env.NEXT_PUBLIC_HOST}/api/graphql`,
 );
 
 export default {

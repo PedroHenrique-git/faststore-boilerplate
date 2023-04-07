@@ -880,71 +880,92 @@ export type StoreSuggestions = {
   terms: Array<StoreSuggestionTerm>;
 };
 
-export type StoreCollectionConnectionFragmentFragment = {
-  pageInfo: {
-    __typename: 'StorePageInfo';
-    hasNextPage: boolean;
-    hasPreviousPage: boolean;
-    startCursor: string;
-    endCursor: string;
-    totalCount: number;
+export type ProductFragmentFragment = {
+  slug: string;
+  name: string;
+  description: string;
+  image: Array<{ url: string; alternateName: string }>;
+  brand: { name: string };
+  offers: {
+    highPrice: number;
+    lowPrice: number;
+    offerCount: number;
+    priceCurrency: string;
+    offers: Array<{
+      listPrice: number;
+      sellingPrice: number;
+      priceCurrency: string;
+      price: number;
+      priceValidUntil: string;
+      itemCondition: string;
+      availability: string;
+      seller: { identifier: string };
+    }>;
   };
-  edges: Array<{
-    node: {
-      slug: string;
-      type: StoreCollectionType;
-      seo: {
-        title: string;
-        titleTemplate: string;
-        description: string;
-        canonical: string;
-      };
-      breadcrumbList: {
-        numberOfItems: number;
-        itemListElement: Array<{
-          item: string;
-          name: string;
-          position: number;
-        }>;
-      };
+};
+
+export type SuggestionsFragmentFragment = {
+  terms: Array<{ value: string }>;
+  products: Array<{
+    slug: string;
+    name: string;
+    description: string;
+    image: Array<{ url: string; alternateName: string }>;
+    brand: { name: string };
+    offers: {
+      highPrice: number;
+      lowPrice: number;
+      offerCount: number;
+      priceCurrency: string;
+      offers: Array<{
+        listPrice: number;
+        sellingPrice: number;
+        priceCurrency: string;
+        price: number;
+        priceValidUntil: string;
+        itemCondition: string;
+        availability: string;
+        seller: { identifier: string };
+      }>;
     };
   }>;
 };
 
-export type GetCollectionQueryVariables = Exact<{
+export type SearchProductsQueryVariables = Exact<{
   first: Scalars['Int'];
   after: InputMaybe<Scalars['String']>;
+  sort: InputMaybe<StoreSort>;
+  term: InputMaybe<Scalars['String']>;
+  selectedFacets: InputMaybe<Array<IStoreSelectedFacet> | IStoreSelectedFacet>;
 }>;
 
-export type GetCollectionQuery = {
-  allCollections: {
-    pageInfo: {
-      __typename: 'StorePageInfo';
-      hasNextPage: boolean;
-      hasPreviousPage: boolean;
-      startCursor: string;
-      endCursor: string;
-      totalCount: number;
-    };
-    edges: Array<{
-      node: {
+export type SearchProductsQuery = {
+  search: {
+    suggestions: {
+      terms: Array<{ value: string }>;
+      products: Array<{
         slug: string;
-        type: StoreCollectionType;
-        seo: {
-          title: string;
-          titleTemplate: string;
-          description: string;
-          canonical: string;
-        };
-        breadcrumbList: {
-          numberOfItems: number;
-          itemListElement: Array<{
-            item: string;
-            name: string;
-            position: number;
+        name: string;
+        description: string;
+        image: Array<{ url: string; alternateName: string }>;
+        brand: { name: string };
+        offers: {
+          highPrice: number;
+          lowPrice: number;
+          offerCount: number;
+          priceCurrency: string;
+          offers: Array<{
+            listPrice: number;
+            sellingPrice: number;
+            priceCurrency: string;
+            price: number;
+            priceValidUntil: string;
+            itemCondition: string;
+            availability: string;
+            seller: { identifier: string };
           }>;
         };
-      };
-    }>;
+      }>;
+    };
   };
 };

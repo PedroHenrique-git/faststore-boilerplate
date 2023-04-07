@@ -1,6 +1,16 @@
 import { Options } from '@faststore/api';
 
 function generateConfig() {
+  const reactQuery = {
+    refetchInterval: 0,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: false,
+    refetchIntervalInBackground: false,
+    cacheTime: 1 * 60 * 60 * 24 * 1000,
+    staleTime: 1 * 60 * 60 * 24 * 1000,
+  };
+
   const base = {
     platform: 'vtex',
 
@@ -41,6 +51,7 @@ function generateConfig() {
   return {
     base,
     apiOptions,
+    reactQuery,
   };
 }
 
