@@ -1,6 +1,6 @@
 import { Box, Heading, List } from '@chakra-ui/react';
 import { ProductFragment } from '@generated/graphql';
-import { SearchProductCart } from './SearchProductCard';
+import { SearchProductCart } from '../SearchProductCard/SearchProductCard';
 
 interface Props {
   products: ProductFragment[];

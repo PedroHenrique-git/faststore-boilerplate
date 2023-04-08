@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import { SearchBar } from '.';
+import { SearchBar } from '..';
 
 export default {
   title: 'components/organisms/Search/SearchBar',

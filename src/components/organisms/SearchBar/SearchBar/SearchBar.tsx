@@ -9,11 +9,11 @@ import { useRouter } from 'next/router';
 import { FormEvent, useRef } from 'react';
 import { useDebouncedValue } from 'src/sdk/helpers/useDebouncedValue';
 import { useSearch } from 'src/sdk/search/useSearch';
-import { SearchHistory } from './SearchHistory';
-import { SearchInput } from './SearchInput';
-import { SearchResult } from './SearchResult';
-import { SearchSuggestions } from './SearchSuggestions';
-import { SearchTop } from './SearchTop';
+import { SearchHistory } from '../SearchHistory/SearchHistory';
+import { SearchInput } from '../SearchInput/SearchInput';
+import { SearchResult } from '../SearchResult';
+import { SearchSuggestions } from '../SearchSuggestions/SearchSuggestions';
+import { SearchTop } from '../SearchTop/SearchTop';
 
 export const SearchBar = () => {
   const [show, setShow] = useBoolean();
