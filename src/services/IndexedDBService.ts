@@ -1,4 +1,7 @@
 import localforage from 'localforage';
+import * as memoryDriver from 'localforage-driver-memory';
+
+localforage.defineDriver(memoryDriver);
 
 export class IndexedDBService {
   private _storage: LocalForage = localforage;
@@ -8,8 +11,17 @@ export class IndexedDBService {
   }
 
   private setConfig() {
+    if (typeof window === undefined) {
+      return;
+    }
+
     this._storage.config({
-      driver: localforage.INDEXEDDB,
+      driver: [
+        localforage.INDEXEDDB,
+        localforage.LOCALSTORAGE,
+        localforage.WEBSQL,
+        memoryDriver._driver,
+      ],
       name: 'STORE_DB',
     });
   }
