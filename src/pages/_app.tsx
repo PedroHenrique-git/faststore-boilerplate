@@ -7,6 +7,7 @@ import { config } from '@config/store';
 import '@fontsource/inter/400.css';
 import '@fontsource/inter/500.css';
 import '@fontsource/inter/700.css';
+import '@splidejs/react-splide/css';
 import React from 'react';
 import { Layout } from 'src/components/Layout';
 

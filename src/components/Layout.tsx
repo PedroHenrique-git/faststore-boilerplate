@@ -10,7 +10,9 @@ export const Layout = ({ children }: Props) => {
   return (
     <>
       <Header menuLinks={menuLinks} />
-      <Container maxW={'container.xl'}>{children}</Container>
+      <Container as={'main'} maxW={'container.xl'}>
+        {children}
+      </Container>
     </>
   );
 };
