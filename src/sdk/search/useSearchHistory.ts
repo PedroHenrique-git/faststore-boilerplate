@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react';
 import { useEffectOnce } from 'react-use';
-import { IndexedDBService } from 'src/services/IndexedDBService';
+import { IndexedDBService } from 'src/services/storage/IndexedDBService';
 
 const indexedDBService = new IndexedDBService();
 

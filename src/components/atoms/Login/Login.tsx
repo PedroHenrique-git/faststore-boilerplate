@@ -14,6 +14,7 @@ export const Login = () => {
       href={loginUrl}
       display={'flex'}
       alignItems={'flex-end'}
+      data-testid="login"
     >
       <AiOutlineUser size={30} color="#000000A3" />
     </Link>

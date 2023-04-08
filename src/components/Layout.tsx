@@ -1,6 +1,6 @@
 import { Container } from '@chakra-ui/react';
 import { menuLinks } from '@molecules/Menu';
-import { Header } from '@organisms/Header/Header';
+import { Header } from '@organisms/Header';
 
 interface Props {
   children: React.ReactNode;

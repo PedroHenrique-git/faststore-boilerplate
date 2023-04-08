@@ -17,7 +17,7 @@ import { SearchTop } from './SearchTop';
 
 export const SearchBar = () => {
   const [show, setShow] = useBoolean();
-  const { debouncedValue, setValue, setDebouncedValue } = useDebouncedValue('');
+  const { debouncedValue, setValue } = useDebouncedValue('');
   const ref = useRef<HTMLDivElement | null>(null);
   const { push } = useRouter();
 
@@ -30,15 +30,9 @@ export const SearchBar = () => {
     }
   };
 
-  const handleClear = () => {
-    setValue('');
-    setDebouncedValue('');
-    setShow.off();
-  };
-
   useOutsideClick({
     ref: ref,
-    handler: handleClear,
+    handler: setShow.off,
   });
 
   const { refetch, data, isLoading } = useSearch({
@@ -46,7 +40,7 @@ export const SearchBar = () => {
   });
 
   return (
-    <Box maxW={'600px'} w={'100%'} position={'relative'} ref={ref}>
+    <Box maxW={'600px'} w={'100%'} position={'relative'} ref={ref} zIndex={99}>
       <chakra.form
         onSubmit={onSubmit}
         display={'flex'}

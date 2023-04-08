@@ -8,7 +8,7 @@ export async function fetchApi<T>(
       headers: {
         'Content-type': 'application/json',
         Accept: 'application/json',
-        ...config?.headers,
+        ...(config?.headers ? config.headers : {}),
       },
     });
     return request.json();

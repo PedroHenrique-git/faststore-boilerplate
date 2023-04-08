@@ -44,6 +44,7 @@ export const Header = ({ menuLinks }: Props) => {
           </Box>
         </Container>
       </Box>
+
       <MenuDesktop menuLinks={menuLinks} />
 
       {!isLargerThan992 && (

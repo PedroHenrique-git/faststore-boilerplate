@@ -1,7 +1,7 @@
 import { Box } from '@chakra-ui/react';
 import { Carousel, mockImages } from '@molecules/Carousel';
 import { GetStaticProps } from 'next';
-import Cms from 'src/services/Cms';
+import Cms from 'src/services/cms/Cms';
 
 function Home() {
   return (

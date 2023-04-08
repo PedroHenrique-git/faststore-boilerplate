@@ -1,9 +1,31 @@
-import { Text, TextProps } from '@chakra-ui/react';
+import { Box, Text } from '@chakra-ui/react';
+import { Params } from 'src/sdk/product/useFormatPrice';
 
-interface Props extends TextProps {
-  price: string;
+interface Props {
+  spotPrice: number;
+  price: number;
+  formatter(_params: Params): string;
 }
 
-export const Price = ({ price = '', ...props }: Props) => {
-  return <Text {...props}>{price}</Text>;
+export const Price = ({ spotPrice, price, formatter }: Props) => {
+  const formattedSpotPrice = formatter({ price: spotPrice });
+  const formattedPrice = formatter({ price });
+
+  return (
+    <Box
+      display={'flex'}
+      alignItems={'center'}
+      gap={'2'}
+      data-testid="product-price"
+    >
+      {spotPrice < price && (
+        <Text fontSize={'small'} textDecor={'line-through'}>
+          {formattedPrice}
+        </Text>
+      )}
+      <Text fontSize={'medium'} fontWeight={'bold'}>
+        {formattedSpotPrice}
+      </Text>
+    </Box>
+  );
 };
