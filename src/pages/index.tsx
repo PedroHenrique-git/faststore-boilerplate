@@ -1,13 +1,19 @@
 import { Box } from '@chakra-ui/react';
-import { Carousel } from '@molecules/Carousel';
-import { mockImages } from '@molecules/Carousel/mock-images';
+import { Carousel, mockImages } from '@molecules/Carousel';
 import { GetStaticProps } from 'next';
 import Cms from 'src/services/Cms';
 
 function Home() {
   return (
     <Box>
-      <Carousel images={mockImages} label="Banners home" />
+      <Carousel
+        images={mockImages}
+        label="Banners home"
+        options={{
+          type: 'loop',
+          autoplay: true,
+        }}
+      />
     </Box>
   );
 }

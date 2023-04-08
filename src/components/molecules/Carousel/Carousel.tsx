@@ -1,15 +1,15 @@
 import { Box, Image } from '@chakra-ui/react';
-import { Splide, SplideSlide } from '@splidejs/react-splide';
+import { Splide, SplideProps, SplideSlide } from '@splidejs/react-splide';
 
-interface Props {
+interface Props extends SplideProps {
   images: Array<{ url: string; alt: string }>;
   label: string;
 }
 
-export const Carousel = ({ images, label }: Props) => {
+export const Carousel = ({ images, label, ...splideProps }: Props) => {
   return (
     <Box marginTop={'5'}>
-      <Splide aria-label={label}>
+      <Splide aria-label={label} {...splideProps}>
         {images.map((image) => (
           <SplideSlide key={image.url}>
             <Image
