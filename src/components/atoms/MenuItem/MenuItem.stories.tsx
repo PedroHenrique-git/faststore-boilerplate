@@ -1,5 +1,5 @@
 import { List } from '@chakra-ui/react';
-import { ComponentMeta, ComponentStory, DecoratorFn } from '@storybook/react';
+import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { MenuItem } from './MenuItem';
 
 export default {
@@ -7,16 +7,10 @@ export default {
   component: MenuItem,
 } as ComponentMeta<typeof MenuItem>;
 
-const withList: DecoratorFn = (Story) => {
+export const MenuItemStore: ComponentStory<typeof MenuItem> = () => {
   return (
     <List>
-      <Story />
+      <MenuItem href="/example" text="example" />{' '}
     </List>
   );
 };
-
-export const MenuItemStore: ComponentStory<typeof MenuItem> = () => {
-  return <MenuItem href="/example" text="example" />;
-};
-
-MenuItemStore.decorators = [withList];

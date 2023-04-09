@@ -8,7 +8,7 @@ interface Props extends SplideProps {
 
 export const Carousel = ({ images, label, ...splideProps }: Props) => {
   return (
-    <Box marginTop={'5'}>
+    <Box as="section" marginTop={'5'}>
       <Splide aria-label={label} {...splideProps}>
         {images.map((image) => (
           <SplideSlide key={image.url}>

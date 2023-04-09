@@ -8,7 +8,7 @@ import {
 import { useRouter } from 'next/router';
 import { FormEvent, useRef } from 'react';
 import { useDebouncedValue } from 'src/sdk/helpers/useDebouncedValue';
-import { useSearch } from 'src/sdk/search/useSearch';
+import { useSuggestion } from 'src/sdk/search/useSuggestions';
 import { SearchHistory } from '../SearchHistory/SearchHistory';
 import { SearchInput } from '../SearchInput/SearchInput';
 import { SearchResult } from '../SearchResult';
@@ -35,7 +35,7 @@ export const SearchBar = () => {
     handler: setShow.off,
   });
 
-  const { refetch, data, isLoading } = useSearch({
+  const { refetch, data, isLoading } = useSuggestion({
     term: debouncedValue,
   });
 

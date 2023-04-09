@@ -4,7 +4,7 @@ import { SuggestionsFragment } from '../fragments/SuggestionsFragment';
 export const SearchProduct = gql`
   ${SuggestionsFragment}
 
-  query searchProducts(
+  query SearchSuggestions(
     $first: Int!
     $after: String
     $sort: StoreSort

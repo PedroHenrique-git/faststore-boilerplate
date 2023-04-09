@@ -1,5 +1,6 @@
 import { Box } from '@chakra-ui/react';
 import { Carousel, mockImages } from '@molecules/Carousel';
+import { ProductShelf } from '@organisms/ProductsShelf';
 import { GetStaticProps } from 'next';
 import Cms from 'src/services/cms/Cms';
 
@@ -12,6 +13,46 @@ function Home() {
         options={{
           type: 'loop',
           autoplay: true,
+        }}
+      />
+
+      <ProductShelf
+        title="Shelf one"
+        variables={{
+          first: 5,
+          after: '0',
+          sort: 'score_desc',
+          selectedFacets: [{ key: 'productClusterIds', value: '140' }],
+        }}
+      />
+
+      <ProductShelf
+        title="Shelf one"
+        variables={{
+          first: 5,
+          after: '0',
+          sort: 'score_desc',
+          selectedFacets: [{ key: 'productClusterIds', value: '140' }],
+        }}
+      />
+
+      <ProductShelf
+        title="Shelf one"
+        variables={{
+          first: 5,
+          after: '0',
+          sort: 'score_desc',
+          selectedFacets: [{ key: 'productClusterIds', value: '140' }],
+        }}
+      />
+
+      <ProductShelf
+        title="Shelf one"
+        variables={{
+          first: 5,
+          after: '0',
+          sort: 'score_desc',
+          selectedFacets: [{ key: 'productClusterIds', value: '140' }],
         }}
       />
     </Box>

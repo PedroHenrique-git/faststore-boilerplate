@@ -8,6 +8,7 @@ export const SuggestionsFragment = gql`
     terms {
       value
     }
+
     products {
       ...Product
     }

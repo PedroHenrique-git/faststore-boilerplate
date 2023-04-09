@@ -4,14 +4,23 @@ export const ProductFragment = gql`
   fragment Product on StoreProduct {
     slug
     name
+
     image {
       url
       alternateName
     }
+
     brand {
       name
     }
+
     description
+
+    isVariantOf {
+      productGroupID
+      name
+    }
+
     offers {
       highPrice
       lowPrice

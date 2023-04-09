@@ -25,7 +25,7 @@ export const Header = ({ menuLinks }: Props) => {
         borderColor={'gray.100'}
         position={'sticky'}
         top={0}
-        zIndex={99}
+        zIndex={999}
       >
         <Container
           maxWidth={'container.xl'}

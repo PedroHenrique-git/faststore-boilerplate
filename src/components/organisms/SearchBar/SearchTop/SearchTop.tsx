@@ -1,6 +1,6 @@
 import { Badge, Heading, Link, List, ListItem } from '@chakra-ui/react';
 import NextLink from 'next/link';
-import { MAX_TOP_SEARCH_TERMS } from 'src/sdk/search/useSearch';
+import { MAX_TOP_SEARCH_TERMS } from 'src/sdk/search/useSuggestions';
 
 interface Props {
   terms: Array<{ value: string }>;

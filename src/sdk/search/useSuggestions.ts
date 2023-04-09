@@ -1,9 +1,9 @@
 import {
-  SearchProductsQuery,
-  SearchProductsQueryVariables,
+  SearchSuggestionsQuery,
+  SearchSuggestionsQueryVariables,
 } from '@generated/graphql';
 import { useQuery } from 'react-query';
-import { SearchProduct } from 'src/graphql/queries/SearchProducts';
+import { SearchProduct } from 'src/graphql/queries/SearchSuggestions';
 import { graphqlClient } from 'src/server/graphql';
 import { useSearchHistory } from './useSearchHistory';
 
@@ -14,15 +14,15 @@ interface Params {
   clear?(): void;
 }
 
-export function useSearch({ term, clear }: Params) {
+export function useSuggestion({ term, clear }: Params) {
   const { add } = useSearchHistory();
 
   const { data, isLoading, isError, refetch } = useQuery({
-    queryKey: ['search', term],
+    queryKey: ['search-suggestions', term],
     queryFn: () => {
       return graphqlClient.request<
-        SearchProductsQuery,
-        Partial<SearchProductsQueryVariables>
+        SearchSuggestionsQuery,
+        Partial<SearchSuggestionsQueryVariables>
       >(SearchProduct, {
         first: MAX_TOP_SEARCH_TERMS,
         term,

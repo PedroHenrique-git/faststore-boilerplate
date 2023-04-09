@@ -886,6 +886,7 @@ export type ProductFragment = {
   description: string;
   image: Array<{ url: string; alternateName: string }>;
   brand: { name: string };
+  isVariantOf: { productGroupID: string; name: string };
   offers: {
     highPrice: number;
     lowPrice: number;
@@ -912,6 +913,7 @@ export type SuggestionsFragment = {
     description: string;
     image: Array<{ url: string; alternateName: string }>;
     brand: { name: string };
+    isVariantOf: { productGroupID: string; name: string };
     offers: {
       highPrice: number;
       lowPrice: number;
@@ -931,7 +933,48 @@ export type SuggestionsFragment = {
   }>;
 };
 
-export type SearchProductsQueryVariables = Exact<{
+export type ProductsQueryVariables = Exact<{
+  first: Scalars['Int'];
+  after: InputMaybe<Scalars['String']>;
+  sort: StoreSort;
+  selectedFacets: Array<IStoreSelectedFacet> | IStoreSelectedFacet;
+}>;
+
+export type ProductsQuery = {
+  search: {
+    products: {
+      pageInfo: { totalCount: number };
+      edges: Array<{
+        node: {
+          slug: string;
+          name: string;
+          description: string;
+          image: Array<{ url: string; alternateName: string }>;
+          brand: { name: string };
+          isVariantOf: { productGroupID: string; name: string };
+          offers: {
+            highPrice: number;
+            lowPrice: number;
+            offerCount: number;
+            priceCurrency: string;
+            offers: Array<{
+              listPrice: number;
+              sellingPrice: number;
+              priceCurrency: string;
+              price: number;
+              priceValidUntil: string;
+              itemCondition: string;
+              availability: string;
+              seller: { identifier: string };
+            }>;
+          };
+        };
+      }>;
+    };
+  };
+};
+
+export type SearchSuggestionsQueryVariables = Exact<{
   first: Scalars['Int'];
   after: InputMaybe<Scalars['String']>;
   sort: InputMaybe<StoreSort>;
@@ -939,7 +982,7 @@ export type SearchProductsQueryVariables = Exact<{
   selectedFacets: InputMaybe<Array<IStoreSelectedFacet> | IStoreSelectedFacet>;
 }>;
 
-export type SearchProductsQuery = {
+export type SearchSuggestionsQuery = {
   search: {
     suggestions: {
       terms: Array<{ value: string }>;
@@ -949,6 +992,7 @@ export type SearchProductsQuery = {
         description: string;
         image: Array<{ url: string; alternateName: string }>;
         brand: { name: string };
+        isVariantOf: { productGroupID: string; name: string };
         offers: {
           highPrice: number;
           lowPrice: number;
