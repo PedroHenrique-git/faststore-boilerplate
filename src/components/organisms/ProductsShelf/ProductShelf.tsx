@@ -2,6 +2,7 @@ import { Box, Heading } from '@chakra-ui/react';
 import { ProductsQueryVariables } from '@generated/graphql';
 import { ProductCard } from '@molecules/ProductCard';
 import { Splide, SplideProps, SplideSlide } from '@splidejs/react-splide';
+import { ProductsShelfSkeleton } from 'src/components/skeletons/ProductsShelfSkeleton';
 import { useProductsQuery } from 'src/sdk/product/useProductsQuery';
 
 interface Props extends SplideProps {
@@ -9,12 +10,13 @@ interface Props extends SplideProps {
   variables: ProductsQueryVariables;
 }
 
-const defaultSplideProps: SplideProps = {
+export const defaultSplideProps: SplideProps = {
   options: {
     type: 'loop',
     mediaQuery: 'max',
     perPage: 5,
     pagination: false,
+    padding: '10px',
     gap: '15px',
     breakpoints: {
       1200: {
@@ -26,13 +28,18 @@ const defaultSplideProps: SplideProps = {
       640: {
         perPage: 1,
         gap: 0,
+        padding: 0,
       },
     },
   },
 };
 
 export const ProductShelf = ({ variables, title, ...splideProps }: Props) => {
-  const { data } = useProductsQuery({ variables });
+  const { data, isError, isLoading } = useProductsQuery({ variables });
+
+  const edges = data?.search?.products?.edges;
+
+  const showSkeleton = isError || isLoading || !edges?.length;
 
   return (
     <Box as="section" margin={'25px 0'}>
@@ -44,13 +51,17 @@ export const ProductShelf = ({ variables, title, ...splideProps }: Props) => {
       >
         {title}
       </Heading>
-      <Splide {...defaultSplideProps} {...splideProps}>
-        {data?.search?.products?.edges.map(({ node }) => (
-          <SplideSlide key={node.name}>
-            <ProductCard product={node} />
-          </SplideSlide>
-        ))}
-      </Splide>
+      {showSkeleton ? (
+        <ProductsShelfSkeleton />
+      ) : (
+        <Splide {...defaultSplideProps} {...splideProps}>
+          {edges?.map(({ node }) => (
+            <SplideSlide key={node.name}>
+              <ProductCard product={node} />
+            </SplideSlide>
+          ))}
+        </Splide>
+      )}
     </Box>
   );
 };
