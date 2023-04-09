@@ -5,11 +5,12 @@ import { graphqlClient } from 'src/server/graphql';
 
 interface Props {
   variables: ProductsQueryVariables;
+  key: string;
 }
 
-export function useProductsQuery({ variables }: Props) {
+export function useProductsQuery({ variables, key }: Props) {
   const { data, isLoading, isError, refetch } = useQuery({
-    queryKey: ['products-query', variables],
+    queryKey: [`products-query-${key}`, variables],
     queryFn: () => {
       return graphqlClient.request<
         ProductsQuery,

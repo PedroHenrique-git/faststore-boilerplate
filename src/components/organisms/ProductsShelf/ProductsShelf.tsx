@@ -34,8 +34,11 @@ export const defaultSplideProps: SplideProps = {
   },
 };
 
-export const ProductShelf = ({ variables, title, ...splideProps }: Props) => {
-  const { data, isError, isLoading } = useProductsQuery({ variables });
+export const ProductsShelf = ({ variables, title, ...splideProps }: Props) => {
+  const { data, isError, isLoading } = useProductsQuery({
+    variables,
+    key: title,
+  });
 
   const edges = data?.search?.products?.edges;
 

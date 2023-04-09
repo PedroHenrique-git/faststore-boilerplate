@@ -19,13 +19,9 @@ export interface CmsPageByContentType<T = unknown> {
     status: string;
     versionId: string;
     versionStatus: string;
+    sections: Array<CmsSection<T>>;
+    parameters: Record<string, unknown>;
   }>;
-  sections: Array<{
-    id: string;
-    name: string;
-    data: T;
-  }>;
-  parameters: Record<string, unknown>;
 }
 
 export interface CmsPage<T = unknown> {
@@ -35,15 +31,17 @@ export interface CmsPage<T = unknown> {
   status: string;
   versionId: string;
   versionStatus: string;
-  sections: Array<{
-    id: string;
-    name: string;
-    data: T;
-  }>;
+  sections: Array<CmsSection<T>>;
 }
 
 export interface Filters {
   versionId?: string;
   releaseId?: string;
   filters?: Record<string, string>;
+}
+
+export interface CmsSection<T = unknown> {
+  id: string;
+  name: string;
+  data: T;
 }
