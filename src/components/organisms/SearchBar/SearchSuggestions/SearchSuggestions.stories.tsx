@@ -13,6 +13,10 @@ export const StoreSearchSuggestions: ComponentStory<
     <SearchSuggestions
       products={[
         {
+          isVariantOf: {
+            name: '',
+            productGroupID: '',
+          },
           slug: '/',
           brand: {
             name: 'test',
