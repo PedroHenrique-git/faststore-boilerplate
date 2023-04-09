@@ -14,6 +14,10 @@ export const StoreSearchProductCard: ComponentStory<
     <List>
       <SearchProductCart
         product={{
+          isVariantOf: {
+            name: '',
+            productGroupID: '',
+          },
           slug: '/',
           brand: {
             name: 'test',
