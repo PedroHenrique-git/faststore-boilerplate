@@ -39,6 +39,7 @@ export const MenuMobile = ({ menuLinks = [] }: Props) => {
         leftIcon={<GiHamburgerMenu size={'25'} color="#000000A3" />}
         paddingLeft={0}
         data-testid="open-menu-mobile"
+        aria-label="Open menu mobile"
       />
 
       <Drawer
@@ -49,7 +50,10 @@ export const MenuMobile = ({ menuLinks = [] }: Props) => {
       >
         <DrawerOverlay />
         <DrawerContent data-testid="drawer-menu-mobile">
-          <DrawerCloseButton data-testid="close-drawer-menu-mobile" />
+          <DrawerCloseButton
+            data-testid="close-drawer-menu-mobile"
+            aria-label="Close menu mobile"
+          />
 
           <DrawerBody>
             <List>

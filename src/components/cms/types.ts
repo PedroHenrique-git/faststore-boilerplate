@@ -4,6 +4,7 @@ export enum CMS_BLOCKS {
   _SHELF = 'ProductShelf',
   _TILES = 'ProductTiles',
   _HERO = 'Hero',
+  _INCENTIVES = 'IncentivesHeader',
 }
 
 export interface ShelfData {
@@ -21,4 +22,8 @@ export interface HeroData {
   linkText: string;
   subtitle: string;
   title: string;
+}
+
+export interface IncentivesData {
+  incentives: Array<{ title: string; firstLineText: string; icon: string }>;
 }

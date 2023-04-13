@@ -1,8 +1,9 @@
 import { HeroCard } from '@molecules/HeroCard';
+import { Incentives } from '@molecules/Incentives';
 import { ProductsShelf } from '@organisms/ProductsShelf';
 import { Fragment } from 'react';
 import { CmsSection } from 'src/services/cms/types';
-import { CMS_BLOCKS, HeroData, ShelfData } from './types';
+import { CMS_BLOCKS, HeroData, IncentivesData, ShelfData } from './types';
 
 interface Props {
   sections: Array<CmsSection> | null;
@@ -29,7 +30,13 @@ export const RenderCmsSections = ({ sections }: Props) => {
           case CMS_BLOCKS._HERO: {
             const heroData = data as HeroData;
 
-            return <HeroCard key={id} {...heroData} />;
+            return <HeroCard key={id} renderAsSection={true} {...heroData} />;
+          }
+
+          case CMS_BLOCKS._INCENTIVES: {
+            const { incentives } = data as IncentivesData;
+
+            return <Incentives key={id} incentives={incentives} />;
           }
 
           default:
