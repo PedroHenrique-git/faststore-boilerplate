@@ -6,7 +6,5 @@ interface Props {
 }
 
 export const Home = ({ cmsHome }: Props) => {
-  console.log(cmsHome);
-
   return <HomeTemplate cmsHome={cmsHome} />;
 };
