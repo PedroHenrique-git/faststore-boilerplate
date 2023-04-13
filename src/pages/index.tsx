@@ -1,7 +1,5 @@
-import { Box } from '@chakra-ui/react';
-import { Carousel, mockImages } from '@molecules/Carousel';
+import { Home as HomePage } from '@pages/Home';
 import { GetStaticProps } from 'next';
-import { RenderCmsSections } from 'src/components/cms';
 import Cms from 'src/services/cms/Cms';
 import { CmsPage } from 'src/services/cms/types';
 
@@ -10,20 +8,7 @@ interface Props {
 }
 
 function Home({ cmsHome }: Props) {
-  return (
-    <Box>
-      <Carousel
-        images={mockImages}
-        label="Banners home"
-        options={{
-          type: 'loop',
-          autoplay: true,
-        }}
-      />
-
-      <RenderCmsSections sections={cmsHome?.sections ?? null} />
-    </Box>
-  );
+  return <HomePage cmsHome={cmsHome} />;
 }
 
 export const getStaticProps: GetStaticProps = async () => {

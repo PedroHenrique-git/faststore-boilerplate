@@ -11,13 +11,14 @@ import {
 } from '@chakra-ui/react';
 import { ProductFragment } from '@generated/graphql';
 import NextLink from 'next/link';
+import { memo } from 'react';
 import { useFormatPrice } from 'src/sdk/product/useFormatPrice';
 
 interface Props {
   product: ProductFragment;
 }
 
-export const ProductCard = ({ product }: Props) => {
+const ProductCard = ({ product }: Props) => {
   const {
     name,
     slug,
@@ -64,3 +65,5 @@ export const ProductCard = ({ product }: Props) => {
     </Card>
   );
 };
+
+export default memo(ProductCard);

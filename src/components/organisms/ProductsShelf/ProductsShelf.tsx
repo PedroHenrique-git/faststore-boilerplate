@@ -1,7 +1,8 @@
 import { Box, Heading } from '@chakra-ui/react';
 import { ProductsQueryVariables } from '@generated/graphql';
-import { ProductCard } from '@molecules/ProductCard';
-import { Splide, SplideProps, SplideSlide } from '@splidejs/react-splide';
+import ProductCard from '@molecules/ProductCard';
+import { Slider } from '@molecules/Slider';
+import { SplideProps } from '@splidejs/react-splide';
 import { ProductsShelfSkeleton } from 'src/components/skeletons/ProductsShelfSkeleton';
 import { useProductsQuery } from 'src/sdk/product/useProductsQuery';
 
@@ -27,8 +28,7 @@ export const defaultSplideProps: SplideProps = {
       },
       640: {
         perPage: 1,
-        gap: 0,
-        padding: 0,
+        padding: { right: 80 },
       },
     },
   },
@@ -57,13 +57,11 @@ export const ProductsShelf = ({ variables, title, ...splideProps }: Props) => {
       {showSkeleton ? (
         <ProductsShelfSkeleton />
       ) : (
-        <Splide {...defaultSplideProps} {...splideProps}>
+        <Slider {...defaultSplideProps} {...splideProps}>
           {edges?.map(({ node }) => (
-            <SplideSlide key={node.name}>
-              <ProductCard product={node} />
-            </SplideSlide>
+            <ProductCard key={node.slug} product={node} />
           ))}
-        </Splide>
+        </Slider>
       )}
     </Box>
   );

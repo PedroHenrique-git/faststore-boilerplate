@@ -19,8 +19,8 @@
       "@atoms/*": ["./src/components/atoms/*"],
       "@molecules/*": ["./src/components/molecules/*"],
       "@organisms/*": ["./src/components/organisms/*"],
-      "@templates/*": ["./src/components/organisms/*"],
-      "@pages/*": ["./src/components/organisms/*"],
+      "@templates/*": ["./src/components/templates/*"],
+      "@pages/*": ["./src/components/pages/*"],
       "@components/*": ["./src/components/components/*"],
       "@utils/*": ["./src/utils/*"],
       "@config/*": ["./src/config/*"]

@@ -1,6 +1,8 @@
+import { HeroCard } from '@molecules/HeroCard';
 import { ProductsShelf } from '@organisms/ProductsShelf';
+import { Fragment } from 'react';
 import { CmsSection } from 'src/services/cms/types';
-import { CMS_BLOCKS, ShelfProps } from './types';
+import { CMS_BLOCKS, HeroData, ShelfData } from './types';
 
 interface Props {
   sections: Array<CmsSection> | null;
@@ -13,17 +15,25 @@ export const RenderCmsSections = ({ sections }: Props) => {
 
   return (
     <>
-      {sections.map(({ name, data }) => {
+      {sections.map(({ data, name, id }) => {
         switch (name) {
           case CMS_BLOCKS._SHELF:
           case CMS_BLOCKS._TILES: {
-            const { title, ...variables } = data as ShelfProps;
+            const { title, ...variables } = data as ShelfData;
 
-            return <ProductsShelf title={title} variables={variables} />;
+            return (
+              <ProductsShelf key={id} title={title} variables={variables} />
+            );
+          }
+
+          case CMS_BLOCKS._HERO: {
+            const heroData = data as HeroData;
+
+            return <HeroCard key={id} {...heroData} />;
           }
 
           default:
-            return <></>;
+            return <Fragment key={id}></Fragment>;
         }
       })}
     </>
