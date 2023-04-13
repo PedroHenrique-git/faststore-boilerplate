@@ -1,9 +1,16 @@
+import { BannerText } from '@molecules/BannerText';
 import { HeroCard } from '@molecules/HeroCard';
 import { Incentives } from '@molecules/Incentives';
 import { ProductsShelf } from '@organisms/ProductsShelf';
 import { Fragment } from 'react';
 import { CmsSection } from 'src/services/cms/types';
-import { CMS_BLOCKS, HeroData, IncentivesData, ShelfData } from './types';
+import {
+  BannerTextData,
+  CMS_BLOCKS,
+  HeroData,
+  IncentivesData,
+  ShelfData,
+} from './types';
 
 interface Props {
   sections: Array<CmsSection> | null;
@@ -37,6 +44,12 @@ export const RenderCmsSections = ({ sections }: Props) => {
             const { incentives } = data as IncentivesData;
 
             return <Incentives key={id} incentives={incentives} />;
+          }
+
+          case CMS_BLOCKS._BANNERTEXT: {
+            const bannerTextData = data as BannerTextData;
+
+            return <BannerText key={id} {...bannerTextData} />;
           }
 
           default:
