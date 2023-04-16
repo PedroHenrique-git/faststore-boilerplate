@@ -1,8 +1,8 @@
 import { gql } from 'graphql-request';
-import { ProductFragment } from '../fragments/ProductFragment';
+import { ProductSummary } from '../fragments/ProductSummary';
 
 export const ProductsQuery = gql`
-  ${ProductFragment}
+  ${ProductSummary}
 
   query Products(
     $first: Int!
@@ -22,7 +22,7 @@ export const ProductsQuery = gql`
         }
         edges {
           node {
-            ...Product
+            ...ProductSummary_product
           }
         }
       }

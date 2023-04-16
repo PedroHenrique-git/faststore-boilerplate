@@ -22,6 +22,7 @@
       "@templates/*": ["./src/components/templates/*"],
       "@pages/*": ["./src/components/pages/*"],
       "@components/*": ["./src/components/components/*"],
+      "@services/*": ["./src/services/*"],
       "@utils/*": ["./src/utils/*"],
       "@config/*": ["./src/config/*"]
     }

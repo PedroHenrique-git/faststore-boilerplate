@@ -12,12 +12,7 @@ export const Price = ({ spotPrice, price, formatter }: Props) => {
   const formattedPrice = formatter({ price });
 
   return (
-    <Box
-      display={'flex'}
-      alignItems={'center'}
-      gap={'2'}
-      data-testid="product-price"
-    >
+    <Box display={'flex'} alignItems={'center'} gap={'2'}>
       {spotPrice < price && (
         <Text fontSize={'small'} textDecor={'line-through'}>
           {formattedPrice}

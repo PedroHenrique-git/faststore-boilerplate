@@ -8,7 +8,7 @@ interface Props {
 
 export const MenuItem = ({ href = '', text = '' }: Props) => {
   return (
-    <ListItem data-testid="menu-item">
+    <ListItem>
       <Link as={NextLink} href={href}>
         {text}
       </Link>

@@ -37,12 +37,12 @@ function generateConfig() {
 
     session: {
       currency: {
-        code: 'BRL',
-        symbol: 'R$',
+        code: 'USD',
+        symbol: '$',
       },
-      locale: 'pt-BR',
+      locale: 'en-US',
       channel: '{"salesChannel":"1","regionId":""}',
-      country: 'BR',
+      country: 'USA',
       postalCode: null,
       person: null,
     },

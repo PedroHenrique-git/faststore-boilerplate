@@ -1,20 +1,20 @@
 import { useCallback, useState } from 'react';
 import { useEffectOnce } from 'react-use';
-import { IndexedDBService } from 'src/services/storage/IndexedDBService';
-
-const indexedDBService = new IndexedDBService();
+import { createStore } from '../store';
 
 interface Term {
   value: string;
 }
 
-const KEY = 'fs:terms:history';
+const historyStore = createStore('fs:terms:history', []);
 
 export function useSearchHistory() {
   const [terms, setTerms] = useState<Term[] | null>(null);
 
   const add = useCallback(async (term: Term) => {
-    const terms = await indexedDBService.get<Term[]>(KEY);
+    const { set, get } = await historyStore;
+
+    const terms = await get<Term[] | null>();
 
     if (terms?.find((t) => t.value === term.value)) {
       return;
@@ -22,21 +22,25 @@ export function useSearchHistory() {
 
     terms?.push(term);
 
-    const newTerms = await indexedDBService.set<Term[]>(KEY, terms ?? []);
+    const newTerms = await set<Term[]>(terms ?? []);
 
     setTerms(newTerms);
   }, []);
 
   const get = useCallback(async () => {
-    const storageTerms = await indexedDBService.get<Term[]>(KEY);
+    const { get } = await historyStore;
 
-    setTerms(storageTerms);
+    const storageTerms = await get<Term[]>();
+
+    setTerms(storageTerms ?? []);
 
     return storageTerms;
   }, []);
 
-  const clear = useCallback(() => {
-    indexedDBService.set<Term[]>(KEY, []);
+  const clear = useCallback(async () => {
+    const { set } = await historyStore;
+
+    set<Term[]>([]);
 
     setTerms([]);
   }, []);

@@ -18,7 +18,6 @@ export const MenuDesktop = ({ menuLinks = [] }: Props) => {
       padding={'10px 20px'}
       background={'gray.100'}
       display={isLargerThan992 ? 'flex' : 'none'}
-      data-testid="menu-desktop"
     >
       <Container maxW={'container.xl'}>
         <List display={'flex'} gap={'10'}>

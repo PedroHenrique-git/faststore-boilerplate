@@ -1,5 +1,6 @@
 import { Container } from '@chakra-ui/react';
 import { menuLinks } from '@molecules/Menu';
+import { Footer } from '@organisms/Footer';
 import { Header } from '@organisms/Header';
 
 interface Props {
@@ -13,6 +14,7 @@ export const Layout = ({ children }: Props) => {
       <Container as={'main'} maxW={'container.xl'}>
         {children}
       </Container>
+      <Footer />
     </>
   );
 };

@@ -905,6 +905,33 @@ export type ProductFragment = {
   };
 };
 
+export type ProductSummary_ProductFragment = {
+  slug: string;
+  sku: string;
+  name: string;
+  gtin: string;
+  id: string;
+  brand: { name: string; brandName: string };
+  isVariantOf: { productGroupID: string; name: string };
+  image: Array<{ url: string; alternateName: string }>;
+  offers: {
+    lowPrice: number;
+    offers: Array<{
+      availability: string;
+      price: number;
+      listPrice: number;
+      quantity: number;
+      seller: { identifier: string };
+    }>;
+  };
+  additionalProperty: Array<{
+    propertyID: string;
+    name: string;
+    value: any;
+    valueReference: string;
+  }>;
+};
+
 export type SuggestionsFragment = {
   terms: Array<{ value: string }>;
   products: Array<{
@@ -933,6 +960,99 @@ export type SuggestionsFragment = {
   }>;
 };
 
+export type ValidateCartMutationVariables = Exact<{
+  cart: IStoreCart;
+  session: IStoreSession;
+}>;
+
+export type ValidateCartMutation = {
+  validateCart: {
+    order: {
+      orderNumber: string;
+      acceptedOffer: Array<{
+        quantity: number;
+        price: number;
+        listPrice: number;
+        seller: { identifier: string };
+        itemOffered: {
+          sku: string;
+          name: string;
+          gtin: string;
+          image: Array<{ url: string; alternateName: string }>;
+          brand: { name: string };
+          isVariantOf: { productGroupID: string; name: string };
+          additionalProperty: Array<{
+            propertyID: string;
+            name: string;
+            value: any;
+            valueReference: string;
+          }>;
+        };
+      }>;
+    };
+    messages: Array<{ text: string; status: StoreStatus }>;
+  } | null;
+};
+
+export type CartMessageFragment = { text: string; status: StoreStatus };
+
+export type CartItemFragment = {
+  quantity: number;
+  price: number;
+  listPrice: number;
+  seller: { identifier: string };
+  itemOffered: {
+    sku: string;
+    name: string;
+    gtin: string;
+    image: Array<{ url: string; alternateName: string }>;
+    brand: { name: string };
+    isVariantOf: { productGroupID: string; name: string };
+    additionalProperty: Array<{
+      propertyID: string;
+      name: string;
+      value: any;
+      valueReference: string;
+    }>;
+  };
+};
+
+export type CartProductItemFragment = {
+  sku: string;
+  name: string;
+  gtin: string;
+  image: Array<{ url: string; alternateName: string }>;
+  brand: { name: string };
+  isVariantOf: { productGroupID: string; name: string };
+  additionalProperty: Array<{
+    propertyID: string;
+    name: string;
+    value: any;
+    valueReference: string;
+  }>;
+};
+
+export type ValidateSessionMutationVariables = Exact<{
+  session: IStoreSession;
+  search: Scalars['String'];
+}>;
+
+export type ValidateSessionMutation = {
+  validateSession: {
+    locale: string;
+    channel: string | null;
+    country: string;
+    postalCode: string | null;
+    currency: { code: string; symbol: string };
+    person: {
+      id: string;
+      email: string;
+      givenName: string;
+      familyName: string;
+    } | null;
+  } | null;
+};
+
 export type ProductsQueryVariables = Exact<{
   first: Scalars['Int'];
   after: InputMaybe<Scalars['String']>;
@@ -947,27 +1067,29 @@ export type ProductsQuery = {
       edges: Array<{
         node: {
           slug: string;
+          sku: string;
           name: string;
-          description: string;
-          image: Array<{ url: string; alternateName: string }>;
-          brand: { name: string };
+          gtin: string;
+          id: string;
+          brand: { name: string; brandName: string };
           isVariantOf: { productGroupID: string; name: string };
+          image: Array<{ url: string; alternateName: string }>;
           offers: {
-            highPrice: number;
             lowPrice: number;
-            offerCount: number;
-            priceCurrency: string;
             offers: Array<{
-              listPrice: number;
-              sellingPrice: number;
-              priceCurrency: string;
-              price: number;
-              priceValidUntil: string;
-              itemCondition: string;
               availability: string;
+              price: number;
+              listPrice: number;
+              quantity: number;
               seller: { identifier: string };
             }>;
           };
+          additionalProperty: Array<{
+            propertyID: string;
+            name: string;
+            value: any;
+            valueReference: string;
+          }>;
         };
       }>;
     };

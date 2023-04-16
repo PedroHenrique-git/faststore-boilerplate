@@ -1,6 +1,5 @@
 import { useCallback } from 'react';
-
-// TODO: get values from session
+import { useSession } from '../session';
 
 export interface Params {
   price: number;
@@ -8,13 +7,20 @@ export interface Params {
 }
 
 export function useFormatPrice(oldPrice?: number) {
-  const formatter = useCallback(({ price, decimals }: Params) => {
-    return new Intl.NumberFormat('pt-BR', {
-      style: 'currency',
-      currency: 'BRL',
-      minimumFractionDigits: decimals ? 2 : 0,
-    }).format(price);
-  }, []);
+  const {
+    session: { locale, currency },
+  } = useSession();
+
+  const formatter = useCallback(
+    ({ price, decimals }: Params) => {
+      return new Intl.NumberFormat(locale, {
+        style: 'currency',
+        currency: currency.code,
+        minimumFractionDigits: decimals ? 2 : 0,
+      }).format(price);
+    },
+    [locale, currency],
+  );
 
   return {
     ...(oldPrice ? { newPrice: formatter({ price: oldPrice }) } : {}),

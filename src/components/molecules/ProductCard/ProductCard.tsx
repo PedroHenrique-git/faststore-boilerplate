@@ -1,3 +1,4 @@
+import { BuyButton } from '@atoms/BuyButton';
 import { Price } from '@atoms/Price';
 import {
   Card,
@@ -9,19 +10,19 @@ import {
   Link,
   Stack,
 } from '@chakra-ui/react';
-import { ProductFragment } from '@generated/graphql';
+import { ProductSummary_ProductFragment } from '@generated/graphql';
 import NextLink from 'next/link';
 import { memo } from 'react';
 import { useFormatPrice } from 'src/sdk/product/useFormatPrice';
+import { useProductLink } from 'src/sdk/product/useProductLink';
 
 interface Props {
-  product: ProductFragment;
+  product: ProductSummary_ProductFragment;
 }
 
 const ProductCard = ({ product }: Props) => {
   const {
     name,
-    slug,
     image: [firstImage],
     offers: {
       lowPrice: spotPrice,
@@ -30,6 +31,7 @@ const ProductCard = ({ product }: Props) => {
   } = product;
 
   const { formatter } = useFormatPrice();
+  const props = useProductLink(product);
 
   return (
     <Card boxShadow={0} border={'1px solid'} borderColor={'gray.200'}>
@@ -44,11 +46,7 @@ const ProductCard = ({ product }: Props) => {
         />
 
         <Stack mt="6" spacing="3">
-          <Link
-            as={NextLink}
-            href={`/${slug}/p`}
-            _hover={{ textDecoration: 'none' }}
-          >
+          <Link as={NextLink} _hover={{ textDecoration: 'none' }} {...props}>
             <Heading as="h3" fontSize={'larger'} fontWeight={'thin'}>
               {name}
             </Heading>
@@ -61,7 +59,9 @@ const ProductCard = ({ product }: Props) => {
         </Stack>
       </CardBody>
       <Divider />
-      <CardFooter></CardFooter>
+      <CardFooter>
+        <BuyButton product={product} />
+      </CardFooter>
     </Card>
   );
 };

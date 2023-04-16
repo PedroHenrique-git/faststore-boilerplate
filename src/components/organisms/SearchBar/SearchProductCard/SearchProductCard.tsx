@@ -3,6 +3,7 @@ import { Card, CardBody, Img, Link, ListItem } from '@chakra-ui/react';
 import { ProductFragment } from '@generated/graphql';
 import NextLink from 'next/link';
 import { useFormatPrice } from 'src/sdk/product/useFormatPrice';
+import { useProductLink } from 'src/sdk/product/useProductLink';
 
 interface Props {
   product: ProductFragment;
@@ -11,7 +12,6 @@ interface Props {
 export const SearchProductCart = ({ product }: Props) => {
   const {
     name,
-    slug,
     image: [firstImage],
     offers: {
       lowPrice: spotPrice,
@@ -20,14 +20,11 @@ export const SearchProductCart = ({ product }: Props) => {
   } = product;
 
   const { formatter } = useFormatPrice();
+  const props = useProductLink(product);
 
   return (
     <ListItem>
-      <Link
-        as={NextLink}
-        href={`/${slug}/p`}
-        _hover={{ textDecoration: 'none' }}
-      >
+      <Link as={NextLink} _hover={{ textDecoration: 'none' }} {...props}>
         <Card
           display={'flex'}
           alignItems={'center'}

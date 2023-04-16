@@ -3,8 +3,10 @@ import * as memoryDriver from 'localforage-driver-memory';
 
 localforage.defineDriver(memoryDriver);
 
-export class IndexedDBService {
+class IndexedDBService {
   private _storage: LocalForage = localforage;
+  private storeName = 'STORE_DB';
+  private version = 1.0;
 
   constructor() {
     this.setConfig();
@@ -22,7 +24,8 @@ export class IndexedDBService {
         localforage.WEBSQL,
         memoryDriver._driver,
       ],
-      name: 'STORE_DB',
+      name: this.storeName,
+      version: this.version,
     });
   }
 
@@ -42,11 +45,15 @@ export class IndexedDBService {
     }
   }
 
-  async remove<T = unknown>(key: string): Promise<T | null> {
+  async remove(key: string) {
     try {
-      return this._storage.getItem(key);
+      this._storage.removeItem(key);
+
+      return true;
     } catch (_) {
-      return null;
+      return false;
     }
   }
 }
+
+export default new IndexedDBService();
