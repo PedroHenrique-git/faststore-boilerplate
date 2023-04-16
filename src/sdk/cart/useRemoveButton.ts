@@ -2,7 +2,7 @@ import { MouseEvent, useCallback } from 'react';
 import { useCart } from './useCart';
 
 export function useRemoveButton(itemId: string | null) {
-  const { removeFromCart } = useCart();
+  const { removeFromCart, isMutating } = useCart();
 
   const onClick = useCallback(
     (event: MouseEvent<HTMLButtonElement>) => {
@@ -15,5 +15,6 @@ export function useRemoveButton(itemId: string | null) {
 
   return {
     onClick,
+    isMutating,
   };
 }

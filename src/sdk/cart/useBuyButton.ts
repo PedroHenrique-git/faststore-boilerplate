@@ -3,7 +3,7 @@ import { useCart } from './useCart';
 import { CartItem } from './useValidationCart';
 
 export function useBuyButton(item: CartItem | null) {
-  const { addToCart } = useCart();
+  const { addToCart, isMutating } = useCart();
 
   const onClick = useCallback(
     (event: MouseEvent<HTMLButtonElement>) => {
@@ -16,5 +16,6 @@ export function useBuyButton(item: CartItem | null) {
 
   return {
     onClick,
+    isMutating,
   };
 }

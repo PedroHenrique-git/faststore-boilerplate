@@ -2,7 +2,7 @@ import { isServer } from '../constants';
 
 export async function createStore<T>(key: string, initialValue: T) {
   if (isServer) {
-    return;
+    return {};
   }
 
   const { default: indexeddb } = await import('@services/storage/indexeddb');

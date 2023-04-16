@@ -2,11 +2,12 @@ import { config } from '@config/store';
 import { IStoreSession } from '@generated/graphql';
 import { useAtom } from 'jotai';
 import { useCallback, useMemo } from 'react';
+import { SESSION_STORE_KEY } from '../constants';
 import { sessionAtom } from '../state';
 import { createStore } from '../store';
 import { useValidationSession } from './useValidationSession';
 
-const sessionStore = createStore('fs::session', config.base.session);
+const sessionStore = createStore(SESSION_STORE_KEY, config.base.session);
 
 export function useSession() {
   const [session, setSession] = useAtom(sessionAtom);
@@ -15,7 +16,7 @@ export function useSession() {
 
   const set = useCallback(
     async (receivedSession: Partial<IStoreSession>) => {
-      const { set } = (await sessionStore) ?? {};
+      const { set } = await sessionStore;
 
       const newSession = {
         ...session,

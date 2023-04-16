@@ -1,18 +1,19 @@
 import { useCallback, useState } from 'react';
 import { useEffectOnce } from 'react-use';
+import { SEARCH_STORE_KEY } from '../constants';
 import { createStore } from '../store';
 
 interface Term {
   value: string;
 }
 
-const historyStore = createStore('fs:terms:history', []);
+const historyStore = createStore(SEARCH_STORE_KEY, []);
 
 export function useSearchHistory() {
   const [terms, setTerms] = useState<Term[] | null>(null);
 
   const add = useCallback(async (term: Term) => {
-    const { set, get } = (await historyStore) ?? {};
+    const { set, get } = await historyStore;
 
     const terms = await get?.<Term[] | null>();
 
@@ -30,7 +31,7 @@ export function useSearchHistory() {
   }, []);
 
   const get = useCallback(async () => {
-    const { get } = (await historyStore) ?? {};
+    const { get } = await historyStore;
 
     const storageTerms = await get?.<Term[]>();
 
@@ -40,7 +41,7 @@ export function useSearchHistory() {
   }, []);
 
   const clear = useCallback(async () => {
-    const { set } = (await historyStore) ?? {};
+    const { set } = await historyStore;
 
     set?.<Term[]>([]);
 

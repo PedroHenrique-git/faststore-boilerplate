@@ -9,7 +9,12 @@ import { AiOutlineSearch } from 'react-icons/ai';
 
 export const SearchInput = forwardRef<InputProps, 'input'>((props, ref) => (
   <InputGroup>
-    <Input ref={ref} placeholder="Search everything at the store" {...props} />
+    <Input
+      ref={ref}
+      type="search"
+      placeholder="Search everything at the store"
+      {...props}
+    />
     <InputRightAddon background="white" cursor={'pointer'}>
       <AiOutlineSearch size={30} />
     </InputRightAddon>

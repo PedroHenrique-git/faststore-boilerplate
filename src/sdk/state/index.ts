@@ -3,9 +3,7 @@ import { IStoreSession } from '@generated/graphql';
 import IndexedDBService from '@services/storage/indexeddb';
 import { atom } from 'jotai';
 import { Cart } from '../cart';
-
-const CART_KEY = 'fs::cart';
-const SESSION_KEY = 'fs::session';
+import { CART_STORE_KEY, SESSION_STORE_KEY } from '../constants';
 
 const atomWithAsyncStorage = <T>(key: string, initialValue: T) => {
   const baseAtom = atom<T>(initialValue);
@@ -25,13 +23,13 @@ const atomWithAsyncStorage = <T>(key: string, initialValue: T) => {
 
 export const cartSidebarAtom = atom(false);
 
-export const cartAtom = atomWithAsyncStorage<Cart>(CART_KEY, {
+export const cartAtom = atomWithAsyncStorage<Cart>(CART_STORE_KEY, {
   id: '',
   messages: [],
   items: [],
 });
 
 export const sessionAtom = atomWithAsyncStorage<IStoreSession>(
-  SESSION_KEY,
+  SESSION_STORE_KEY,
   config.base.session,
 );

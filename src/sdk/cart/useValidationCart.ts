@@ -17,6 +17,11 @@ export interface Cart extends SDKCart<CartItem> {
   messages?: CartMessageFragment[];
 }
 
+interface ValidateCartParams {
+  cart: Cart;
+  session: IStoreSession;
+}
+
 export const isGift = (item: CartItem) => item.price === 0;
 
 export const getItemId = (
@@ -80,7 +85,7 @@ export const validateCart = async (cart: Cart, session: IStoreSession) => {
 export function useValidationCart() {
   const { mutate, data, isError, isLoading } = useMutation({
     mutationKey: 'cart',
-    mutationFn: ({ cart, session }: { cart: Cart; session: IStoreSession }) =>
+    mutationFn: ({ cart, session }: ValidateCartParams) =>
       validateCart(cart, session),
   });
 

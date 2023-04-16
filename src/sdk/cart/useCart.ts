@@ -1,5 +1,7 @@
 import { useAtom } from 'jotai';
 import { useCallback, useMemo } from 'react';
+import { useIsMutating } from 'react-query';
+import { CART_STORE_KEY } from '../constants';
 import { useSession } from '../session';
 import { cartAtom } from '../state';
 import { createStore } from '../store';
@@ -11,13 +13,18 @@ import {
   useValidationCart,
 } from './useValidationCart';
 
-const cartStore = createStore('fs::cart', { id: '', messages: [], items: [] });
+const cartStore = createStore(CART_STORE_KEY, {
+  id: '',
+  messages: [],
+  items: [],
+});
 
 export function useCart() {
   const { session } = useSession();
   const [cart, setCart] = useAtom(cartAtom);
 
   const { validate, isLoading } = useValidationCart();
+  const isMutating = useIsMutating({ mutationKey: 'cart' });
 
   const inCart = useCallback(
     (itemId: string) => {
@@ -35,7 +42,7 @@ export function useCart() {
 
   const updateItemQuantity = useCallback(
     async (newQuantity: number, itemId: string) => {
-      const { set } = (await cartStore) ?? {};
+      const { set } = await cartStore;
 
       const newCart: Cart = {
         ...cart,
@@ -76,7 +83,7 @@ export function useCart() {
 
   const addToCart = useCallback(
     async (item: CartItem) => {
-      const { set } = (await cartStore) ?? {};
+      const { set } = await cartStore;
 
       const itemWithId: CartItem = { ...item, id: getItemId(item) };
 
@@ -121,7 +128,7 @@ export function useCart() {
 
   const removeFromCart = useCallback(
     async (itemId: string) => {
-      const { set } = (await cartStore) ?? {};
+      const { set } = await cartStore;
 
       const newCart: Cart = {
         ...cart,
@@ -178,6 +185,7 @@ export function useCart() {
       removeFromCart,
       updateItemQuantity,
       isValidating: isLoading,
+      isMutating: isMutating > 0,
     }),
     [
       cart,
@@ -187,6 +195,7 @@ export function useCart() {
       removeFromCart,
       updateItemQuantity,
       isLoading,
+      isMutating,
     ],
   );
 }

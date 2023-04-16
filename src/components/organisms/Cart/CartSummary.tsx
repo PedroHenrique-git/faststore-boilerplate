@@ -1,10 +1,9 @@
 import { Price } from '@atoms/Price';
-import { Button, Flex, Image, ListItem, Text } from '@chakra-ui/react';
-import { CiCircleRemove } from 'react-icons/ci';
+import { RemoveButton } from '@atoms/RemoveButton/RemoveButton';
+import { Flex, Image, ListItem, Text } from '@chakra-ui/react';
+import { QuantitySelector } from '@molecules/QuantitySelector';
 import { CartItem } from 'src/sdk/cart';
-import { useRemoveButton } from 'src/sdk/cart/useRemoveButton';
 import { useFormatPrice } from 'src/sdk/product/useFormatPrice';
-import { CartQuantitySelector } from './CartQuantitySelector';
 
 interface Props {
   item: CartItem | null;
@@ -12,7 +11,6 @@ interface Props {
 
 export const CartSummary = ({ item }: Props) => {
   const { formatter } = useFormatPrice();
-  const props = useRemoveButton(item?.id ?? '');
 
   if (!item) {
     return null;
@@ -52,17 +50,8 @@ export const CartSummary = ({ item }: Props) => {
         </Flex>
 
         <Flex marginTop={'8'} justifyContent={'space-between'}>
-          <Button
-            background={'none'}
-            display={'flex'}
-            gap={'3'}
-            color={'gray.700'}
-            {...props}
-          >
-            <CiCircleRemove size={25} />
-            remove
-          </Button>
-          <CartQuantitySelector initialQuantity={quantity} itemId={id} />
+          <RemoveButton itemId={item.id} />
+          <QuantitySelector initialQuantity={quantity} itemId={id} />
         </Flex>
       </Flex>
     </ListItem>

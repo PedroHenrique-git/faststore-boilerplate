@@ -6,11 +6,8 @@ interface Props {
   itemId: string;
 }
 
-export const CartQuantitySelector = ({
-  initialQuantity = 1,
-  itemId,
-}: Props) => {
-  const { updateItemQuantity } = useCart();
+export const QuantitySelector = ({ initialQuantity = 1, itemId }: Props) => {
+  const { updateItemQuantity, isMutating } = useCart();
 
   const {
     getInputProps,
@@ -20,7 +17,7 @@ export const CartQuantitySelector = ({
   } = useNumberInput({
     defaultValue: initialQuantity,
     step: 1,
-    min: 1,
+    min: -1,
   });
 
   const inc = getIncrementButtonProps();
@@ -35,6 +32,7 @@ export const CartQuantitySelector = ({
           dec?.onClick?.(e);
           updateItemQuantity(valueAsNumber, itemId);
         }}
+        disabled={isMutating}
       >
         -
       </Button>
@@ -45,6 +43,7 @@ export const CartQuantitySelector = ({
           inc?.onClick?.(e);
           updateItemQuantity(valueAsNumber, itemId);
         }}
+        disabled={isMutating}
       >
         +
       </Button>
