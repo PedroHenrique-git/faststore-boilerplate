@@ -7,7 +7,7 @@ interface Props {
 }
 
 export const RemoveButton = ({ itemId }: Props) => {
-  const { isMutating, ...props } = useRemoveButton(itemId);
+  const props = useRemoveButton(itemId);
 
   return (
     <Button
@@ -15,7 +15,6 @@ export const RemoveButton = ({ itemId }: Props) => {
       display={'flex'}
       gap={'3'}
       color={'gray.700'}
-      disabled={isMutating}
       {...props}
     >
       <CiCircleRemove size={25} />

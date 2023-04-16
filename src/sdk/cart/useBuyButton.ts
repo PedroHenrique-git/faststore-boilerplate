@@ -16,6 +16,6 @@ export function useBuyButton(item: CartItem | null) {
 
   return {
     onClick,
-    isMutating,
+    isLoading: isMutating,
   };
 }

@@ -21,7 +21,7 @@ export const BuyButton = ({ product }: Props) => {
     additionalProperty,
   } = product;
 
-  const { isMutating, ...props } = useBuyButton({
+  const props = useBuyButton({
     id,
     price,
     listPrice,
@@ -39,13 +39,7 @@ export const BuyButton = ({ product }: Props) => {
   });
 
   return (
-    <Button
-      {...props}
-      variant="solid"
-      colorScheme="gray"
-      w={'100%'}
-      isLoading={isMutating}
-    >
+    <Button variant="solid" colorScheme="gray" w={'100%'} {...props}>
       Add to cart
     </Button>
   );

@@ -15,6 +15,6 @@ export function useRemoveButton(itemId: string | null) {
 
   return {
     onClick,
-    isMutating,
+    disabled: isMutating,
   };
 }

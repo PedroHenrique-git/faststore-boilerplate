@@ -1,4 +1,6 @@
+import { CheckoutButton } from '@atoms/CheckoutButton';
 import {
+  Box,
   Button,
   Drawer,
   DrawerBody,
@@ -12,18 +14,20 @@ import {
 } from '@chakra-ui/react';
 import { useAtom } from 'jotai';
 import { useRef } from 'react';
-import { AiOutlineShoppingCart } from 'react-icons/ai';
+import { AiOutlineGift, AiOutlineShoppingCart } from 'react-icons/ai';
 import { useCart } from 'src/sdk/cart';
 import { cartSidebarAtom } from 'src/sdk/state';
 import { CartEmpty } from './CartEmpty';
+import { CartGiftSummary } from './CartGiftSummary';
 import { CartSummary } from './CartSummary';
+import { OrderSummary } from './OrderSummary';
 
 export const Cart = () => {
   const [cartSidebar, setCartSideBar] = useAtom(cartSidebarAtom);
   const btnRef = useRef<HTMLButtonElement | null>(null);
 
   const {
-    cart: { totalItems, items },
+    cart: { totalItems, items, subTotal, total, gifts },
   } = useCart();
 
   const onOpen = () => setCartSideBar(true);
@@ -85,12 +89,38 @@ export const Cart = () => {
                     <CartSummary key={item.id} item={item} />
                   ))}
                 </List>
+
+                {!!gifts.length && (
+                  <Box marginTop={'10'}>
+                    <Box
+                      background={'gray.100'}
+                      padding={'.5rem'}
+                      marginBottom={'5'}
+                      display={'flex'}
+                      alignItems={'center'}
+                      gap={'1.5'}
+                    >
+                      <AiOutlineGift size={25} />
+                      <Text>Gifts</Text>
+                    </Box>
+                    <List>
+                      {gifts.map((gift) => (
+                        <CartGiftSummary key={gift.id} item={gift} />
+                      ))}
+                    </List>
+                  </Box>
+                )}
               </DrawerBody>
 
-              <DrawerFooter>
-                <Button variant="outline" mr={3} onClick={onClose} w={'100%'}>
-                  Checkout
-                </Button>
+              <DrawerFooter
+                display={'flex'}
+                flexDirection={'column'}
+                gap={'5'}
+                border={'1px solid'}
+                borderColor={'gray.100'}
+              >
+                <OrderSummary subTotal={subTotal} total={total} />
+                <CheckoutButton />
               </DrawerFooter>
             </>
           ) : (
