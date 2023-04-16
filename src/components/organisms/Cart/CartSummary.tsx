@@ -4,6 +4,7 @@ import { CiCircleRemove } from 'react-icons/ci';
 import { CartItem } from 'src/sdk/cart';
 import { useRemoveButton } from 'src/sdk/cart/useRemoveButton';
 import { useFormatPrice } from 'src/sdk/product/useFormatPrice';
+import { CartQuantitySelector } from './CartQuantitySelector';
 
 interface Props {
   item: CartItem | null;
@@ -18,12 +19,14 @@ export const CartSummary = ({ item }: Props) => {
   }
 
   const {
+    id,
     listPrice,
     price,
     itemOffered: {
       name,
       image: [firstImage],
     },
+    quantity,
   } = item;
 
   return (
@@ -48,7 +51,7 @@ export const CartSummary = ({ item }: Props) => {
           </Flex>
         </Flex>
 
-        <Flex marginTop={'8'}>
+        <Flex marginTop={'8'} justifyContent={'space-between'}>
           <Button
             background={'none'}
             display={'flex'}
@@ -59,6 +62,7 @@ export const CartSummary = ({ item }: Props) => {
             <CiCircleRemove size={25} />
             remove
           </Button>
+          <CartQuantitySelector initialQuantity={quantity} itemId={id} />
         </Flex>
       </Flex>
     </ListItem>

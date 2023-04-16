@@ -19,17 +19,37 @@ export function useCart() {
 
   const { validate, isLoading } = useValidationCart();
 
-  const addToCart = useCallback(
-    async (item: CartItem) => {
-      const { set } = (await cartStore) ?? {};
+  const inCart = useCallback(
+    (itemId: string) => {
+      return !!cart.items.find((i) => i.id === itemId);
+    },
+    [cart],
+  );
 
-      const itemWithId: CartItem = { ...item, id: getItemId(item) };
+  const getItem = useCallback(
+    (itemId: string) => {
+      return cart.items.find((i) => i.id === itemId);
+    },
+    [cart],
+  );
+
+  const updateItemQuantity = useCallback(
+    async (newQuantity: number, itemId: string) => {
+      const { set } = (await cartStore) ?? {};
 
       const newCart: Cart = {
         ...cart,
-      };
+        items: cart.items.map((item) => {
+          if (item.id === itemId) {
+            return {
+              ...item,
+              quantity: newQuantity,
+            };
+          }
 
-      newCart.items.push(itemWithId);
+          return item;
+        }),
+      };
 
       // new states before validate
       setCart(newCart);
@@ -51,7 +71,52 @@ export function useCart() {
         },
       );
     },
-    [cart, session, validate, setCart],
+    [cart, session, setCart, validate],
+  );
+
+  const addToCart = useCallback(
+    async (item: CartItem) => {
+      const { set } = (await cartStore) ?? {};
+
+      const itemWithId: CartItem = { ...item, id: getItemId(item) };
+
+      const newCart: Cart = {
+        ...cart,
+        items: inCart(itemWithId.id)
+          ? cart.items.map((item) => {
+              if (item.id === itemWithId.id) {
+                return {
+                  ...item,
+                  quantity: item.quantity + 1,
+                };
+              }
+
+              return item;
+            })
+          : [...cart.items, itemWithId],
+      };
+
+      // new states before validate
+      setCart(newCart);
+      set?.(newCart);
+
+      validate(
+        {
+          cart: newCart,
+          session,
+        },
+        {
+          onSuccess(data) {
+            if (data) {
+              // new states after validate
+              setCart(data);
+              set?.(data);
+            }
+          },
+        },
+      );
+    },
+    [cart, session, validate, setCart, inCart],
   );
 
   const removeFromCart = useCallback(
@@ -86,13 +151,6 @@ export function useCart() {
     [cart, session, validate, setCart],
   );
 
-  const inCart = useCallback(
-    (itemId: string) => {
-      return !!cart.items.find((i) => i.id === itemId);
-    },
-    [cart],
-  );
-
   return useMemo(
     () => ({
       cart: {
@@ -116,9 +174,19 @@ export function useCart() {
       },
       addToCart,
       inCart,
+      getItem,
       removeFromCart,
+      updateItemQuantity,
       isValidating: isLoading,
     }),
-    [cart, addToCart, inCart, removeFromCart, isLoading],
+    [
+      cart,
+      addToCart,
+      inCart,
+      getItem,
+      removeFromCart,
+      updateItemQuantity,
+      isLoading,
+    ],
   );
 }

@@ -27,9 +27,6 @@ export default createYoga<{ headers: Record<string, string> }>({
       headers[key] = value;
     }
 
-    context.request.headers.set('cache-control', 'no-cache, no-store');
-    context.request.headers.set('content-type', 'application/json');
-
     return { headers };
   },
   validationCache: true,

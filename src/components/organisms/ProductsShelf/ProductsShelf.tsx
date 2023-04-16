@@ -13,7 +13,6 @@ interface Props extends SplideProps {
 
 export const defaultSplideProps: SplideProps = {
   options: {
-    type: 'loop',
     mediaQuery: 'max',
     perPage: 5,
     pagination: false,
