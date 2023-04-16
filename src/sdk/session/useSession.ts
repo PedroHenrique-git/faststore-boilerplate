@@ -15,7 +15,7 @@ export function useSession() {
 
   const set = useCallback(
     async (receivedSession: Partial<IStoreSession>) => {
-      const { set } = await sessionStore;
+      const { set } = (await sessionStore) ?? {};
 
       const newSession = {
         ...session,
@@ -24,14 +24,14 @@ export function useSession() {
 
       // new states before validate
       setSession(newSession);
-      set(newSession);
+      set?.(newSession);
 
       validate(newSession, {
         onSuccess(data) {
           if (data) {
             // new states after validate
             setSession(data);
-            set(data);
+            set?.(data);
           }
         },
       });

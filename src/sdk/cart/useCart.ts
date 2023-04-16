@@ -21,7 +21,7 @@ export function useCart() {
 
   const addToCart = useCallback(
     async (item: CartItem) => {
-      const { set } = await cartStore;
+      const { set } = (await cartStore) ?? {};
 
       const itemWithId: CartItem = { ...item, id: getItemId(item) };
 
@@ -33,7 +33,7 @@ export function useCart() {
 
       // new states before validate
       setCart(newCart);
-      set(newCart);
+      set?.(newCart);
 
       validate(
         {
@@ -45,7 +45,7 @@ export function useCart() {
             if (data) {
               // new states after validate
               setCart(data);
-              set(data);
+              set?.(data);
             }
           },
         },
@@ -56,7 +56,7 @@ export function useCart() {
 
   const removeFromCart = useCallback(
     async (itemId: string) => {
-      const { set } = await cartStore;
+      const { set } = (await cartStore) ?? {};
 
       const newCart: Cart = {
         ...cart,
@@ -65,7 +65,7 @@ export function useCart() {
 
       // new states before validate
       setCart(newCart);
-      set(newCart);
+      set?.(newCart);
 
       validate(
         {
@@ -77,7 +77,7 @@ export function useCart() {
             if (data) {
               // new states after validate
               setCart(data);
-              set(data);
+              set?.(data);
             }
           },
         },

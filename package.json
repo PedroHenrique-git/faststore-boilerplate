@@ -47,7 +47,6 @@
     "graphql": "^16.6.0",
     "graphql-request": "^5.2.0",
     "graphql-yoga": "^3.8.0",
-    "idb-keyval": "^6.2.0",
     "jotai": "^2.0.4",
     "localforage": "^1.10.0",
     "localforage-driver-memory": "^1.0.5",

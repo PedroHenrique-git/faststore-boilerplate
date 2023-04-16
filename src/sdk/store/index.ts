@@ -1,6 +1,11 @@
-import indexeddb from '@services/storage/indexeddb';
+import { isServer } from '../constants';
 
 export async function createStore<T>(key: string, initialValue: T) {
+  if (isServer) {
+    return;
+  }
+
+  const { default: indexeddb } = await import('@services/storage/indexeddb');
   const created = await indexeddb.get(key);
 
   if (!created) {

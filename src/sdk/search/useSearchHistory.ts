@@ -12,9 +12,9 @@ export function useSearchHistory() {
   const [terms, setTerms] = useState<Term[] | null>(null);
 
   const add = useCallback(async (term: Term) => {
-    const { set, get } = await historyStore;
+    const { set, get } = (await historyStore) ?? {};
 
-    const terms = await get<Term[] | null>();
+    const terms = await get?.<Term[] | null>();
 
     if (terms?.find((t) => t.value === term.value)) {
       return;
@@ -22,15 +22,17 @@ export function useSearchHistory() {
 
     terms?.push(term);
 
-    const newTerms = await set<Term[]>(terms ?? []);
+    const newTerms = await set?.<Term[]>(terms ?? []);
 
-    setTerms(newTerms);
+    if (newTerms) {
+      setTerms(newTerms);
+    }
   }, []);
 
   const get = useCallback(async () => {
-    const { get } = await historyStore;
+    const { get } = (await historyStore) ?? {};
 
-    const storageTerms = await get<Term[]>();
+    const storageTerms = await get?.<Term[]>();
 
     setTerms(storageTerms ?? []);
 
@@ -38,9 +40,9 @@ export function useSearchHistory() {
   }, []);
 
   const clear = useCallback(async () => {
-    const { set } = await historyStore;
+    const { set } = (await historyStore) ?? {};
 
-    set<Term[]>([]);
+    set?.<Term[]>([]);
 
     setTerms([]);
   }, []);
