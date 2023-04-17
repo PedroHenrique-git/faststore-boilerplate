@@ -1,4 +1,5 @@
 import { BuyButton } from '@atoms/BuyButton';
+import { DiscountBadge } from '@atoms/DiscountBadge';
 import { Price } from '@atoms/Price';
 import {
   Card,
@@ -56,6 +57,7 @@ const ProductCard = ({ product }: Props) => {
             price={listPrice}
             spotPrice={spotPrice}
           />
+          <DiscountBadge listPrice={listPrice} spotPrice={spotPrice} />
         </Stack>
       </CardBody>
       <Divider />

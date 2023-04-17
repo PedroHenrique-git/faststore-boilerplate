@@ -17,7 +17,7 @@ export function useSearchHistory() {
 
     const terms = await get?.<Term[] | null>();
 
-    if (terms?.find((t) => t.value === term.value)) {
+    if (terms?.some((t) => t.value === term.value)) {
       return;
     }
 
