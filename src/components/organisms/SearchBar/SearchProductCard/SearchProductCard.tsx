@@ -1,4 +1,4 @@
-import { Price } from '@atoms/Price';
+import Price from '@atoms/Price';
 import { Card, CardBody, Img, Link, ListItem } from '@chakra-ui/react';
 import { ProductFragment } from '@generated/graphql';
 import NextLink from 'next/link';
