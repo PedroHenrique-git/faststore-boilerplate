@@ -1,7 +1,7 @@
 import { ComponentMeta, ComponentStory, DecoratorFn } from '@storybook/react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { useFormatPrice } from 'src/sdk/product/useFormatPrice';
-import { Price } from './Price';
+import Price from './Price';
 
 export default {
   title: 'components/atoms/Price',

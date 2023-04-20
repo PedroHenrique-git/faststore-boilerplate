@@ -1,6 +1,7 @@
 import { BannerText } from '@molecules/BannerText';
 import { HeroCard } from '@molecules/HeroCard';
 import { Incentives } from '@molecules/Incentives';
+import { Newsletter } from '@organisms/Newsletter';
 import { ProductsShelf } from '@organisms/ProductsShelf';
 import { Fragment } from 'react';
 import { CmsSection } from 'src/services/cms/types';
@@ -9,6 +10,7 @@ import {
   CMS_BLOCKS,
   HeroData,
   IncentivesData,
+  NewsletterData,
   ShelfData,
 } from './types';
 
@@ -50,6 +52,12 @@ export const RenderCmsSections = ({ sections }: Props) => {
             const bannerTextData = data as BannerTextData;
 
             return <BannerText key={id} {...bannerTextData} />;
+          }
+
+          case CMS_BLOCKS._NEWSLETTER: {
+            const newsletterData = data as NewsletterData;
+
+            return <Newsletter {...newsletterData} />;
           }
 
           default:

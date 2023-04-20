@@ -1,4 +1,4 @@
-import { Price } from '@atoms/Price';
+import Price from '@atoms/Price';
 import { RemoveButton } from '@atoms/RemoveButton/RemoveButton';
 import { Flex, Image, ListItem, Text } from '@chakra-ui/react';
 import { QuantitySelector } from '@molecules/QuantitySelector';

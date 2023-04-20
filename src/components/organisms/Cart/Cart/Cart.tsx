@@ -17,10 +17,10 @@ import { useRef } from 'react';
 import { AiOutlineGift, AiOutlineShoppingCart } from 'react-icons/ai';
 import { useCart } from 'src/sdk/cart';
 import { cartSidebarAtom } from 'src/sdk/state';
-import { CartEmpty } from './CartEmpty';
-import { CartGiftSummary } from './CartGiftSummary';
-import { CartSummary } from './CartSummary';
-import { OrderSummary } from './OrderSummary';
+import { CartEmpty } from '../CartEmpty/CartEmpty';
+import { CartGiftSummary } from '../CartGiftSummary/CartGiftSummary';
+import { CartSummary } from '../CartSummary/CartSummary';
+import { OrderSummary } from '../OrderSummary/OrderSummary';
 
 export const Cart = () => {
   const [cartSidebar, setCartSideBar] = useAtom(cartSidebarAtom);

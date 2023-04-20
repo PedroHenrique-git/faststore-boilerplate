@@ -1,6 +1,6 @@
 import { BuyButton } from '@atoms/BuyButton';
-import { DiscountBadge } from '@atoms/DiscountBadge';
-import { Price } from '@atoms/Price';
+import DiscountBadge from '@atoms/DiscountBadge';
+import Price from '@atoms/Price';
 import {
   Card,
   CardBody,

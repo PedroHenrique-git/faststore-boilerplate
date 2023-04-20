@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { DiscountBadge } from '.';
+import DiscountBadge from '.';
 
 export default {
   title: 'components/atoms/DiscountBadge',

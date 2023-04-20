@@ -58,7 +58,6 @@ export function useCart() {
         }),
       };
 
-      // new states before validate
       setCart(newCart);
       set?.(newCart);
 
@@ -70,7 +69,6 @@ export function useCart() {
         {
           onSuccess(data) {
             if (data) {
-              // new states after validate
               setCart(data);
               set?.(data);
             }
@@ -103,7 +101,6 @@ export function useCart() {
           : [...cart.items, itemWithId],
       };
 
-      // new states before validate
       setCart(newCart);
       set?.(newCart);
 
@@ -115,7 +112,6 @@ export function useCart() {
         {
           onSuccess(data) {
             if (data) {
-              // new states after validate
               setCart(data);
               set?.(data);
             }
@@ -135,7 +131,6 @@ export function useCart() {
         items: cart.items.filter((i) => i.id !== itemId),
       };
 
-      // new states before validate
       setCart(newCart);
       set?.(newCart);
 
@@ -147,7 +142,6 @@ export function useCart() {
         {
           onSuccess(data) {
             if (data) {
-              // new states after validate
               setCart(data);
               set?.(data);
             }

@@ -2,7 +2,7 @@ import { Login } from '@atoms/Login';
 import { Logo } from '@atoms/Logo';
 import { Box, Container, useMediaQuery } from '@chakra-ui/react';
 import { MenuDesktop, MenuMobile } from '@molecules/Menu';
-import { Cart } from '@organisms/Cart/Cart';
+import { Cart } from '@organisms/Cart';
 import { SearchBar } from '@organisms/SearchBar';
 
 interface Props {

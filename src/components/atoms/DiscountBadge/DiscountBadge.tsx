@@ -1,4 +1,5 @@
 import { Badge } from '@chakra-ui/react';
+import { memo } from 'react';
 import { useDiscountPercent } from 'src/sdk/product';
 
 interface Props {
@@ -6,7 +7,7 @@ interface Props {
   spotPrice: number;
 }
 
-export const DiscountBadge = ({ listPrice = 0, spotPrice = 0 }: Props) => {
+const DiscountBadge = ({ listPrice = 0, spotPrice = 0 }: Props) => {
   const discountPercent = useDiscountPercent({ listPrice, spotPrice });
 
   if (discountPercent === 0) {
@@ -26,3 +27,5 @@ export const DiscountBadge = ({ listPrice = 0, spotPrice = 0 }: Props) => {
     </Badge>
   );
 };
+
+export default memo(DiscountBadge);

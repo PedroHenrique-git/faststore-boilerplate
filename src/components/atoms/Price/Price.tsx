@@ -1,4 +1,5 @@
 import { Box, Text } from '@chakra-ui/react';
+import { memo } from 'react';
 import { Params } from 'src/sdk/product/useFormatPrice';
 
 interface Props {
@@ -7,7 +8,7 @@ interface Props {
   formatter(_params: Params): string;
 }
 
-export const Price = ({ spotPrice, price, formatter }: Props) => {
+const Price = ({ spotPrice, price, formatter }: Props) => {
   const formattedSpotPrice = formatter({ price: spotPrice });
   const formattedPrice = formatter({ price });
 
@@ -24,3 +25,5 @@ export const Price = ({ spotPrice, price, formatter }: Props) => {
     </Box>
   );
 };
+
+export default memo(Price);

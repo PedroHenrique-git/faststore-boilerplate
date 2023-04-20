@@ -960,6 +960,14 @@ export type SuggestionsFragment = {
   }>;
 };
 
+export type SubscribeNewsletterMutationVariables = Exact<{
+  data: IPersonNewsletter;
+}>;
+
+export type SubscribeNewsletterMutation = {
+  subscribeToNewsletter: { id: string } | null;
+};
+
 export type ValidateCartMutationVariables = Exact<{
   cart: IStoreCart;
   session: IStoreSession;

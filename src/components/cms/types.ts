@@ -6,6 +6,7 @@ export enum CMS_BLOCKS {
   _HERO = 'Hero',
   _INCENTIVES = 'IncentivesHeader',
   _BANNERTEXT = 'BannerText',
+  _NEWSLETTER = 'Newsletter',
 }
 
 export interface ShelfData {
@@ -36,4 +37,13 @@ export interface BannerTextData {
   colorVariant: string;
   title: string;
   variant: string;
+}
+
+export interface NewsletterData {
+  icon: { alt: string; icon: string };
+  title: string;
+  description: string;
+  'email-input-label': string;
+  'name-input-label': string;
+  'subscribe-button-label': string;
 }
