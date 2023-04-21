@@ -9,10 +9,9 @@ export const Carousel = ({ images }: Props) => {
   return (
     <Box as="section" marginTop={'5'}>
       <Slider
-        aria-label="Banners home"
-        options={{
-          type: 'loop',
-          autoplay: true,
+        splideProps={{
+          'aria-label': 'Banners home',
+          options: { type: 'loop', autoplay: true },
         }}
       >
         {images.map((image) => (

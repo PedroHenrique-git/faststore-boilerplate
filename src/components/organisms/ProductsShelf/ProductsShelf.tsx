@@ -56,7 +56,7 @@ export const ProductsShelf = ({ variables, title, ...splideProps }: Props) => {
       {showSkeleton ? (
         <ProductsShelfSkeleton />
       ) : (
-        <Slider {...defaultSplideProps} {...splideProps}>
+        <Slider splideProps={{ ...defaultSplideProps, ...splideProps }}>
           {edges?.map(({ node }) => (
             <ProductCard key={node.slug} product={node} />
           ))}

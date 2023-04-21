@@ -880,6 +880,81 @@ export type StoreSuggestions = {
   terms: Array<StoreSuggestionTerm>;
 };
 
+export type CartItemFragment = {
+  quantity: number;
+  price: number;
+  listPrice: number;
+  seller: { identifier: string };
+  itemOffered: {
+    sku: string;
+    name: string;
+    gtin: string;
+    image: Array<{ url: string; alternateName: string }>;
+    brand: { name: string };
+    isVariantOf: { productGroupID: string; name: string };
+    additionalProperty: Array<{
+      propertyID: string;
+      name: string;
+      value: any;
+      valueReference: string;
+    }>;
+  };
+};
+
+export type CartMessageFragment = { text: string; status: StoreStatus };
+
+export type CartProductItemFragment = {
+  sku: string;
+  name: string;
+  gtin: string;
+  image: Array<{ url: string; alternateName: string }>;
+  brand: { name: string };
+  isVariantOf: { productGroupID: string; name: string };
+  additionalProperty: Array<{
+    propertyID: string;
+    name: string;
+    value: any;
+    valueReference: string;
+  }>;
+};
+
+export type ProductDetailsFragment_ProductFragment = {
+  sku: string;
+  name: string;
+  gtin: string;
+  description: string;
+  id: string;
+  isVariantOf: {
+    name: string;
+    productGroupID: string;
+    skuVariants: {
+      activeVariations: any | null;
+      slugsMap: any | null;
+      availableVariations: any | null;
+    } | null;
+  };
+  image: Array<{ url: string; alternateName: string }>;
+  brand: { name: string };
+  offers: {
+    lowPrice: number;
+    offers: Array<{
+      availability: string;
+      price: number;
+      listPrice: number;
+      seller: { identifier: string };
+    }>;
+  };
+  breadcrumbList: {
+    itemListElement: Array<{ item: string; name: string; position: number }>;
+  };
+  additionalProperty: Array<{
+    propertyID: string;
+    name: string;
+    value: any;
+    valueReference: string;
+  }>;
+};
+
 export type ProductFragment = {
   slug: string;
   name: string;
@@ -903,6 +978,50 @@ export type ProductFragment = {
       seller: { identifier: string };
     }>;
   };
+};
+
+export type ProductPageQueryFragment = {
+  sku: string;
+  gtin: string;
+  name: string;
+  description: string;
+  releaseDate: string;
+  id: string;
+  seo: { title: string; description: string; canonical: string };
+  brand: { name: string };
+  breadcrumbList: {
+    itemListElement: Array<{ item: string; name: string; position: number }>;
+  };
+  image: Array<{ url: string; alternateName: string }>;
+  offers: {
+    lowPrice: number;
+    highPrice: number;
+    priceCurrency: string;
+    offers: Array<{
+      availability: string;
+      price: number;
+      priceValidUntil: string;
+      priceCurrency: string;
+      itemCondition: string;
+      listPrice: number;
+      seller: { identifier: string };
+    }>;
+  };
+  isVariantOf: {
+    productGroupID: string;
+    name: string;
+    skuVariants: {
+      activeVariations: any | null;
+      slugsMap: any | null;
+      availableVariations: any | null;
+    } | null;
+  };
+  additionalProperty: Array<{
+    propertyID: string;
+    name: string;
+    value: any;
+    valueReference: string;
+  }>;
 };
 
 export type ProductSummary_ProductFragment = {
@@ -1002,44 +1121,6 @@ export type ValidateCartMutation = {
   } | null;
 };
 
-export type CartMessageFragment = { text: string; status: StoreStatus };
-
-export type CartItemFragment = {
-  quantity: number;
-  price: number;
-  listPrice: number;
-  seller: { identifier: string };
-  itemOffered: {
-    sku: string;
-    name: string;
-    gtin: string;
-    image: Array<{ url: string; alternateName: string }>;
-    brand: { name: string };
-    isVariantOf: { productGroupID: string; name: string };
-    additionalProperty: Array<{
-      propertyID: string;
-      name: string;
-      value: any;
-      valueReference: string;
-    }>;
-  };
-};
-
-export type CartProductItemFragment = {
-  sku: string;
-  name: string;
-  gtin: string;
-  image: Array<{ url: string; alternateName: string }>;
-  brand: { name: string };
-  isVariantOf: { productGroupID: string; name: string };
-  additionalProperty: Array<{
-    propertyID: string;
-    name: string;
-    value: any;
-    valueReference: string;
-  }>;
-};
-
 export type ValidateSessionMutationVariables = Exact<{
   session: IStoreSession;
   search: Scalars['String'];
@@ -1059,6 +1140,49 @@ export type ValidateSessionMutation = {
       familyName: string;
     } | null;
   } | null;
+};
+
+export type ProductPageQueryVariables = Exact<{
+  locator: Array<IStoreSelectedFacet> | IStoreSelectedFacet;
+}>;
+
+export type ProductPageQuery = {
+  product: {
+    sku: string;
+    name: string;
+    gtin: string;
+    description: string;
+    id: string;
+    isVariantOf: {
+      name: string;
+      productGroupID: string;
+      skuVariants: {
+        activeVariations: any | null;
+        slugsMap: any | null;
+        availableVariations: any | null;
+      } | null;
+    };
+    image: Array<{ url: string; alternateName: string }>;
+    brand: { name: string };
+    offers: {
+      lowPrice: number;
+      offers: Array<{
+        availability: string;
+        price: number;
+        listPrice: number;
+        seller: { identifier: string };
+      }>;
+    };
+    breadcrumbList: {
+      itemListElement: Array<{ item: string; name: string; position: number }>;
+    };
+    additionalProperty: Array<{
+      propertyID: string;
+      name: string;
+      value: any;
+      valueReference: string;
+    }>;
+  };
 };
 
 export type ProductsQueryVariables = Exact<{

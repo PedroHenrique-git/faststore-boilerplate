@@ -84,7 +84,7 @@ export const Newsletter = (props: Props) => {
       as="section"
       flexWrap={{ base: 'wrap', lg: 'nowrap' }}
       padding={'1.5rem'}
-      margin={'3rem 0'}
+      marginTop={'3rem'}
       background={'gray.100'}
       gap={'10'}
     >

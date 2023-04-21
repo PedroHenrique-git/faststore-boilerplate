@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import { Carousel } from '@molecules/Carousel';
 import { RenderCmsSections } from 'src/components/cms';
 import { mockImages } from 'src/mocks';
@@ -10,10 +9,10 @@ interface Props {
 
 export const Home = ({ cmsHome }: Props) => {
   return (
-    <Box>
+    <>
       <Carousel images={mockImages} />
 
       <RenderCmsSections sections={cmsHome?.sections ?? null} />
-    </Box>
+    </>
   );
 };

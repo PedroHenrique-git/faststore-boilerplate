@@ -1,23 +1,29 @@
-import { Box } from '@chakra-ui/react';
+import { Box, BoxProps } from '@chakra-ui/react';
 import { Splide, SplideProps, SplideSlide } from '@splidejs/react-splide';
-import { Children, PropsWithChildren } from 'react';
+import { Children, PropsWithChildren, forwardRef } from 'react';
 
-export const Slider = ({
-  children,
-  ...splideProps
-}: PropsWithChildren<SplideProps>) => {
-  return (
-    <Box
-      css={{
-        '.splide__arrow--prev:disabled': { display: 'none' },
-        '.splide__arrow--next:disabled': { display: 'none' },
-      }}
-    >
-      <Splide {...splideProps}>
-        {Children.map(children, (child) => (
-          <SplideSlide>{child}</SplideSlide>
-        ))}
-      </Splide>
-    </Box>
-  );
-};
+interface Props {
+  splideProps?: SplideProps;
+  boxProps?: BoxProps;
+}
+
+export const Slider = forwardRef<Splide, PropsWithChildren<Props>>(
+  function Slider({ children, boxProps, splideProps }, ref) {
+    return (
+      <Box
+        {...boxProps}
+        css={{
+          '.splide__arrow--prev:disabled': { display: 'none' },
+          '.splide__arrow--next:disabled': { display: 'none' },
+          ...(boxProps?.css ? (boxProps?.css as Record<string, unknown>) : {}),
+        }}
+      >
+        <Splide ref={ref} {...splideProps}>
+          {Children.map(children, (child) => (
+            <SplideSlide>{child}</SplideSlide>
+          ))}
+        </Splide>
+      </Box>
+    );
+  },
+);

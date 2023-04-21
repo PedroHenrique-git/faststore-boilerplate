@@ -11,7 +11,7 @@ export default {
 
 export const StoreSlider: ComponentStory<typeof Slider> = () => {
   return (
-    <Slider aria-label="Story Slider">
+    <Slider splideProps={{ 'aria-label': 'Story slider' }}>
       {mockImages.map((image) => (
         <Image
           key={image.alt}

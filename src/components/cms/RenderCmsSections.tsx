@@ -57,7 +57,7 @@ export const RenderCmsSections = ({ sections }: Props) => {
           case CMS_BLOCKS._NEWSLETTER: {
             const newsletterData = data as NewsletterData;
 
-            return <Newsletter {...newsletterData} />;
+            return <Newsletter key={id} {...newsletterData} />;
           }
 
           default:

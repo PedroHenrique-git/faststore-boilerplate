@@ -1,8 +1,8 @@
 import { gql } from 'graphql-request';
-import { ProductSummary } from '../fragments/ProductSummary';
+import { ProductSummaryFragment } from '../fragments/ProductSummaryFragment';
 
 export const ProductsQuery = gql`
-  ${ProductSummary}
+  ${ProductSummaryFragment}
 
   query Products(
     $first: Int!

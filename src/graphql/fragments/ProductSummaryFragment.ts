@@ -1,6 +1,6 @@
 import { gql } from 'graphql-request';
 
-export const ProductSummary = gql`
+export const ProductSummaryFragment = gql`
   fragment ProductSummary_product on StoreProduct {
     id: productID
     slug
