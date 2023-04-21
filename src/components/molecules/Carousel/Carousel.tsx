@@ -20,7 +20,7 @@ export const Carousel = ({ images }: Props) => {
             alt={image.alt}
             src={image.url}
             objectFit={'cover'}
-            height={400}
+            height={{ base: 295, lg: 400 }}
             w={'100%'}
           />
         ))}

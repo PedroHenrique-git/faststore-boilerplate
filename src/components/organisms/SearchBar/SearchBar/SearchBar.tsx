@@ -1,5 +1,6 @@
 import {
   Box,
+  BoxProps,
   Spinner,
   chakra,
   useBoolean,
@@ -15,7 +16,7 @@ import { SearchResult } from '../SearchResult';
 import { SearchSuggestions } from '../SearchSuggestions/SearchSuggestions';
 import { SearchTop } from '../SearchTop/SearchTop';
 
-export const SearchBar = () => {
+export const SearchBar = (props: BoxProps) => {
   const [show, setShow] = useBoolean();
   const { debouncedValue, setValue } = useDebouncedValue('');
   const ref = useRef<HTMLDivElement | null>(null);
@@ -40,7 +41,14 @@ export const SearchBar = () => {
   });
 
   return (
-    <Box maxW={'600px'} w={'100%'} position={'relative'} ref={ref} zIndex={99}>
+    <Box
+      maxW={'600px'}
+      w={'100%'}
+      position={'relative'}
+      ref={ref}
+      zIndex={99}
+      {...props}
+    >
       <chakra.form
         onSubmit={onSubmit}
         display={'flex'}

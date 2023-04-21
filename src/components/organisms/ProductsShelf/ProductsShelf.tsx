@@ -27,7 +27,7 @@ export const defaultSplideProps: SplideProps = {
       },
       640: {
         perPage: 1,
-        padding: { right: 80 },
+        padding: { right: 90 },
       },
     },
   },

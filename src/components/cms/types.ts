@@ -7,6 +7,7 @@ export enum CMS_BLOCKS {
   _INCENTIVES = 'IncentivesHeader',
   _BANNERTEXT = 'BannerText',
   _NEWSLETTER = 'Newsletter',
+  _CROSSSELLINGSHELF = 'CrossSellingShelf',
 }
 
 export interface ShelfData {
@@ -37,6 +38,12 @@ export interface BannerTextData {
   colorVariant: string;
   title: string;
   variant: string;
+}
+
+export interface CrossSellingShelfData {
+  items: 5;
+  kind: string;
+  title: string;
 }
 
 export interface NewsletterData {

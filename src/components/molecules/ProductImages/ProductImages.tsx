@@ -37,15 +37,16 @@ export const ProductImages = ({ images }: Props) => {
   });
 
   return (
-    <Flex direction={'column'} gap={'1rem'} w={'min(100%, 550px)'}>
+    <Flex direction={'column'} gap={'1rem'} as="section">
       <Slider ref={mainRef} splideProps={mainSliderOptions}>
         {images.map((image) => (
           <Image
             key={image.url}
-            boxSize={'550px'}
             src={image.url}
             alt={image.alternateName}
             objectFit={'cover'}
+            w={'100%'}
+            maxH={530}
           />
         ))}
       </Slider>
@@ -55,7 +56,7 @@ export const ProductImages = ({ images }: Props) => {
         splideProps={thumbsSliderOptions}
         boxProps={{
           css: {
-            '.splide__slide.is-active img': { border: '3px solid #000000A3' },
+            '.splide__slide.is-active img': { border: '2px solid #2B6CB0' },
           },
         }}
       >

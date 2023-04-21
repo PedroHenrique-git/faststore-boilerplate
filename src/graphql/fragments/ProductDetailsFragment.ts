@@ -10,6 +10,11 @@ export const ProductDetailsFragment = gql`
     name
     gtin
     description
+    slug
+
+    brand {
+      brandName: name
+    }
 
     isVariantOf {
       name
@@ -35,6 +40,7 @@ export const ProductDetailsFragment = gql`
       offers {
         availability
         price
+        quantity
         listPrice
         seller {
           identifier

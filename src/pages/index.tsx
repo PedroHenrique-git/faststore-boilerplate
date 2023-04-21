@@ -1,26 +1,32 @@
 import { Home as HomePage } from '@pages/Home';
 import { GetStaticProps } from 'next';
+import { QueryClient, dehydrate, useQuery } from 'react-query';
 import Cms from 'src/services/cms/Cms';
-import { CmsPage } from 'src/services/cms/types';
 
-interface Props {
-  cmsHome: CmsPage | null;
-}
-
-function Home({ cmsHome }: Props) {
-  return <HomePage cmsHome={cmsHome} />;
-}
-
-export const getStaticProps: GetStaticProps = async () => {
-  const cmsHome = await Cms.getAllCmsPagesByContentType('page', {
+const getIndexCms = () =>
+  Cms.getAllCmsPagesByContentType('page', {
     filters: {
       'settings.seo.slug': '/',
     },
   });
 
+function Home() {
+  const { data } = useQuery({
+    queryKey: 'index',
+    queryFn: getIndexCms,
+  });
+
+  return <HomePage cmsHome={data?.data?.[0] ?? null} />;
+}
+
+export const getStaticProps: GetStaticProps = async () => {
+  const queryClient = new QueryClient();
+
+  await queryClient.prefetchQuery('index', () => getIndexCms());
+
   return {
     props: {
-      cmsHome: cmsHome?.data?.[0] ?? null,
+      dehydratedState: dehydrate(queryClient),
     },
   };
 };

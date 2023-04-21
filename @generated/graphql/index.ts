@@ -923,7 +923,9 @@ export type ProductDetailsFragment_ProductFragment = {
   name: string;
   gtin: string;
   description: string;
+  slug: string;
   id: string;
+  brand: { name: string; brandName: string };
   isVariantOf: {
     name: string;
     productGroupID: string;
@@ -934,12 +936,12 @@ export type ProductDetailsFragment_ProductFragment = {
     } | null;
   };
   image: Array<{ url: string; alternateName: string }>;
-  brand: { name: string };
   offers: {
     lowPrice: number;
     offers: Array<{
       availability: string;
       price: number;
+      quantity: number;
       listPrice: number;
       seller: { identifier: string };
     }>;
@@ -986,9 +988,10 @@ export type ProductPageQueryFragment = {
   name: string;
   description: string;
   releaseDate: string;
+  slug: string;
   id: string;
   seo: { title: string; description: string; canonical: string };
-  brand: { name: string };
+  brand: { name: string; brandName: string };
   breadcrumbList: {
     itemListElement: Array<{ item: string; name: string; position: number }>;
   };
@@ -1003,6 +1006,7 @@ export type ProductPageQueryFragment = {
       priceValidUntil: string;
       priceCurrency: string;
       itemCondition: string;
+      quantity: number;
       listPrice: number;
       seller: { identifier: string };
     }>;
@@ -1152,7 +1156,9 @@ export type ProductPageQuery = {
     name: string;
     gtin: string;
     description: string;
+    slug: string;
     id: string;
+    brand: { name: string; brandName: string };
     isVariantOf: {
       name: string;
       productGroupID: string;
@@ -1163,12 +1169,12 @@ export type ProductPageQuery = {
       } | null;
     };
     image: Array<{ url: string; alternateName: string }>;
-    brand: { name: string };
     offers: {
       lowPrice: number;
       offers: Array<{
         availability: string;
         price: number;
+        quantity: number;
         listPrice: number;
         seller: { identifier: string };
       }>;

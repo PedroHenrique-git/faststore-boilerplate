@@ -3,6 +3,7 @@ import {
   ProductPageQueryVariables,
 } from '@generated/graphql';
 import { Pdp } from '@pages/Pdp';
+import Cms from '@services/cms/Cms';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { DehydratedState, QueryClient, dehydrate, useQuery } from 'react-query';
 import { ProductPageQuery as ProductPageQueryGql } from 'src/graphql/queries/ProductPageQuery';
@@ -18,19 +19,26 @@ const getProductBySlug = (slug: string) =>
     { locator: [{ key: 'slug', value: slug }] },
   );
 
+const getCmsPdp = () => Cms.getAllCmsPagesByContentType('pdp');
+
 function Page({ slug }: Props) {
-  const { data, isError } = useQuery({
+  const { data: productData, isError: productDataError } = useQuery({
     queryKey: slug,
     queryFn: () => getProductBySlug(slug),
   });
 
-  if (isError || !data) {
+  const { data: productCms } = useQuery({
+    queryKey: `${slug}-cms`,
+    queryFn: getCmsPdp,
+  });
+
+  if (productDataError || !productData) {
     return null;
   }
 
-  const { product } = data;
+  const { product } = productData;
 
-  return <Pdp product={product} />;
+  return <Pdp product={product} cmsPdp={productCms?.data?.[0] ?? null} />;
 }
 
 export const getStaticProps: GetStaticProps<
@@ -40,7 +48,10 @@ export const getStaticProps: GetStaticProps<
   const queryClient = new QueryClient();
   const { slug } = ctx.params ?? { slug: '' };
 
-  await queryClient.prefetchQuery(slug, () => getProductBySlug(slug));
+  await Promise.all([
+    queryClient.prefetchQuery(`${slug}-cms`, getCmsPdp),
+    queryClient.prefetchQuery(slug, () => getProductBySlug(slug)),
+  ]);
 
   return {
     props: {

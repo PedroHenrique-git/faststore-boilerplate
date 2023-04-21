@@ -1,6 +1,6 @@
 import { Login } from '@atoms/Login';
 import { Logo } from '@atoms/Logo';
-import { Box, Container, useMediaQuery } from '@chakra-ui/react';
+import { Box, Container } from '@chakra-ui/react';
 import { MenuDesktop, MenuMobile } from '@molecules/Menu';
 import { Cart } from '@organisms/Cart';
 import { SearchBar } from '@organisms/SearchBar';
@@ -10,11 +10,6 @@ interface Props {
 }
 
 export const Header = ({ menuLinks }: Props) => {
-  const [isLargerThan992] = useMediaQuery('(min-width: 992px)', {
-    ssr: true,
-    fallback: false,
-  });
-
   return (
     <>
       <Box
@@ -37,7 +32,7 @@ export const Header = ({ menuLinks }: Props) => {
             <MenuMobile menuLinks={menuLinks} />
             <Logo />
           </Box>
-          {isLargerThan992 && <SearchBar />}
+          <SearchBar display={{ base: 'none', lg: 'block' }} />
           <Box display={'flex'} alignItems={'center'} gap={'2'}>
             <Login />
             <Cart />
@@ -47,17 +42,15 @@ export const Header = ({ menuLinks }: Props) => {
 
       <MenuDesktop menuLinks={menuLinks} />
 
-      {!isLargerThan992 && (
-        <Container
-          maxWidth={'container.xl'}
-          marginTop={'3.5'}
-          display={'flex'}
-          justifyContent={'center'}
-          justifyItems={'center'}
-        >
-          <SearchBar />
-        </Container>
-      )}
+      <Container
+        maxWidth={'container.xl'}
+        marginTop={'3.5'}
+        display={{ base: 'flex', lg: 'none' }}
+        justifyContent={'center'}
+        justifyItems={'center'}
+      >
+        <SearchBar />
+      </Container>
     </>
   );
 };

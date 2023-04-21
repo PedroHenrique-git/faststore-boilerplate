@@ -3,12 +3,12 @@ import { useQuery } from 'react-query';
 import { ProductsQuery as ProductQueriesGql } from 'src/graphql/queries/ProductsQuery';
 import { graphqlClient } from 'src/server/graphql';
 
-interface Props {
+interface Params {
   variables: ProductsQueryVariables;
   key: string;
 }
 
-export function useProductsQuery({ variables, key }: Props) {
+export function useProductsQuery({ variables, key }: Params) {
   const { data, isLoading, isError, refetch } = useQuery({
     queryKey: [`products-query-${key}`, variables],
     queryFn: () => {

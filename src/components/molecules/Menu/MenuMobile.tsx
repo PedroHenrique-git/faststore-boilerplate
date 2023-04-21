@@ -8,7 +8,6 @@ import {
   DrawerOverlay,
   List,
   useDisclosure,
-  useMediaQuery,
 } from '@chakra-ui/react';
 import React from 'react';
 import { GiHamburgerMenu } from 'react-icons/gi';
@@ -21,18 +20,13 @@ export const MenuMobile = ({ menuLinks = [] }: Props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = React.useRef<HTMLButtonElement | null>(null);
 
-  const [isLessThan992] = useMediaQuery('(max-width: 992px)', {
-    ssr: true,
-    fallback: false,
-  });
-
   return (
     <>
       <Button
         ref={btnRef}
         colorScheme="teal"
         onClick={onOpen}
-        display={isLessThan992 ? 'block' : 'none'}
+        display={{ base: 'block', lg: 'none' }}
         background={'transparent'}
         _hover={{ background: 'transparent' }}
         _active={{ background: 'transparent' }}
