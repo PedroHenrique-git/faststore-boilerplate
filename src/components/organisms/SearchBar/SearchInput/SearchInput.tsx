@@ -1,4 +1,5 @@
 import {
+  Button,
   Input,
   InputGroup,
   InputProps,
@@ -15,8 +16,18 @@ export const SearchInput = forwardRef<InputProps, 'input'>((props, ref) => (
       placeholder="Search everything at the store"
       {...props}
     />
-    <InputRightAddon background="white" cursor={'pointer'}>
-      <AiOutlineSearch size={30} />
+    <InputRightAddon background="white" cursor={'pointer'} padding={0}>
+      <Button
+        background={'none'}
+        borderRadius={0}
+        _hover={{ background: 'none' }}
+        _active={{ background: 'none' }}
+        padding={0}
+        w="100%"
+        type="submit"
+      >
+        <AiOutlineSearch size={30} />
+      </Button>
     </InputRightAddon>
   </InputGroup>
 ));
