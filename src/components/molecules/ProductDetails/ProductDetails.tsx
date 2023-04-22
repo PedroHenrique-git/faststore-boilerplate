@@ -14,6 +14,7 @@ import {
   Text,
 } from '@chakra-ui/react';
 import { ProductDetailsFragment_ProductFragment } from '@generated/graphql';
+import { ShippingSimulator } from '@molecules/ShippingSimulator';
 import { useFormatPrice } from 'src/sdk/product';
 
 interface Props {
@@ -24,12 +25,13 @@ export const ProductDetails = ({ product }: Props) => {
   const { formatter } = useFormatPrice();
 
   const {
+    id,
     name,
     description,
     brand: { brandName },
     offers: {
       lowPrice: spotPrice,
-      offers: [{ listPrice }],
+      offers: [{ listPrice, quantity, seller }],
     },
     isVariantOf: { productGroupID },
   } = product;
@@ -62,7 +64,7 @@ export const ProductDetails = ({ product }: Props) => {
           <DiscountBadge
             spotPrice={spotPrice}
             listPrice={listPrice}
-            fontSize={'1em'}
+            fontSize={'.9em'}
           />
         </Flex>
         <Price formatter={formatter} price={listPrice} spotPrice={spotPrice} />
@@ -86,12 +88,16 @@ export const ProductDetails = ({ product }: Props) => {
               {description}
             </Text>
           </Box>
-          <Box marginTop={'10'}>
-            <BuyButton product={product} />
-          </Box>
         </Stack>
       </CardBody>
-      <CardFooter></CardFooter>
+      <CardFooter>
+        <Stack divider={<StackDivider />} spacing="4" w={'100%'}>
+          <BuyButton product={product} />
+          <ShippingSimulator
+            items={[{ id, quantity, seller: seller.identifier }]}
+          />
+        </Stack>
+      </CardFooter>
     </Card>
   );
 };

@@ -1,4 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
+import { QueryClient, QueryClientProvider } from 'react-query';
 import { SearchSuggestions } from './SearchSuggestions';
 
 export default {
@@ -6,49 +7,53 @@ export default {
   component: SearchSuggestions,
 } as ComponentMeta<typeof SearchSuggestions>;
 
+const queryClient = new QueryClient();
+
 export const StoreSearchSuggestions: ComponentStory<
   typeof SearchSuggestions
 > = () => {
   return (
-    <SearchSuggestions
-      products={[
-        {
-          isVariantOf: {
-            name: '',
-            productGroupID: '',
-          },
-          slug: '/',
-          brand: {
-            name: 'test',
-          },
-          description: 'test',
-          image: [
-            {
-              alternateName: 'test',
-              url: '/banners/banner-one.jpg',
+    <QueryClientProvider client={queryClient}>
+      <SearchSuggestions
+        products={[
+          {
+            isVariantOf: {
+              name: '',
+              productGroupID: '',
             },
-          ],
-          name: 'Test',
-          offers: {
-            highPrice: 100,
-            lowPrice: 100,
-            offerCount: 10,
-            offers: [
+            slug: '/',
+            brand: {
+              name: 'test',
+            },
+            description: 'test',
+            image: [
               {
-                availability: '',
-                itemCondition: '',
-                listPrice: 300,
-                price: 200,
-                priceCurrency: 'BRL',
-                priceValidUntil: '',
-                seller: { identifier: '' },
-                sellingPrice: 100,
+                alternateName: 'test',
+                url: '/banners/banner-one.jpg',
               },
             ],
-            priceCurrency: '',
+            name: 'Test',
+            offers: {
+              highPrice: 100,
+              lowPrice: 100,
+              offerCount: 10,
+              offers: [
+                {
+                  availability: '',
+                  itemCondition: '',
+                  listPrice: 300,
+                  price: 200,
+                  priceCurrency: 'BRL',
+                  priceValidUntil: '',
+                  seller: { identifier: '' },
+                  sellingPrice: 100,
+                },
+              ],
+              priceCurrency: '',
+            },
           },
-        },
-      ]}
-    />
+        ]}
+      />
+    </QueryClientProvider>
   );
 };

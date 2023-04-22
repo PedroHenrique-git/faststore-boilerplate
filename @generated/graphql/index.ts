@@ -1273,3 +1273,23 @@ export type SearchSuggestionsQuery = {
     };
   };
 };
+
+export type ShippingSimulationQueryVariables = Exact<{
+  postalCode: Scalars['String'];
+  country: Scalars['String'];
+  items: Array<IShippingItem> | IShippingItem;
+}>;
+
+export type ShippingSimulationQuery = {
+  shipping: {
+    logisticsInfo: Array<{
+      slas: Array<{
+        carrier: string | null;
+        price: number | null;
+        shippingEstimate: string | null;
+        localizedEstimates: string | null;
+      } | null> | null;
+    } | null> | null;
+    address: { city: string | null; neighborhood: string | null } | null;
+  } | null;
+};

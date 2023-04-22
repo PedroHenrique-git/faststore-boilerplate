@@ -4,7 +4,7 @@ import ProductCard from '@molecules/ProductCard';
 import { Slider } from '@molecules/Slider';
 import { SplideProps } from '@splidejs/react-splide';
 import { ProductsShelfSkeleton } from 'src/components/skeletons/ProductsShelfSkeleton';
-import { useProductsQuery } from 'src/sdk/product/useProductsQuery';
+import { useProductsShelf } from 'src/sdk/product/useProductsShelf';
 
 interface Props extends SplideProps {
   title: string;
@@ -34,7 +34,7 @@ export const defaultSplideProps: SplideProps = {
 };
 
 export const ProductsShelf = ({ variables, title, ...splideProps }: Props) => {
-  const { data, isError, isLoading } = useProductsQuery({
+  const { data, isError, isLoading } = useProductsShelf({
     variables,
     key: title,
   });

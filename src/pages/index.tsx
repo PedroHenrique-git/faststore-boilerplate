@@ -1,3 +1,4 @@
+import { config } from '@config/store';
 import { Home as HomePage } from '@pages/Home';
 import { GetStaticProps } from 'next';
 import { QueryClient, dehydrate, useQuery } from 'react-query';
@@ -28,6 +29,7 @@ export const getStaticProps: GetStaticProps = async () => {
     props: {
       dehydratedState: dehydrate(queryClient),
     },
+    revalidate: config.revalidate,
   };
 };
 

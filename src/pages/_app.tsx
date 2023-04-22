@@ -17,7 +17,7 @@ export default function App({ Component, pageProps }: AppProps) {
       new QueryClient({
         defaultOptions: {
           queries: {
-            ...config.reactQuery,
+            ...config.reactQuery.queries,
           },
         },
       }),

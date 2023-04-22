@@ -19,9 +19,9 @@ export const Pdp = ({ product, cmsPdp }: Props) => {
       <Box
         as={'section'}
         display={{ base: 'flex', lg: 'grid' }}
-        flexDirection={{ base: 'column' }}
         gap={'8'}
-        gridTemplateColumns={{ base: '1fr .5fr' }}
+        flexDirection={{ base: 'column' }}
+        gridTemplateColumns={{ base: '1fr .6fr' }}
         columnGap={'8'}
         marginBottom={'28'}
       >
