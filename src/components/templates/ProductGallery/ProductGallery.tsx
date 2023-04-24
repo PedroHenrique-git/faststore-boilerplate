@@ -3,7 +3,7 @@ import {
   Filter_FacetsFragment,
   ProductSummary_ProductFragment,
 } from '@generated/graphql';
-import { ProductGrid } from '@organisms/ProductGrid/ProductGrid';
+import { ProductGrid } from '@organisms/ProductGrid';
 import { SearchFilters } from '@organisms/SearchFilters';
 
 interface Props {
