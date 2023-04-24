@@ -60,7 +60,7 @@ export const SearchHistory = () => {
             >
               {index + 1}
             </Badge>
-            <Link as={NextLink} href={`/value`} fontSize={'medium'}>
+            <Link as={NextLink} href={`/s?term=${value}`} fontSize={'medium'}>
               {value}
             </Link>
           </ListItem>

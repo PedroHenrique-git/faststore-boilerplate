@@ -1,8 +1,10 @@
 import { gql } from 'graphql-request';
+import { FilterFacetsFragment } from '../fragments/FilterFacetsFragment';
 import { ProductSummaryFragment } from '../fragments/ProductSummaryFragment';
 
 export const SearchQuery = gql`
   ${ProductSummaryFragment}
+  ${FilterFacetsFragment}
 
   query Search(
     $first: Int!
@@ -19,31 +21,7 @@ export const SearchQuery = gql`
       selectedFacets: $selectedFacets
     ) {
       facets {
-        ... on StoreFacetRange {
-          key
-          label
-          min {
-            absolute
-            selected
-          }
-          max {
-            absolute
-            selected
-          }
-        }
-
-        ... on StoreFacetBoolean {
-          key
-          label
-          values {
-            value
-            label
-            selected
-            quantity
-          }
-        }
-
-        __typename
+        ...Filter_facets
       }
       metadata {
         isTermMisspelled

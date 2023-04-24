@@ -52,6 +52,7 @@
     "localforage": "^1.10.0",
     "localforage-driver-memory": "^1.0.5",
     "next": "13.1.1",
+    "radash": "^10.8.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-hook-form": "^7.43.9",

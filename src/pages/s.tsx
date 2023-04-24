@@ -1,44 +1,14 @@
-import { IStoreSelectedFacet, StoreSort } from '@generated/graphql';
-import { useRouter } from 'next/router';
-import { useMemo } from 'react';
+import { SearchQuery } from '@generated/graphql';
+import { ProductGallery } from '@templates/ProductGallery';
 import { useSearch } from 'src/sdk/search/useSearch';
+import { useSearchParams } from 'src/sdk/search/useSearchParams';
 
-interface SearchParams {
-  page: string;
-  term: string;
-  sort: StoreSort;
-  selectedFacets: IStoreSelectedFacet[];
-}
-
-const useSearchParams = (): SearchParams => {
-  const { asPath } = useRouter();
-
-  const { searchParams } = new URL(asPath, 'http://localhost');
-
-  const page = searchParams.get('page');
-  const sort = searchParams.get('sort');
-  const term = searchParams.get('term');
-
-  searchParams.delete('page');
-  searchParams.delete('sort');
-  searchParams.delete('term');
-
-  const selectedFacets = Array.from(searchParams.entries()).map(
-    ([key, value]) => ({
-      key,
-      value,
-    }),
-  );
-
-  return useMemo(
-    () => ({
-      page: page ?? '1',
-      sort: (sort ?? 'score_desc') as StoreSort,
-      term: term ?? '',
-      selectedFacets,
-    }),
-    [sort, term, page, selectedFacets],
-  );
+const searchResultAdapter = (data: SearchQuery | undefined) => {
+  return {
+    facets: data?.search?.facets ?? [],
+    products: data?.search?.products?.edges?.map((edge) => edge.node) ?? [],
+    totalProducts: data?.search.products.pageInfo.totalCount ?? 0,
+  };
 };
 
 function Search() {
@@ -52,13 +22,20 @@ function Search() {
     selectedFacets,
   });
 
+  const { facets, products, totalProducts } = searchResultAdapter(data);
+
   if (isLoading) {
-    return <h1>Loading...</h1>;
+    return <></>;
   }
 
   return (
     <>
-      <div>{JSON.stringify(data?.search.facets)}</div>
+      <ProductGallery
+        facets={facets}
+        products={products}
+        totalProducts={totalProducts}
+        term={term}
+      />
     </>
   );
 }

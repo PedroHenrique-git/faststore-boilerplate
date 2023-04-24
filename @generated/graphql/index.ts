@@ -918,6 +918,30 @@ export type CartProductItemFragment = {
   }>;
 };
 
+export type Filter_Facets_StoreFacetBoolean_Fragment = {
+  __typename: 'StoreFacetBoolean';
+  key: string;
+  label: string;
+  values: Array<{
+    label: string;
+    value: string;
+    selected: boolean;
+    quantity: number;
+  }>;
+};
+
+export type Filter_Facets_StoreFacetRange_Fragment = {
+  __typename: 'StoreFacetRange';
+  key: string;
+  label: string;
+  min: { selected: number; absolute: number };
+  max: { selected: number; absolute: number };
+};
+
+export type Filter_FacetsFragment =
+  | Filter_Facets_StoreFacetBoolean_Fragment
+  | Filter_Facets_StoreFacetRange_Fragment;
+
 export type ProductDetailsFragment_ProductFragment = {
   sku: string;
   name: string;
@@ -1250,8 +1274,8 @@ export type SearchQuery = {
           key: string;
           label: string;
           values: Array<{
-            value: string;
             label: string;
+            value: string;
             selected: boolean;
             quantity: number;
           }>;
@@ -1260,8 +1284,8 @@ export type SearchQuery = {
           __typename: 'StoreFacetRange';
           key: string;
           label: string;
-          min: { absolute: number; selected: number };
-          max: { absolute: number; selected: number };
+          min: { selected: number; absolute: number };
+          max: { selected: number; absolute: number };
         }
     >;
     metadata: { isTermMisspelled: boolean; logicalOperator: string } | null;
