@@ -8,10 +8,12 @@ import {
   ListItem,
 } from '@chakra-ui/react';
 import NextLink from 'next/link';
+import { useSearchLink } from 'src/sdk/search';
 import { useSearchHistory } from 'src/sdk/search/useSearchHistory';
 
 export const SearchHistory = () => {
   const { terms, clear } = useSearchHistory();
+  const { getLinkProps } = useSearchLink();
 
   if (!terms?.length) {
     return null;
@@ -60,7 +62,11 @@ export const SearchHistory = () => {
             >
               {index + 1}
             </Badge>
-            <Link as={NextLink} href={`/s?term=${value}`} fontSize={'medium'}>
+            <Link
+              as={NextLink}
+              fontSize={'medium'}
+              {...getLinkProps({ term: value })}
+            >
               {value}
             </Link>
           </ListItem>

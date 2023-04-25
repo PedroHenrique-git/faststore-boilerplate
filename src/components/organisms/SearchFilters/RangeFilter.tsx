@@ -3,6 +3,7 @@ import {
   AccordionIcon,
   AccordionItem,
   AccordionPanel,
+  Flex,
   RangeSlider,
   RangeSliderFilledTrack,
   RangeSliderThumb,
@@ -11,6 +12,7 @@ import {
 } from '@chakra-ui/react';
 import { Filter_Facets_StoreFacetRange_Fragment } from '@generated/graphql';
 import { debounce } from 'radash';
+import { useFormatPrice } from 'src/sdk/product';
 import { useFilter } from 'src/sdk/search';
 
 interface Props {
@@ -19,6 +21,7 @@ interface Props {
 
 export const RangeFilter = ({ filter }: Props) => {
   const { rangeFilter } = useFilter();
+  const { formatter } = useFormatPrice();
 
   const { key, label, max, min } = filter;
 
@@ -45,9 +48,17 @@ export const RangeFilter = ({ filter }: Props) => {
             <RangeSliderFilledTrack />
           </RangeSliderTrack>
 
-          <RangeSliderThumb index={0} w={5} h={5} />
-          <RangeSliderThumb index={1} w={5} h={5} />
+          <RangeSliderThumb index={0} w={4} h={4} />
+          <RangeSliderThumb index={1} w={4} h={4} />
         </RangeSlider>
+        <Flex justifyContent={'space-between'}>
+          <Text fontSize={'1em'} color={'gray.800'} fontWeight={'light'}>
+            {formatter({ price: min.selected })}
+          </Text>
+          <Text fontSize={'1em'} color={'gray.800'} fontWeight={'light'}>
+            {formatter({ price: max.selected })}
+          </Text>
+        </Flex>
       </AccordionPanel>
     </AccordionItem>
   );

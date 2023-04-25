@@ -10,9 +10,9 @@ interface Props extends AccordionProps {
 export const SearchFilters = ({ filters, ...accordionProps }: Props) => {
   return (
     <Accordion
-      defaultIndex={[]}
-      allowMultiple
       as={'section'}
+      allowMultiple
+      defaultIndex={[]}
       {...accordionProps}
     >
       {filters.map((filter, index) =>
