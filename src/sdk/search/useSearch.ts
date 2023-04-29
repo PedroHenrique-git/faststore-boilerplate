@@ -5,6 +5,11 @@ import { SearchQuery as SearchQueryGql } from 'src/graphql/queries/SearchQuery';
 import { graphqlClient } from 'src/server/graphql';
 import { useSession } from '../session';
 
+interface Params {
+  variables: Partial<SearchQueryVariables>;
+  onSuccess(_data: SearchQuery): void;
+}
+
 const useLocalizedVariables = ({
   after,
   first,
@@ -31,12 +36,12 @@ const useLocalizedVariables = ({
   );
 };
 
-export function useSearch(variables: Partial<SearchQueryVariables>) {
+export function useSearch({ variables, onSuccess }: Params) {
   const { after, first, selectedFacets, sort, term } =
     useLocalizedVariables(variables);
 
   const { data, isLoading, isError, refetch } = useQuery({
-    queryKey: ['search', after, first, selectedFacets, sort, term],
+    queryKey: [`search`, after, first, selectedFacets, sort, term],
     queryFn: () => {
       return graphqlClient.request<SearchQuery, SearchQueryVariables>(
         SearchQueryGql,
@@ -49,6 +54,7 @@ export function useSearch(variables: Partial<SearchQueryVariables>) {
         },
       );
     },
+    onSuccess,
   });
 
   return {

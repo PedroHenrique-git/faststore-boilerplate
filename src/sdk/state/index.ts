@@ -33,3 +33,10 @@ export const sessionAtom = atomWithAsyncStorage<IStoreSession>(
   SESSION_STORE_KEY,
   config.base.session,
 );
+
+export const paginationAtom = atom({
+  totalProducts: 0,
+  hasNextPage: false,
+  hasPrevPage: false,
+  totalPages: 0,
+});

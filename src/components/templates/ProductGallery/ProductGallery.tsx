@@ -3,22 +3,21 @@ import {
   Filter_FacetsFragment,
   ProductSummary_ProductFragment,
 } from '@generated/graphql';
+import { Pagination } from '@molecules/Pagination';
 import { ProductGrid } from '@organisms/ProductGrid';
 import { SearchFilters } from '@organisms/SearchFilters';
+import { useAtomValue } from 'jotai';
+import { paginationAtom } from 'src/sdk/state';
 
 interface Props {
-  totalProducts: number;
   facets: Filter_FacetsFragment[];
   products: ProductSummary_ProductFragment[];
   term: string;
 }
 
-export const ProductGallery = ({
-  facets,
-  products,
-  totalProducts,
-  term,
-}: Props) => {
+export const ProductGallery = ({ facets, products, term }: Props) => {
+  const { totalProducts } = useAtomValue(paginationAtom);
+
   return (
     <>
       <Box as="section" marginTop={'3rem'}>
@@ -75,6 +74,8 @@ export const ProductGallery = ({
         />
 
         <ProductGrid products={products} />
+
+        <Pagination />
       </Box>
     </>
   );

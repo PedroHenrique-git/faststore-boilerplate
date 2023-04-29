@@ -52,7 +52,7 @@ export const getStaticProps: GetStaticProps<
   const { slug } = ctx.params ?? { slug: '' };
 
   await Promise.all([
-    queryClient.prefetchQuery(`${slug}-cms`, getCmsPdp),
+    queryClient.prefetchQuery(`${slug}-cms`, () => getCmsPdp()),
     queryClient.prefetchQuery(slug, () => getProductBySlug(slug)),
   ]);
 

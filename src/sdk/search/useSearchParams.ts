@@ -21,6 +21,8 @@ export function useSearchParams(): SearchParams {
   searchParams.delete('page');
   searchParams.delete('sort');
   searchParams.delete('term');
+  searchParams.delete('start');
+  searchParams.delete('end');
 
   const selectedFacets = Array.from(searchParams.entries()).map(
     ([key, value]) => ({
