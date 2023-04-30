@@ -12,7 +12,7 @@ export const ProductGrid = ({ products }: Props) => {
       as={'section'}
       minChildWidth={'215px'}
       spacing="10px"
-      gridColumn={{ base: 'span 2', lg: '2 / 2' }}
+      gridArea={'product-grid'}
     >
       {products.map((product) => (
         <ProductCard key={product.id} product={product} />

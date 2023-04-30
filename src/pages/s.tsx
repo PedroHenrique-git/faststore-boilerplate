@@ -1,6 +1,7 @@
 import { SearchQuery } from '@generated/graphql';
 import { ProductGallery } from '@templates/ProductGallery';
 import { useSetAtom } from 'jotai';
+import { ProductGallerySkeleton } from 'src/components/skeletons/ProductGallerySekeleton';
 import { DEFAULT_PER_PAGE } from 'src/sdk/constants';
 import { useSearch } from 'src/sdk/search/useSearch';
 import { useSearchParams } from 'src/sdk/search/useSearchParams';
@@ -44,7 +45,7 @@ function Search() {
   const { facets, products } = searchResultAdapter(data);
 
   if (isLoading) {
-    return <></>;
+    return <ProductGallerySkeleton />;
   }
 
   return <ProductGallery facets={facets} products={products} term={term} />;

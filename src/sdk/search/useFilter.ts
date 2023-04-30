@@ -46,9 +46,28 @@ export function useFilter() {
     [asPath, pathname, push, clearPagination, searchParams],
   );
 
+  const changeSort = useCallback(
+    (value: string) => {
+      clearPagination(searchParams);
+
+      searchParams.set('sort', value);
+
+      push(asPath, `${pathname}?${searchParams.toString()}`);
+    },
+    [asPath, pathname, push, clearPagination, searchParams],
+  );
+
+  const clearFilters = useCallback(() => {
+    const term = searchParams.get('term');
+
+    push(asPath, `${pathname}?term=${term}`);
+  }, [asPath, pathname, searchParams, push]);
+
   return {
     addFilter,
     removeFilter,
     rangeFilter,
+    clearFilters,
+    changeSort,
   };
 }

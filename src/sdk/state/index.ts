@@ -22,6 +22,7 @@ const atomWithAsyncStorage = <T>(key: string, initialValue: T) => {
 };
 
 export const cartSidebarAtom = atom(false);
+export const filterSideBarAtom = atom(false);
 
 export const cartAtom = atomWithAsyncStorage<Cart>(CART_STORE_KEY, {
   id: '',

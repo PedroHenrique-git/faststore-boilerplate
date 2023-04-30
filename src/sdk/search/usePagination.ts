@@ -1,3 +1,4 @@
+import { useMediaQuery } from '@chakra-ui/react';
 import { useAtomValue } from 'jotai';
 import { useRouter } from 'next/router';
 import { useCallback, useMemo } from 'react';
@@ -17,11 +18,19 @@ export function usePagination() {
   const { asPath, pathname, push } = useRouter();
   const { totalPages, hasNextPage, hasPrevPage } = useAtomValue(paginationAtom);
 
+  const [isMobile] = useMediaQuery(
+    '(min-width: 280px) and (max-width: 640px)',
+    {
+      fallback: false,
+      ssr: false,
+    },
+  );
+
   const { searchParams } = new URL(asPath, 'http://localhost');
 
   const currentPage = Number(searchParams.get('page') ?? '1');
   const currentStart = Number(searchParams.get('start') ?? '0');
-  const currentEnd = Number(searchParams.get('end') ?? '5');
+  const currentEnd = Number(searchParams.get('end') ?? (isMobile ? '3' : '5'));
 
   const shouldDisablePrevButton = !hasPrevPage || currentPage === 1;
   const shouldDisableNextButton = !hasNextPage || currentPage === totalPages;

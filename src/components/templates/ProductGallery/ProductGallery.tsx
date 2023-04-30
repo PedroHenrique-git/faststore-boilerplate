@@ -4,8 +4,10 @@ import {
   ProductSummary_ProductFragment,
 } from '@generated/graphql';
 import { Pagination } from '@molecules/Pagination';
+import { Sort } from '@molecules/Sort';
 import { ProductGrid } from '@organisms/ProductGrid';
 import { SearchFilters } from '@organisms/SearchFilters';
+import { FiltersSideBar } from '@organisms/SearchFilters/FiltersSideBar';
 import { useAtomValue } from 'jotai';
 import { paginationAtom } from 'src/sdk/state';
 
@@ -37,36 +39,64 @@ export const ProductGallery = ({ facets, products, term }: Props) => {
       <Box
         as={'section'}
         display={'grid'}
-        gridTemplateRows={'repeat(2, auto)'}
-        gridTemplateColumns={'.35fr 1fr'}
+        gridTemplateRows={{
+          base: 'repeat(4, auto)',
+          lg: 'repeat(3, auto)',
+        }}
+        gridTemplateColumns={{
+          base: '.50fr .50fr .50fr 1fr',
+          lg: '.50fr .50fr 1fr',
+        }}
+        gridTemplateAreas={{
+          base: `
+            "head head sort sort"
+            "head-total head-total head-total head-total"
+            "product-grid product-grid product-grid product-grid"
+            "pagination pagination pagination pagination"
+          `,
+          lg: `
+            "head head-total sort"
+            "filters product-grid product-grid"
+            "filters pagination pagination"
+          `,
+        }}
         rowGap={'1rem'}
         columnGap={'5'}
         marginTop={'2rem'}
       >
-        <Box>
+        <Box as="section" gridArea={'head'} alignSelf={'center'}>
           <Heading
             as={'h3'}
             fontSize={'1em'}
             color={'gray.800'}
             fontWeight={'light'}
+            display={{ base: 'none', lg: 'block' }}
           >
             Filters
           </Heading>
+
+          <FiltersSideBar facets={facets} />
         </Box>
 
-        <Box>
+        <Box as="section" gridArea={'head-total'} alignSelf={'center'}>
           <Heading
             as={'h3'}
             fontSize={'1em'}
             color={'gray.800'}
             fontWeight={'light'}
+            textAlign={{ base: 'center', lg: 'left' }}
           >
             {totalProducts} results
           </Heading>
         </Box>
 
+        <Box as="section" gridArea={'sort'} justifySelf={'flex-end'}>
+          <Sort />
+        </Box>
+
         <SearchFilters
           filters={facets}
+          gridArea={'filters'}
           display={{ base: 'none', lg: 'block' }}
           height={'fit-content'}
           position={'sticky'}
