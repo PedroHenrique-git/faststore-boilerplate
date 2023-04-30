@@ -15,8 +15,11 @@ function generatePages(totalPages: number) {
 }
 
 export function usePagination() {
-  const { asPath, pathname, push } = useRouter();
+  const { asPath, pathname, push, query } = useRouter();
   const { totalPages, hasNextPage, hasPrevPage } = useAtomValue(paginationAtom);
+
+  const { slug } = query;
+  const path = slug ? (Array.isArray(slug) ? slug.join('/') : slug) : pathname;
 
   const [isMobile] = useMediaQuery(
     '(min-width: 280px) and (max-width: 640px)',
@@ -49,9 +52,9 @@ export function usePagination() {
         searchParams.set('end', String(slice.end));
       }
 
-      push(asPath, `${pathname}?${searchParams.toString()}`);
+      push(asPath, `${path}?${searchParams.toString()}`);
     },
-    [asPath, pathname, push, searchParams],
+    [asPath, path, push, searchParams],
   );
 
   const clearPagination = useCallback((searchParams: URLSearchParams) => {

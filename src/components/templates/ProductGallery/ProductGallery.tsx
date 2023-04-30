@@ -2,7 +2,9 @@ import { Box, Heading, Text } from '@chakra-ui/react';
 import {
   Filter_FacetsFragment,
   ProductSummary_ProductFragment,
+  StoreListItem,
 } from '@generated/graphql';
+import { Breadcrumb } from '@molecules/Breadcrumb';
 import { Pagination } from '@molecules/Pagination';
 import { Sort } from '@molecules/Sort';
 import { ProductGrid } from '@organisms/ProductGrid';
@@ -14,27 +16,37 @@ import { paginationAtom } from 'src/sdk/state';
 interface Props {
   facets: Filter_FacetsFragment[];
   products: ProductSummary_ProductFragment[];
+  breadcrumbItems?: StoreListItem[];
   term: string;
 }
 
-export const ProductGallery = ({ facets, products, term }: Props) => {
+export const ProductGallery = ({
+  facets = [],
+  products = [],
+  term = '',
+  breadcrumbItems = [],
+}: Props) => {
   const { totalProducts } = useAtomValue(paginationAtom);
 
   return (
     <>
-      <Box as="section" marginTop={'3rem'}>
-        <Heading
-          as={'h1'}
-          fontSize={'1.4em'}
-          color={'gray.800'}
-          fontWeight={'light'}
-        >
-          Showing results for:{' '}
-          <Text as={'span'} fontWeight={'bold'}>
-            {term}
-          </Text>
-        </Heading>
-      </Box>
+      {!!breadcrumbItems.length && <Breadcrumb items={breadcrumbItems} />}
+
+      {term && (
+        <Box as="section" marginTop={'1.5rem'}>
+          <Heading
+            as={'h1'}
+            fontSize={'1.4em'}
+            color={'gray.800'}
+            fontWeight={'light'}
+          >
+            Showing results for:{' '}
+            <Text as={'span'} fontWeight={'bold'}>
+              {term}
+            </Text>
+          </Heading>
+        </Box>
+      )}
 
       <Box
         as={'section'}

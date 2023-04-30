@@ -948,7 +948,9 @@ export type ProductDetailsFragment_ProductFragment = {
   gtin: string;
   description: string;
   slug: string;
+  releaseDate: string;
   id: string;
+  seo: { title: string; description: string; canonical: string };
   brand: { name: string; brandName: string };
   isVariantOf: {
     name: string;
@@ -1170,6 +1172,20 @@ export type ValidateSessionMutation = {
   } | null;
 };
 
+export type CollectionQueryVariables = Exact<{
+  slug: Scalars['String'];
+}>;
+
+export type CollectionQuery = {
+  collection: {
+    seo: { title: string; description: string };
+    breadcrumbList: {
+      itemListElement: Array<{ item: string; name: string; position: number }>;
+    };
+    meta: { selectedFacets: Array<{ key: string; value: string }> };
+  };
+};
+
 export type ProductPageQueryVariables = Exact<{
   locator: Array<IStoreSelectedFacet> | IStoreSelectedFacet;
 }>;
@@ -1181,7 +1197,9 @@ export type ProductPageQuery = {
     gtin: string;
     description: string;
     slug: string;
+    releaseDate: string;
     id: string;
+    seo: { title: string; description: string; canonical: string };
     brand: { name: string; brandName: string };
     isVariantOf: {
       name: string;

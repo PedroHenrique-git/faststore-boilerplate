@@ -21,6 +21,14 @@ export interface CmsPageByContentType<T = unknown> {
     versionStatus: string;
     sections: Array<CmsSection<T>>;
     parameters: Record<string, unknown>;
+    settings?: {
+      seo: {
+        title: string;
+        description: string;
+        slug: string;
+        canonical?: string;
+      };
+    };
   }>;
 }
 

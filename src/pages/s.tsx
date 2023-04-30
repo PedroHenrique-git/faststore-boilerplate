@@ -1,6 +1,8 @@
+import { config } from '@config/store';
 import { SearchQuery } from '@generated/graphql';
 import { ProductGallery } from '@templates/ProductGallery';
 import { useSetAtom } from 'jotai';
+import { NextSeo } from 'next-seo';
 import { ProductGallerySkeleton } from 'src/components/skeletons/ProductGallerySekeleton';
 import { DEFAULT_PER_PAGE } from 'src/sdk/constants';
 import { useSearch } from 'src/sdk/search/useSearch';
@@ -44,11 +46,29 @@ function Search() {
 
   const { facets, products } = searchResultAdapter(data);
 
+  const title = 'Search Results';
+  const { description, titleTemplate } = config.base.seo;
+
   if (isLoading) {
     return <ProductGallerySkeleton />;
   }
 
-  return <ProductGallery facets={facets} products={products} term={term} />;
+  return (
+    <>
+      <NextSeo
+        noindex
+        title={title}
+        description={description}
+        titleTemplate={titleTemplate}
+        openGraph={{
+          type: 'website',
+          title,
+          description,
+        }}
+      />
+      <ProductGallery facets={facets} products={products} term={term} />;
+    </>
+  );
 }
 
 export default Search;
