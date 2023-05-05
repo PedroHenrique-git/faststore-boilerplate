@@ -25,12 +25,12 @@ const getProductBySlug = (slug: string) =>
 const getCmsPdp = () => Cms.getAllCmsPagesByContentType('pdp');
 
 function Page({ slug }: Props) {
-  // TODO: revalidate data in the client side to include channel and local in the query
-  // product from server without channel and locale
   const {
     session: { currency },
   } = useSession();
 
+  // TODO: revalidate data in the client side to include channel and local in the query
+  // product from server without channel and locale
   const { data: productData, isError: productDataError } = useQuery({
     queryKey: slug,
     queryFn: () => getProductBySlug(slug),

@@ -13,7 +13,7 @@ import { useAtom } from 'jotai';
 import { useRef } from 'react';
 import { useFilter } from 'src/sdk/search';
 import { filterSideBarAtom } from 'src/sdk/state';
-import { SearchFilters } from './SearchFilters';
+import { SearchFilters } from '../SearchFilters';
 
 interface Props {
   facets: Filter_FacetsFragment[];

@@ -66,7 +66,8 @@ function Search() {
           description,
         }}
       />
-      <ProductGallery facets={facets} products={products} term={term} />;
+
+      <ProductGallery facets={facets} products={products} term={term} />
     </>
   );
 }

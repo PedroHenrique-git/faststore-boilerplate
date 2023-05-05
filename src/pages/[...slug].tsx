@@ -97,6 +97,7 @@ function Collection({ slug, metadataServer }: Props) {
           description,
         }}
       />
+
       <BreadcrumbJsonLd
         itemListElements={
           metadataServer?.collection.breadcrumbList.itemListElement ?? []
