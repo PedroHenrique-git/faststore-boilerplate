@@ -9,6 +9,7 @@ import { GetStaticPaths, GetStaticProps } from 'next';
 import { BreadcrumbJsonLd, NextSeo, ProductJsonLd } from 'next-seo';
 import { DehydratedState, QueryClient, dehydrate, useQuery } from 'react-query';
 import { ProductPageQuery as ProductPageQueryGql } from 'src/graphql/queries/ProductPageQuery';
+import { useProduct } from 'src/sdk/product';
 import { useSession } from 'src/sdk/session';
 import { graphqlClient } from 'src/server/graphql';
 
@@ -29,23 +30,31 @@ function Page({ slug }: Props) {
     session: { currency },
   } = useSession();
 
-  // TODO: revalidate data in the client side to include channel and local in the query
-  // product from server without channel and locale
-  const { data: productData, isError: productDataError } = useQuery({
-    queryKey: slug,
-    queryFn: () => getProductBySlug(slug),
-  });
+  const { data: productFromServer, isError: productFromServerError } = useQuery(
+    {
+      queryKey: slug,
+      queryFn: () => getProductBySlug(slug),
+    },
+  );
+
+  const { data: productFromClient, isError: productFromClientError } =
+    useProduct({ productID: productFromServer?.product.id ?? '' });
 
   const { data: productCms } = useQuery({
     queryKey: `${slug}-cms`,
     queryFn: getCmsPdp,
   });
 
-  if (productDataError || !productData) {
+  if (
+    productFromServerError ||
+    !productFromServer ||
+    productFromClientError ||
+    !productFromClient
+  ) {
     return null;
   }
 
-  const { product } = productData;
+  const { product } = productFromClient;
 
   const { seo } = product;
   const title = seo.title;
