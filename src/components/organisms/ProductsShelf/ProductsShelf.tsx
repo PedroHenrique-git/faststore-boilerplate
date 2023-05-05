@@ -3,7 +3,10 @@ import { ProductsQueryVariables } from '@generated/graphql';
 import ProductCard from '@molecules/ProductCard';
 import { Slider } from '@molecules/Slider';
 import { SplideProps } from '@splidejs/react-splide';
+import { useEffect, useRef } from 'react';
+import { useInView } from 'react-intersection-observer';
 import { ProductsShelfSkeleton } from 'src/components/skeletons/ProductsShelfSkeleton';
+import { useViewItemListEvent } from 'src/sdk/analytics/hooks/useViewItemListEvent';
 import { useProductsShelf } from 'src/sdk/product/useProductsShelf';
 
 interface Props extends SplideProps {
@@ -34,6 +37,9 @@ export const defaultSplideProps: SplideProps = {
 };
 
 export const ProductsShelf = ({ variables, title, ...splideProps }: Props) => {
+  const viewedOnce = useRef(false);
+  const { ref, inView } = useInView();
+
   const { data, isError, isLoading } = useProductsShelf({
     variables,
     key: title,
@@ -43,8 +49,23 @@ export const ProductsShelf = ({ variables, title, ...splideProps }: Props) => {
 
   const showSkeleton = isError || isLoading || !edges?.length;
 
+  const { sendViewItemListEvent } = useViewItemListEvent({
+    products: edges ?? [],
+    title,
+    page: 0,
+    pageSize: 0,
+  });
+
+  useEffect(() => {
+    if (inView && !viewedOnce.current && edges?.length) {
+      sendViewItemListEvent();
+
+      viewedOnce.current = true;
+    }
+  }, [inView, edges?.length, sendViewItemListEvent]);
+
   return (
-    <Box as="section" margin={'25px 0'}>
+    <Box as="section" margin={'25px 0'} ref={ref}>
       <Heading
         color={'blackAlpha.700'}
         fontSize={'2xl'}
