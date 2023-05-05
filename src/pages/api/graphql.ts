@@ -1,5 +1,4 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-
 import { config } from '@config/store';
 import { getContextFactory } from '@faststore/api';
 import { useDisableIntrospection } from '@graphql-yoga/plugin-disable-introspection';

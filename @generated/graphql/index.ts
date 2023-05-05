@@ -918,13 +918,39 @@ export type CartProductItemFragment = {
   }>;
 };
 
+export type Filter_Facets_StoreFacetBoolean_Fragment = {
+  __typename: 'StoreFacetBoolean';
+  key: string;
+  label: string;
+  values: Array<{
+    label: string;
+    value: string;
+    selected: boolean;
+    quantity: number;
+  }>;
+};
+
+export type Filter_Facets_StoreFacetRange_Fragment = {
+  __typename: 'StoreFacetRange';
+  key: string;
+  label: string;
+  min: { selected: number; absolute: number };
+  max: { selected: number; absolute: number };
+};
+
+export type Filter_FacetsFragment =
+  | Filter_Facets_StoreFacetBoolean_Fragment
+  | Filter_Facets_StoreFacetRange_Fragment;
+
 export type ProductDetailsFragment_ProductFragment = {
   sku: string;
   name: string;
   gtin: string;
   description: string;
   slug: string;
+  releaseDate: string;
   id: string;
+  seo: { title: string; description: string; canonical: string };
   brand: { name: string; brandName: string };
   isVariantOf: {
     name: string;
@@ -1146,6 +1172,20 @@ export type ValidateSessionMutation = {
   } | null;
 };
 
+export type CollectionQueryVariables = Exact<{
+  slug: Scalars['String'];
+}>;
+
+export type CollectionQuery = {
+  collection: {
+    seo: { title: string; description: string };
+    breadcrumbList: {
+      itemListElement: Array<{ item: string; name: string; position: number }>;
+    };
+    meta: { selectedFacets: Array<{ key: string; value: string }> };
+  };
+};
+
 export type ProductPageQueryVariables = Exact<{
   locator: Array<IStoreSelectedFacet> | IStoreSelectedFacet;
 }>;
@@ -1157,7 +1197,9 @@ export type ProductPageQuery = {
     gtin: string;
     description: string;
     slug: string;
+    releaseDate: string;
     id: string;
+    seo: { title: string; description: string; canonical: string };
     brand: { name: string; brandName: string };
     isVariantOf: {
       name: string;
@@ -1202,6 +1244,77 @@ export type ProductsQuery = {
   search: {
     products: {
       pageInfo: { totalCount: number };
+      edges: Array<{
+        node: {
+          slug: string;
+          sku: string;
+          name: string;
+          gtin: string;
+          id: string;
+          brand: { name: string; brandName: string };
+          isVariantOf: { productGroupID: string; name: string };
+          image: Array<{ url: string; alternateName: string }>;
+          offers: {
+            lowPrice: number;
+            offers: Array<{
+              availability: string;
+              price: number;
+              listPrice: number;
+              quantity: number;
+              seller: { identifier: string };
+            }>;
+          };
+          additionalProperty: Array<{
+            propertyID: string;
+            name: string;
+            value: any;
+            valueReference: string;
+          }>;
+        };
+      }>;
+    };
+  };
+};
+
+export type SearchQueryVariables = Exact<{
+  first: Scalars['Int'];
+  after: InputMaybe<Scalars['String']>;
+  sort: InputMaybe<StoreSort>;
+  term: InputMaybe<Scalars['String']>;
+  selectedFacets: InputMaybe<Array<IStoreSelectedFacet> | IStoreSelectedFacet>;
+}>;
+
+export type SearchQuery = {
+  search: {
+    facets: Array<
+      | {
+          __typename: 'StoreFacetBoolean';
+          key: string;
+          label: string;
+          values: Array<{
+            label: string;
+            value: string;
+            selected: boolean;
+            quantity: number;
+          }>;
+        }
+      | {
+          __typename: 'StoreFacetRange';
+          key: string;
+          label: string;
+          min: { selected: number; absolute: number };
+          max: { selected: number; absolute: number };
+        }
+    >;
+    metadata: { isTermMisspelled: boolean; logicalOperator: string } | null;
+    products: {
+      pageInfo: {
+        hasNextPage: boolean;
+        hasPreviousPage: boolean;
+        startCursor: string;
+        endCursor: string;
+        totalCount: number;
+      };
       edges: Array<{
         node: {
           slug: string;

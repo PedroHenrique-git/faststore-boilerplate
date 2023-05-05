@@ -17,6 +17,12 @@ export const StoreProductDetails: ComponentStory<
     <QueryClientProvider client={queryClient}>
       <ProductDetails
         product={{
+          releaseDate: '',
+          seo: {
+            canonical: '',
+            description: '',
+            title: '',
+          },
           brand: { brandName: 'adidas', name: 'adidas' },
           image: [
             {

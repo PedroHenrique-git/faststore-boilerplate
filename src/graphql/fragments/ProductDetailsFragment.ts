@@ -11,6 +11,13 @@ export const ProductDetailsFragment = gql`
     gtin
     description
     slug
+    releaseDate
+
+    seo {
+      title
+      description
+      canonical
+    }
 
     brand {
       brandName: name

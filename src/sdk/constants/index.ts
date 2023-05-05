@@ -1,5 +1,7 @@
 export const isServer = typeof window === 'undefined';
 
+export const MAX_PAGES_TO_SHOW = 5;
+export const DEFAULT_PER_PAGE = 12;
 export const SEARCH_STORE_KEY = 'fs::terms::history';
 export const CART_STORE_KEY = 'fs::cart';
 export const SESSION_STORE_KEY = 'fs::session';

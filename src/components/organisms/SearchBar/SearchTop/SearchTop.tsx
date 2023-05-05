@@ -1,5 +1,6 @@
 import { Badge, Heading, Link, List, ListItem } from '@chakra-ui/react';
 import NextLink from 'next/link';
+import { useSearchLink } from 'src/sdk/search';
 import { MAX_TOP_SEARCH_TERMS } from 'src/sdk/search/useSuggestions';
 
 interface Props {
@@ -7,6 +8,8 @@ interface Props {
 }
 
 export const SearchTop = ({ terms = [] }: Props) => {
+  const { getLinkProps } = useSearchLink();
+
   return (
     <>
       <Heading
@@ -37,7 +40,11 @@ export const SearchTop = ({ terms = [] }: Props) => {
             >
               {index + 1}
             </Badge>
-            <Link as={NextLink} href={`/${term.value}`} fontSize={'medium'}>
+            <Link
+              as={NextLink}
+              fontSize={'medium'}
+              {...getLinkProps({ term: term.value })}
+            >
               {term.value}
             </Link>
           </ListItem>

@@ -27,7 +27,7 @@ export const SearchBar = (props: BoxProps) => {
     await refetch();
 
     if (debouncedValue) {
-      push(`/${debouncedValue}`);
+      push(`/s?term=${debouncedValue}`);
     }
   };
 

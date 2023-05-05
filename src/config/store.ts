@@ -14,6 +14,13 @@ function generateConfig() {
   };
 
   const base = {
+    seo: {
+      title: 'Open store',
+      description: 'FastStore boilerplate',
+      titleTemplate: '%s | FastStore',
+      author: 'Store Framework',
+    },
+
     platform: 'vtex',
 
     storeName: 'Open store',
@@ -23,7 +30,7 @@ function generateConfig() {
     useLocalMyAccount: false,
 
     externalUrls: {
-      storeUrl: 'https://vtexfaststore.com',
+      storeUrl: 'https://faststore-boilerplate.vercel.app',
       secureSubdomain: 'https://secure.vtexfaststore.com',
       checkoutUrl: 'https://secure.vtexfaststore.com/checkout',
       loginUrl: 'https://secure.vtexfaststore.com/api/io/login',
