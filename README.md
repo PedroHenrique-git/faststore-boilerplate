@@ -1,15 +1,33 @@
-# next template
+# Faststore boilerplate
 
-a simple template to start next applications
+a starter to create headless applications using vtex apis
 
-### Technologies 
+### Features at the moment
 
-1. 	[nextjs](https://nextjs.org/)
+1. home
+2. pdp (product page)
+3. plp (product listing page)
+4. cms integration
+5. Seo
 
-2. [chakra-ui](https://chakra-ui.com/)
+### Future Features
 
-3. [react use](https://github.com/streamich/react-use)
+1. analytics
+2. e2e tests
+3. integrated login
+4. integrated my account
+5. integrated checkout
 
-4. [jest](https://jestjs.io/pt-BR/)
+### Technologies
 
-5. [storybook](https://storybook.js.org/)
+1.  [nextjs](https://nextjs.org/)
+
+2.  [chakra-ui](https://chakra-ui.com/)
+
+3.  [react use](https://github.com/streamich/react-use)
+
+4.  [jest](https://jestjs.io/pt-BR/)
+
+5.  [storybook](https://storybook.js.org/)
+
+6.  [react query](https://tanstack.com/query/v3/)
