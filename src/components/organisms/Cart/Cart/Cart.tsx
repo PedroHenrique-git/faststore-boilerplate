@@ -34,7 +34,11 @@ export const Cart = () => {
   const onOpen = () => setCartSideBar(true);
   const onClose = () => setCartSideBar(false);
 
-  useViewCartEvent({ items: items.concat(gifts), total });
+  useViewCartEvent({
+    items: items.concat(gifts),
+    total,
+    cartOpen: cartSidebar,
+  });
 
   return (
     <>

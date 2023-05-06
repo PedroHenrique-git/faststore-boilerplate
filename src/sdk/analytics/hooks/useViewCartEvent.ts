@@ -10,9 +10,10 @@ import { useSession } from 'src/sdk/session';
 interface Params {
   total: number;
   items: CartItem[];
+  cartOpen: boolean;
 }
 
-export function useViewCartEvent({ items, total }: Params) {
+export function useViewCartEvent({ items, total, cartOpen }: Params) {
   const {
     session: { currency },
   } = useSession();
@@ -40,6 +41,8 @@ export function useViewCartEvent({ items, total }: Params) {
   }, [currency.code, total, items]);
 
   useEffect(() => {
-    viewCart();
-  }, [viewCart]);
+    if (cartOpen) {
+      viewCart();
+    }
+  }, [cartOpen, viewCart]);
 }
