@@ -10,6 +10,7 @@ import '@fontsource/inter/700.css';
 import '@splidejs/react-splide/css';
 import React from 'react';
 import { Layout } from 'src/components/Layout';
+import AnalyticsHandler from 'src/sdk/analytics';
 
 export default function App({ Component, pageProps }: AppProps) {
   const [queryClient] = React.useState(
@@ -27,6 +28,8 @@ export default function App({ Component, pageProps }: AppProps) {
     <QueryClientProvider client={queryClient}>
       <Hydrate state={pageProps.dehydratedState}>
         <ChakraProvider resetCSS theme={theme}>
+          <AnalyticsHandler />
+
           <Layout>
             <Component {...pageProps} />
           </Layout>

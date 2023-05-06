@@ -1,13 +1,18 @@
 import { Button, HStack, Input, useNumberInput } from '@chakra-ui/react';
-import { useCart } from 'src/sdk/cart';
+import { useCartItemEvent } from 'src/sdk/analytics/hooks/useCartItemEvent';
+import { CartItem, useCart } from 'src/sdk/cart';
 
 interface Props {
   initialQuantity: number;
-  itemId: string;
+  item: CartItem;
 }
 
-export const QuantitySelector = ({ initialQuantity = 1, itemId }: Props) => {
+export const QuantitySelector = ({ initialQuantity = 1, item }: Props) => {
   const { updateItemQuantity, isMutating } = useCart();
+
+  const { id: itemId } = item;
+
+  const { sendCartItemEvent } = useCartItemEvent();
 
   const {
     getInputProps,
@@ -31,6 +36,7 @@ export const QuantitySelector = ({ initialQuantity = 1, itemId }: Props) => {
         onClick={(e) => {
           dec?.onClick?.(e);
           updateItemQuantity(valueAsNumber, itemId);
+          sendCartItemEvent(item, valueAsNumber);
         }}
         disabled={isMutating}
       >
@@ -42,6 +48,7 @@ export const QuantitySelector = ({ initialQuantity = 1, itemId }: Props) => {
         onClick={(e) => {
           inc?.onClick?.(e);
           updateItemQuantity(valueAsNumber, itemId);
+          sendCartItemEvent(item, valueAsNumber);
         }}
         disabled={isMutating}
       >

@@ -15,6 +15,7 @@ import {
 import { useAtom } from 'jotai';
 import { useRef } from 'react';
 import { AiOutlineGift, AiOutlineShoppingCart } from 'react-icons/ai';
+import { useViewCartEvent } from 'src/sdk/analytics/hooks/useViewCartEvent';
 import { useCart } from 'src/sdk/cart';
 import { cartSidebarAtom } from 'src/sdk/state';
 import { CartEmpty } from '../CartEmpty/CartEmpty';
@@ -32,6 +33,8 @@ export const Cart = () => {
 
   const onOpen = () => setCartSideBar(true);
   const onClose = () => setCartSideBar(false);
+
+  useViewCartEvent({ items: items.concat(gifts), total });
 
   return (
     <>

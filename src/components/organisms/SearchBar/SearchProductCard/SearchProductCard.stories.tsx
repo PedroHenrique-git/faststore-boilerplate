@@ -17,7 +17,10 @@ export const StoreSearchProductCard: ComponentStory<
     <QueryClientProvider client={queryClient}>
       <List>
         <SearchProductCart
+          index={0}
           product={{
+            gtin: '',
+            sku: '',
             isVariantOf: {
               name: '',
               productGroupID: '',

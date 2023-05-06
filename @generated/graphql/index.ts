@@ -986,6 +986,8 @@ export type ProductDetailsFragment_ProductFragment = {
 export type ProductFragment = {
   slug: string;
   name: string;
+  sku: string;
+  gtin: string;
   description: string;
   image: Array<{ url: string; alternateName: string }>;
   brand: { name: string };
@@ -1086,6 +1088,8 @@ export type SuggestionsFragment = {
   products: Array<{
     slug: string;
     name: string;
+    sku: string;
+    gtin: string;
     description: string;
     image: Array<{ url: string; alternateName: string }>;
     brand: { name: string };
@@ -1362,6 +1366,8 @@ export type SearchSuggestionsQuery = {
       products: Array<{
         slug: string;
         name: string;
+        sku: string;
+        gtin: string;
         description: string;
         image: Array<{ url: string; alternateName: string }>;
         brand: { name: string };

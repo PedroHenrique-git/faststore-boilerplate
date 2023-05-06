@@ -1,5 +1,6 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { QueryClient, QueryClientProvider } from 'react-query';
+import { CartItem } from 'src/sdk/cart';
 import { QuantitySelector } from './QuantitySelector';
 
 export default {
@@ -14,7 +15,7 @@ export const StoreQuantitySelector: ComponentStory<
 > = () => {
   return (
     <QueryClientProvider client={queryClient}>
-      <QuantitySelector initialQuantity={10} itemId="" />
+      <QuantitySelector initialQuantity={10} item={{} as CartItem} />
     </QueryClientProvider>
   );
 };

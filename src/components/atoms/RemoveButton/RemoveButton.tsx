@@ -1,13 +1,14 @@
 import { Button } from '@chakra-ui/react';
 import { CiCircleRemove } from 'react-icons/ci';
+import { CartItem } from 'src/sdk/cart';
 import { useRemoveButton } from 'src/sdk/cart/useRemoveButton';
 
 interface Props {
-  itemId: string;
+  item: CartItem;
 }
 
-export const RemoveButton = ({ itemId }: Props) => {
-  const props = useRemoveButton(itemId);
+export const RemoveButton = ({ item }: Props) => {
+  const props = useRemoveButton(item);
 
   return (
     <Button

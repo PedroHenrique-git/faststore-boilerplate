@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "clean": "rm -r .next",
     "gen:theme-typings": "chakra-cli tokens ./src/styles/theme.ts",
     "generate": "graphql-codegen",
     "postinstall": "npm run gen:theme-typings",
@@ -59,6 +60,7 @@
     "react-hook-form": "^7.43.9",
     "react-icons": "^4.8.0",
     "react-input-mask": "^2.0.4",
+    "react-intersection-observer": "^9.4.3",
     "react-query": "^3.39.3",
     "react-use": "^17.4.0",
     "storybook-addon-next-router": "^4.0.2",
@@ -68,6 +70,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.20.7",
+    "@builder.io/partytown": "^0.8.0",
     "@chakra-ui/cli": "^2.3.0",
     "@chakra-ui/storybook-addon": "^4.0.16",
     "@commitlint/cli": "^17.3.0",

@@ -4,6 +4,9 @@ const nextConfig = {
   images: {
     domains: ['storeframework.vtexassets.com'],
   },
+  experimental: {
+    nextScriptWorkers: true,
+  },
   webpack: (config, { isServer, dev }) => {
     if (!isServer && !dev && config.optimization?.splitChunks) {
       config.optimization.splitChunks.maxInitialRequests = 1;

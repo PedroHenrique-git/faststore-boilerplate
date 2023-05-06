@@ -44,6 +44,10 @@ function generateConfig() {
       hideUnavailableItems: true,
     },
 
+    analytics: {
+      gtmContainerId: 'GTM-PGHZ95N',
+    },
+
     session: {
       currency: {
         code: 'USD',

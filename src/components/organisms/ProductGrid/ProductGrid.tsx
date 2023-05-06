@@ -14,8 +14,8 @@ export const ProductGrid = ({ products }: Props) => {
       spacing="10px"
       gridArea={'product-grid'}
     >
-      {products.map((product) => (
-        <ProductCard key={product.id} product={product} />
+      {products.map((product, index) => (
+        <ProductCard key={product.id} product={product} index={index} />
       ))}
     </SimpleGrid>
   );

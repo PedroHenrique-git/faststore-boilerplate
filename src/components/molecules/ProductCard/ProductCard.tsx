@@ -19,9 +19,10 @@ import { useProductLink } from 'src/sdk/product/useProductLink';
 
 interface Props {
   product: ProductSummary_ProductFragment;
+  index: number;
 }
 
-const ProductCard = ({ product }: Props) => {
+const ProductCard = ({ product, index }: Props) => {
   const {
     name,
     image: [firstImage],
@@ -32,7 +33,7 @@ const ProductCard = ({ product }: Props) => {
   } = product;
 
   const { formatter } = useFormatPrice();
-  const props = useProductLink(product);
+  const props = useProductLink({ product, selectedOffer: 0, index });
 
   return (
     <Card boxShadow={0} border={'1px solid'} borderColor={'gray.200'}>

@@ -49,7 +49,7 @@ function Home() {
           },
         ]}
       />
-      <HomePage cmsHome={data?.data?.[0] ?? null} />;
+      <HomePage cmsHome={data?.data?.[0] ?? null} />
     </>
   );
 }
