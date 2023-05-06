@@ -7,9 +7,10 @@ import { useProductLink } from 'src/sdk/product/useProductLink';
 
 interface Props {
   product: ProductFragment;
+  index: number;
 }
 
-export const SearchProductCart = ({ product }: Props) => {
+export const SearchProductCart = ({ product, index }: Props) => {
   const {
     name,
     image: [firstImage],
@@ -20,7 +21,7 @@ export const SearchProductCart = ({ product }: Props) => {
   } = product;
 
   const { formatter } = useFormatPrice();
-  const props = useProductLink(product);
+  const props = useProductLink({ product, index, selectedOffer: 0 });
 
   return (
     <ListItem>

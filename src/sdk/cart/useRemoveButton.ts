@@ -1,16 +1,22 @@
 import { MouseEvent, useCallback } from 'react';
+import { useRemoveButtonEvent } from '../analytics/hooks/useRemoveButtonEvent';
 import { useCart } from './useCart';
+import { CartItem } from './useValidationCart';
 
-export function useRemoveButton(itemId: string | null) {
+export function useRemoveButton(item: CartItem) {
   const { removeFromCart, isMutating } = useCart();
+
+  const { sendRemoveButtonEvent } = useRemoveButtonEvent();
 
   const onClick = useCallback(
     (event: MouseEvent<HTMLButtonElement>) => {
       event.preventDefault();
 
-      itemId && removeFromCart(itemId);
+      sendRemoveButtonEvent(item);
+
+      item && removeFromCart(item.id);
     },
-    [itemId, removeFromCart],
+    [item, removeFromCart, sendRemoveButtonEvent],
   );
 
   return {

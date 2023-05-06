@@ -17,6 +17,8 @@ export const StoreSearchSuggestions: ComponentStory<
       <SearchSuggestions
         products={[
           {
+            gtin: '',
+            sku: '',
             isVariantOf: {
               name: '',
               productGroupID: '',

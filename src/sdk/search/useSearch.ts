@@ -3,6 +3,7 @@ import { useMemo } from 'react';
 import { useQuery } from 'react-query';
 import { SearchQuery as SearchQueryGql } from 'src/graphql/queries/SearchQuery';
 import { graphqlClient } from 'src/server/graphql';
+import { useIntelligentSearchEvent } from '../analytics/hooks/useIntelligentSearchEvent';
 import { useSession } from '../session';
 
 interface Params {
@@ -40,6 +41,12 @@ export function useSearch({ variables, onSuccess }: Params) {
   const { after, first, selectedFacets, sort, term } =
     useLocalizedVariables(variables);
 
+  const {
+    session: { locale },
+  } = useSession();
+
+  const { sendIntelligentSearchEvent } = useIntelligentSearchEvent();
+
   const { data, isLoading, isError, refetch } = useQuery({
     queryKey: [`search`, after, first, selectedFacets, sort, term],
     queryFn: () => {
@@ -54,7 +61,20 @@ export function useSearch({ variables, onSuccess }: Params) {
         },
       );
     },
-    onSuccess,
+    onSuccess(data) {
+      if (data && term) {
+        sendIntelligentSearchEvent({
+          term,
+          url: window.location.href,
+          totalCount: data.search.products.pageInfo.totalCount,
+          isTermMisspelled: data.search.metadata?.isTermMisspelled ?? false,
+          logicalOperator: data.search.metadata?.logicalOperator ?? 'and',
+          locale,
+        });
+      }
+
+      onSuccess(data);
+    },
   });
 
   return {

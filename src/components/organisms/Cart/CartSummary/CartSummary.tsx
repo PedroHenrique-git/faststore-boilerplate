@@ -17,7 +17,6 @@ export const CartSummary = ({ item }: Props) => {
   }
 
   const {
-    id,
     listPrice,
     price,
     itemOffered: {
@@ -50,8 +49,8 @@ export const CartSummary = ({ item }: Props) => {
         </Flex>
 
         <Flex marginTop={'8'} justifyContent={'space-between'}>
-          <RemoveButton itemId={item.id} />
-          <QuantitySelector initialQuantity={quantity} itemId={id} />
+          <RemoveButton item={item} />
+          <QuantitySelector initialQuantity={quantity} item={item} />
         </Flex>
       </Flex>
     </ListItem>

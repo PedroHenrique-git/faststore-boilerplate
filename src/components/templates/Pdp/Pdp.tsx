@@ -5,6 +5,7 @@ import { ProductDetails } from '@molecules/ProductDetails';
 import { ProductImages } from '@molecules/ProductImages';
 import { CmsPage } from '@services/cms/types';
 import { RenderCmsSections } from 'src/components/cms';
+import { useProductDetailsEvent } from 'src/sdk/analytics/hooks/useProductDetailsEvent';
 
 interface Props {
   product: ProductDetailsFragment_ProductFragment;
@@ -12,6 +13,8 @@ interface Props {
 }
 
 export const Pdp = ({ product, cmsPdp }: Props) => {
+  useProductDetailsEvent({ product });
+
   return (
     <>
       <Breadcrumb items={product.breadcrumbList.itemListElement} />

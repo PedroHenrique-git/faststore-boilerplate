@@ -4,6 +4,8 @@ export const ProductFragment = gql`
   fragment Product on StoreProduct {
     slug
     name
+    sku
+    gtin
 
     image {
       url

@@ -21,6 +21,7 @@ export const StoreProductCard: ComponentStory<typeof ProductCard> = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <ProductCard
+        index={0}
         product={{
           brand: { brandName: 'adidas', name: 'adidas' },
           image: [

@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "clean": "rm -r .next",
     "gen:theme-typings": "chakra-cli tokens ./src/styles/theme.ts",
     "generate": "graphql-codegen",
     "postinstall": "npm run gen:theme-typings",

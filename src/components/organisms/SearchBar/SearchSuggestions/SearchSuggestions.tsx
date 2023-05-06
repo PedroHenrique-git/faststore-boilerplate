@@ -30,8 +30,12 @@ export const SearchSuggestions = ({ products = [] }: Props) => {
         Suggested Products
       </Heading>
       <List paddingTop={'16px'}>
-        {products.map((product) => (
-          <SearchProductCart product={product} key={product.name} />
+        {products.map((product, index) => (
+          <SearchProductCart
+            product={product}
+            key={product.name}
+            index={index}
+          />
         ))}
       </List>
     </>
