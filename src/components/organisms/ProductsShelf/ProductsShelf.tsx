@@ -65,7 +65,7 @@ export const ProductsShelf = ({ variables, title, ...splideProps }: Props) => {
   }, [inView, edges?.length, sendViewItemListEvent]);
 
   return (
-    <Box as="section" margin={'25px 0'} ref={ref}>
+    <Box as="section" margin={'25px 0'} ref={ref} data-testid="product-shelf">
       <Heading
         color={'blackAlpha.700'}
         fontSize={'2xl'}

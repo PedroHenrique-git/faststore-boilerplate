@@ -22,7 +22,7 @@ export const HeroCard = ({
 }: Props) => {
   if (renderAsSection) {
     return (
-      <Box as="section">
+      <Box as="section" data-testid="hero-card">
         <CardItem
           imageAlt={imageAlt}
           imageSrc={imageSrc}
@@ -37,6 +37,7 @@ export const HeroCard = ({
 
   return (
     <CardItem
+      data-testid="hero-card"
       imageAlt={imageAlt}
       imageSrc={imageSrc}
       link={link}

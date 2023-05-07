@@ -7,7 +7,7 @@ interface Props {
 
 export const Carousel = ({ images }: Props) => {
   return (
-    <Box as="section" marginTop={'5'}>
+    <Box as="section" marginTop={'5'} data-testid="carousel">
       <Slider
         splideProps={{
           'aria-label': 'Banners home',

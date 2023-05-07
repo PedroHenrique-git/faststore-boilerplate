@@ -13,6 +13,7 @@ export const SearchFilters = ({ filters, ...accordionProps }: Props) => {
       as={'section'}
       allowMultiple
       defaultIndex={[]}
+      data-testid="filters"
       {...accordionProps}
     >
       {filters.map((filter, index) =>

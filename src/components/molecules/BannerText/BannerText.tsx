@@ -23,6 +23,7 @@ export const BannerText = ({
       background={'gray.100'}
       padding={'1.5rem'}
       margin={'3rem 0'}
+      data-testid="banner-text"
     >
       <Flex direction={'column'} gap={'1'} marginBottom={'20'}>
         <Text fontSize={'2xl'} fontWeight={'bold'}>

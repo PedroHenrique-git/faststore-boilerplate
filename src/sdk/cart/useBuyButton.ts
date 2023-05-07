@@ -21,6 +21,7 @@ export function useBuyButton(item: CartItem | null) {
 
   return {
     onClick,
+    'data-testid': 'buy-button',
     disabled: isMutating,
   };
 }

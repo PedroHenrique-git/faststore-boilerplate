@@ -50,6 +50,7 @@ export const SearchBar = (props: BoxProps) => {
       position={'relative'}
       ref={ref}
       zIndex={99}
+      data-testid="search-bar"
       {...props}
     >
       <chakra.form

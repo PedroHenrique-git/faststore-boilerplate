@@ -24,7 +24,12 @@ export const Pagination = () => {
   const { end, start } = slice.current;
 
   return (
-    <Box as="section" marginTop={'3'} gridArea={'pagination'}>
+    <Box
+      as="section"
+      marginTop={'3'}
+      gridArea={'pagination'}
+      data-testid="pagination"
+    >
       <List display={'flex'} gap={'3'}>
         <ListItem>
           <Button

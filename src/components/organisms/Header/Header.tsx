@@ -21,6 +21,7 @@ export const Header = ({ menuLinks }: Props) => {
         position={'sticky'}
         top={0}
         zIndex={999}
+        data-testid="header"
       >
         <Container
           maxWidth={'container.xl'}
