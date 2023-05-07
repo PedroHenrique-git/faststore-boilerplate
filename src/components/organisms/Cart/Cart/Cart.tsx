@@ -80,7 +80,10 @@ export const Cart = () => {
         size={'sm'}
       >
         <DrawerOverlay />
-        <DrawerContent data-testid="minicart-sidebar">
+        <DrawerContent
+          data-testid="minicart-sidebar"
+          data-items-on-cart={totalItems}
+        >
           <DrawerCloseButton />
 
           {items.length ? (

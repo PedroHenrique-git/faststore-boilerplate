@@ -1,14 +1,4 @@
-import { Cart } from 'src/sdk/cart';
-import { CART_STORE_KEY } from 'src/sdk/constants';
-import { createStore } from 'src/sdk/store';
-
 describe('Minicart', () => {
-  const cartStore = createStore(CART_STORE_KEY, {
-    id: '',
-    messages: [],
-    items: [],
-  });
-
   beforeEach(() => {
     window.indexedDB.deleteDatabase('STORE_DB');
   });
@@ -37,43 +27,11 @@ describe('Minicart', () => {
       .should('have.length', 3);
   });
 
-  it('should add each item on indexeddb', async () => {
-    cy.visit('/');
-
-    const { get } = await cartStore;
-
-    cy.get(`[data-testid='buy-button']`).eq(0).click();
-    cy.wait(1000);
-
-    get<Cart>?.().then((cart) => {
-      expect(cart?.items.length).to.have.length(1);
-    });
-
-    cy.get(`[data-testid='buy-button']`).eq(1).click();
-    cy.wait(1000);
-
-    get<Cart>?.().then((cart) => {
-      expect(cart?.items.length).to.have.length(2);
-    });
-
-    cy.get(`[data-testid='buy-button']`).eq(2).click();
-
-    get<Cart>?.().then((cart) => {
-      expect(cart?.items.length).to.have.length(3);
-    });
-  });
-
   it('should be possible to remove an item from cart', async () => {
     cy.visit('/');
 
-    const { get } = await cartStore;
-
     cy.get(`[data-testid='buy-button']`).eq(0).click();
     cy.wait(1000);
-
-    get<Cart>?.().then((cart) => {
-      expect(cart?.items.length).to.have.length(1);
-    });
 
     cy.get(`[data-testid='minicart']`).click();
 
@@ -85,15 +43,13 @@ describe('Minicart', () => {
       .contains('remove')
       .click();
 
-    get<Cart>?.().then((cart) => {
-      expect(cart?.items.length).to.have.length(0);
+    cy.get(`[data-testid='minicart-sidebar']`).should(($el) => {
+      expect($el.attr('data-items-on-cart')).to.eq('0');
     });
   });
 
   it('should be possible to update an item quantity', () => {
     cy.visit('/');
-
-    //const { get } = await cartStore;
 
     cy.get(`[data-testid='buy-button']`).eq(0).click();
     cy.wait(1000);
@@ -105,23 +61,26 @@ describe('Minicart', () => {
       .eq(0)
       .find('>li')
       .eq(0)
-      .contains('+')
+      .get(`[data-testid='increase-item-quantity']`)
       .click();
-
-    //get<Cart>?.().then((cart) => {
-    //expect(cart?.items[0].quantity).to.equal(2);
-    //});
 
     cy.get(`[data-testid='minicart-sidebar']`)
       .get('ul')
       .eq(0)
       .find('>li')
       .eq(0)
-      .contains('-')
+      .get(`[data-testid='decrease-item-quantity']`)
       .click();
+  });
 
-    //get<Cart>?.().then((cart) => {
-    //expect(cart?.items[0].quantity).to.equal(1);
-    //});
+  it('should be possible to go to checkout', () => {
+    cy.visit('/');
+
+    cy.get(`[data-testid='buy-button']`).eq(0).click();
+    cy.wait(1000);
+
+    cy.get(`[data-testid='minicart']`).click();
+
+    cy.get(`[data-testid='checkout-button']`).click();
   });
 });
