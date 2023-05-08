@@ -8,7 +8,6 @@ import {
 } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import { FormEvent, useRef } from 'react';
-import { useSearchTermEvent } from 'src/sdk/analytics/hooks/useSearchTermEvent';
 import { useDebouncedValue } from 'src/sdk/helpers/useDebouncedValue';
 import { useSuggestion } from 'src/sdk/search/useSuggestions';
 import { SearchHistory } from '../SearchHistory/SearchHistory';
@@ -22,7 +21,6 @@ export const SearchBar = (props: BoxProps) => {
   const { debouncedValue, setValue } = useDebouncedValue('');
   const ref = useRef<HTMLDivElement | null>(null);
   const { push } = useRouter();
-  const { sendSearchTermEvent } = useSearchTermEvent();
 
   const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -30,7 +28,6 @@ export const SearchBar = (props: BoxProps) => {
 
     if (debouncedValue) {
       push(`/s?term=${debouncedValue}`);
-      sendSearchTermEvent(debouncedValue);
     }
   };
 

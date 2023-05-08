@@ -36,7 +36,12 @@ const ProductCard = ({ product, index }: Props) => {
   const props = useProductLink({ product, selectedOffer: 0, index });
 
   return (
-    <Card boxShadow={0} border={'1px solid'} borderColor={'gray.200'}>
+    <Card
+      boxShadow={0}
+      border={'1px solid'}
+      borderColor={'gray.200'}
+      data-testid="product-card"
+    >
       <CardBody>
         <Image
           src={firstImage.url}

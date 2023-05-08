@@ -27,7 +27,7 @@ describe('Minicart', () => {
       .should('have.length', 3);
   });
 
-  it('should be possible to remove an item from cart', async () => {
+  it('should be possible to remove an item from cart', () => {
     cy.visit('/');
 
     cy.get(`[data-testid='buy-button']`).eq(0).click();
@@ -40,7 +40,7 @@ describe('Minicart', () => {
       .eq(0)
       .find('>li')
       .eq(0)
-      .contains('remove')
+      .get(`[data-testid='remove-from-cart']`)
       .click();
 
     cy.get(`[data-testid='minicart-sidebar']`).should(($el) => {
@@ -84,3 +84,5 @@ describe('Minicart', () => {
     cy.get(`[data-testid='checkout-button']`).click();
   });
 });
+
+export {};

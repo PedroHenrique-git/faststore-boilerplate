@@ -21,6 +21,7 @@ export function useRemoveButton(item: CartItem) {
 
   return {
     onClick,
+    'data-testid': 'remove-from-cart',
     disabled: isMutating,
   };
 }
