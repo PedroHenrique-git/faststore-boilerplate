@@ -1,5 +1,5 @@
 interface DataLayerEvent extends Record<string, unknown> {
-  event: string;
+  event?: string;
 }
 
 interface Window extends Window {
