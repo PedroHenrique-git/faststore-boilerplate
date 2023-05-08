@@ -29,6 +29,7 @@ describe('Analytics', () => {
       .find('>li')
       .eq(0)
       .get(`[data-testid='remove-from-cart']`)
+      .eq(0)
       .click();
 
     cy.window().then((window) => {
