@@ -32,6 +32,7 @@ export const CartSummary = ({ item }: Props) => {
       border={'1px solid'}
       borderColor={'gray.200'}
       padding={'3'}
+      data-item-quantity={quantity}
     >
       <Flex as={'article'} direction={'column'}>
         <Flex gap={'5'} alignItems={'center'}>

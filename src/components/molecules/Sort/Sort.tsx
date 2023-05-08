@@ -20,7 +20,9 @@ export const Sort = () => {
 
   return (
     <Menu>
-      <MenuButton as={Button}>{OptionsMap[sort]}</MenuButton>
+      <MenuButton as={Button} data-testid="sort">
+        {OptionsMap[sort]}
+      </MenuButton>
       <MenuList>
         {keys.map((key) => (
           <MenuItem key={key} onClick={() => changeSort(key)}>

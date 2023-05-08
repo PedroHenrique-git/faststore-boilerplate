@@ -87,6 +87,7 @@ export const Newsletter = (props: Props) => {
       marginTop={'3rem'}
       background={'gray.100'}
       gap={'10'}
+      data-testid="newsletter"
     >
       <Flex direction={'column'} w={{ base: '100%', lg: '50%' }}>
         <Text fontSize={'2xl'} fontWeight={'bold'} textAlign={'left'}>

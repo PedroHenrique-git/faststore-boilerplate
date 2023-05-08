@@ -14,9 +14,9 @@ a starter to create headless applications using vtex apis
 
 1. analytics
 2. e2e tests
-3. integrated login
-4. integrated my account
-5. integrated checkout
+3. integration login
+4. integration my account
+5. integration checkout
 
 ### Technologies
 

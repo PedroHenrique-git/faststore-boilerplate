@@ -5,6 +5,7 @@ import {
 import { useQuery } from 'react-query';
 import { SearchProduct } from 'src/graphql/queries/SearchSuggestions';
 import { graphqlClient } from 'src/server/graphql';
+import { useSearchTermEvent } from '../analytics/hooks/useSearchTermEvent';
 import { useSearchHistory } from './useSearchHistory';
 
 export const MAX_TOP_SEARCH_TERMS = 5;
@@ -15,6 +16,7 @@ interface Params {
 }
 
 export function useSuggestion({ term, clear }: Params) {
+  const { sendSearchTermEvent } = useSearchTermEvent();
   const { add } = useSearchHistory();
 
   const { data, isLoading, isError, refetch } = useQuery({
@@ -30,6 +32,7 @@ export function useSuggestion({ term, clear }: Params) {
     },
     onSuccess: () => {
       if (term) {
+        sendSearchTermEvent(term);
         add({ value: term });
         clear?.();
       }

@@ -51,6 +51,7 @@ export const Cart = () => {
         position={'relative'}
         leftIcon={<AiOutlineShoppingCart size={30} color="#000000A3" />}
         padding={0}
+        data-testid="minicart"
       >
         <Text
           borderRadius={'full'}
@@ -79,7 +80,10 @@ export const Cart = () => {
         size={'sm'}
       >
         <DrawerOverlay />
-        <DrawerContent>
+        <DrawerContent
+          data-testid="minicart-sidebar"
+          data-items-on-cart={totalItems}
+        >
           <DrawerCloseButton />
 
           {items.length ? (

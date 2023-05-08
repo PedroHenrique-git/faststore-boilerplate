@@ -10,6 +10,7 @@ export const Footer = () => {
       borderColor={'gray.100'}
       marginTop={'20'}
       padding={'2.5rem 0'}
+      data-testid="footer"
     >
       <Container maxWidth={'container.xl'}>
         <Flex justifyContent={'space-between'}>

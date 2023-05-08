@@ -22,6 +22,7 @@ export function useCheckoutButton() {
 
   return {
     onClick,
+    'data-testid': 'checkout-button',
     isLoading: isValidating || isMutating,
   };
 }

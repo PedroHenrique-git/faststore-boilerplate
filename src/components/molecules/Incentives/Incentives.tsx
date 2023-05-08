@@ -36,6 +36,7 @@ export const Incentives = ({ incentives = [] }: Props) => {
       overflowX={'auto'}
       scrollBehavior={'smooth'}
       scrollSnapType={'mandatory'}
+      data-testid="incentives"
     >
       {incentives.map((incentive) => (
         <Flex

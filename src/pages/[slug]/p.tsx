@@ -106,7 +106,7 @@ function Page({ slug }: Props) {
           url: canonical,
         }}
       />
-      <Pdp product={product} cmsPdp={productCms?.data?.[0] ?? null} />;
+      <Pdp product={product} cmsPdp={productCms?.data?.[0] ?? null} />
     </>
   );
 }

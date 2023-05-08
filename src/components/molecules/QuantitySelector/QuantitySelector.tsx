@@ -39,6 +39,7 @@ export const QuantitySelector = ({ initialQuantity = 1, item }: Props) => {
           sendCartItemEvent(item, valueAsNumber);
         }}
         disabled={isMutating}
+        data-testid="decrease-item-quantity"
       >
         -
       </Button>
@@ -51,6 +52,7 @@ export const QuantitySelector = ({ initialQuantity = 1, item }: Props) => {
           sendCartItemEvent(item, valueAsNumber);
         }}
         disabled={isMutating}
+        data-testid="increase-item-quantity"
       >
         +
       </Button>

@@ -25,6 +25,7 @@ export const Breadcrumb = ({ items }: Props) => {
           display: 'none',
         },
       }}
+      data-testid="breadcrumb"
     >
       {items.map((item) => (
         <BreadcrumbItem key={item.position} flexShrink={0}>
