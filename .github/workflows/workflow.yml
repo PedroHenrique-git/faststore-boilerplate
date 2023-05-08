@@ -21,4 +21,4 @@ jobs:
           start: yarn start
           wait-on: 'http://localhost:3000'
     env:
-      NEXT_PUBLIC_HOST: 'http://localhost:3000'
+      NEXT_PUBLIC_HOST: 'http://127.0.0.1:3000'
