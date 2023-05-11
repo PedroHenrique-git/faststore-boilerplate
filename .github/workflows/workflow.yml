@@ -24,7 +24,6 @@ jobs:
       NEXT_PUBLIC_HOST: 'http://127.0.0.1:3000'
   lighthouse:
     name: Lighthouse CI
-    id: lighthouse_audit
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -34,6 +33,7 @@ jobs:
         run: yarn
 
       - name: lighthouse mobile audit
+        id: lighthouse_audit
         run: yarn lhci:mobile
         env:
           LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
