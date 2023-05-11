@@ -1,3 +1,4 @@
+import { EmptySearch } from '@atoms/EmptySearch';
 import { Box, Heading, Text } from '@chakra-ui/react';
 import {
   Filter_FacetsFragment,
@@ -27,6 +28,10 @@ export const ProductGallery = ({
   breadcrumbItems = [],
 }: Props) => {
   const { totalProducts } = useAtomValue(paginationAtom);
+
+  if (totalProducts === 0) {
+    return <EmptySearch />;
+  }
 
   return (
     <>
