@@ -26,11 +26,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - name: Install & Build & Start
+        run: |
+          yarn
+          yarn build
+          yarn start
       - name: Audit URLs using Lighthouse
         uses: treosh/lighthouse-ci-action@v10
         with:
           urls: |
-            https://faststore-boilerplate.vercel.app/
-            https://faststore-boilerplate.vercel.app/adidas
+            http://localhost:3000/
+            http://localhost:3000/adidas
           uploadArtifacts: true
           temporaryPublicStorage: true
