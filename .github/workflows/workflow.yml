@@ -7,7 +7,7 @@ on:
     branches: [master]
 
 jobs:
-  install:
+  tests:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -20,5 +20,18 @@ jobs:
           build: yarn build
           start: yarn start
           wait-on: 'http://localhost:3000'
+    env:
+      NEXT_PUBLIC_HOST: 'http://127.0.0.1:3000'
+  lighthouse:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Lighthouse
+        uses: foo-software/lighthouse-check-action@master
+        with:
+          build: yarn build
+          start: yarn start
+          wait-on: 'http://localhost:3000'
+          urls: 'http://localhost:3000,http://localhost:3000/adidas'
     env:
       NEXT_PUBLIC_HOST: 'http://127.0.0.1:3000'
