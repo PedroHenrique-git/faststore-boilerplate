@@ -26,16 +26,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Install & Build & Start
-        run: |
-          yarn
-          yarn build
-          yarn start
       - name: Audit URLs using Lighthouse
         uses: treosh/lighthouse-ci-action@v10
         with:
+          build: yarn build
+          start: yarn start
+          wait-on: 'http://localhost:3000'
           urls: |
             http://localhost:3000/
             http://localhost:3000/adidas
+            http://localhost:3000/s?term=adidas
+            http://localhost:3000/4k-philips-monitor-99988213/p
           uploadArtifacts: true
           temporaryPublicStorage: true
+    env:
+      NEXT_PUBLIC_HOST: 'http://127.0.0.1:3000'
