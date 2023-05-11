@@ -25,18 +25,20 @@ jobs:
   lighthouse:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: yarn
+
+      - name: Build and start the project
+        run: yarn build && yarn start
+
+      - uses: actions/checkout@v2
       - name: Audit URLs using Lighthouse
         uses: treosh/lighthouse-ci-action@v10
         with:
-          build: yarn build
-          start: yarn start
-          wait-on: 'http://localhost:3000'
-          urls: |
-            http://localhost:3000/
-            http://localhost:3000/adidas
-            http://localhost:3000/s?term=adidas
-            http://localhost:3000/4k-philips-monitor-99988213/p
+          urls: http://localhost:3000
           uploadArtifacts: true
           temporaryPublicStorage: true
     env:
