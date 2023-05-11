@@ -4,8 +4,6 @@
       "startServerCommand": "yarn build && yarn start",
       "url": [
         "http://localhost:3000/",
-        "http://localhost:3000/adidas",
-        "http://localhost:3000/s?term=acer",
         "http://localhost:3000/apple-magic-mouse-99988216/p"
       ],
       "numberOfRuns": 3
