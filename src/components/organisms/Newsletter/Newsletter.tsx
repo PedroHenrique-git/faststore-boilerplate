@@ -29,9 +29,9 @@ interface Props {
   icon: { alt: string; icon: string };
   title: string;
   description: string;
-  'email-input-label': string;
-  'name-input-label': string;
-  'subscribe-button-label': string;
+  emailInputLabel: string;
+  nameInputLabel: string;
+  subscribeButtonLabel: string;
 }
 
 export const Newsletter = (props: Props) => {
@@ -102,14 +102,14 @@ export const Newsletter = (props: Props) => {
         onSubmit={handleSubmit((values) => mutate(values))}
       >
         <FormControl isInvalid={!!errors.name}>
-          <FormLabel>{props['name-input-label']}</FormLabel>
+          <FormLabel>{props.nameInputLabel ?? 'Your name'}</FormLabel>
           <Input type="text" placeholder={'example'} {...register('name')} />
           {errors.name && (
             <FormErrorMessage>{errors.name.message}</FormErrorMessage>
           )}
         </FormControl>
         <FormControl isInvalid={!!errors.email} marginTop={'4'}>
-          <FormLabel>{props['email-input-label']}</FormLabel>
+          <FormLabel>{props.emailInputLabel ?? 'Your email'}</FormLabel>
           <Input
             type="text"
             placeholder={'example@email.com'}
@@ -131,7 +131,7 @@ export const Newsletter = (props: Props) => {
           marginTop={'4'}
           isLoading={isLoading}
         >
-          {props['subscribe-button-label']}
+          {props.subscribeButtonLabel ?? 'Subscribe'}
         </Button>
       </chakra.form>
     </Flex>

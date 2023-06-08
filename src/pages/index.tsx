@@ -5,12 +5,7 @@ import { NextSeo, SiteLinksSearchBoxJsonLd } from 'next-seo';
 import { QueryClient, dehydrate, useQuery } from 'react-query';
 import Cms from 'src/services/cms/Cms';
 
-const getIndexCms = () =>
-  Cms.getAllCmsPagesByContentType('page', {
-    filters: {
-      'settings.seo.slug': '/',
-    },
-  });
+const getIndexCms = () => Cms.getAllCmsPagesByContentType('home');
 
 function Home() {
   const { data } = useQuery({
@@ -18,7 +13,7 @@ function Home() {
     queryFn: getIndexCms,
   });
 
-  const { seo } = data?.data?.[0].settings ?? {
+  const { seo } = data?.data?.[0]?.settings ?? {
     seo: {
       description: config.base.seo.description,
       slug: '/',

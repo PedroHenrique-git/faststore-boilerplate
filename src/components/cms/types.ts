@@ -50,7 +50,7 @@ export interface NewsletterData {
   icon: { alt: string; icon: string };
   title: string;
   description: string;
-  'email-input-label': string;
-  'name-input-label': string;
-  'subscribe-button-label': string;
+  emailInputLabel: string;
+  nameInputLabel: string;
+  subscribeButtonLabel: string;
 }
