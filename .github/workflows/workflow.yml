@@ -1,4 +1,4 @@
-name: E2E on Chrome
+name: Workflow
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
     branches: [master]
 
 jobs:
-  install:
+  tests:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -20,5 +20,27 @@ jobs:
           build: yarn build
           start: yarn start
           wait-on: 'http://localhost:3000'
+    env:
+      NEXT_PUBLIC_HOST: 'http://127.0.0.1:3000'
+  lighthouse:
+    name: Lighthouse CI
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: yarn
+
+      - name: lighthouse mobile audit
+        id: lighthouse_audit
+        run: yarn lhci:mobile
+        env:
+          LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+
+      - name: lighthouse desktop audit
+        run: yarn lhci:desktop
+        env:
+          LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
     env:
       NEXT_PUBLIC_HOST: 'http://127.0.0.1:3000'

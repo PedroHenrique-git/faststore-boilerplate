@@ -18,7 +18,9 @@
     "lint:eslint": "eslint --ext js,jsx,ts,tsx.--fix",
     "format:prettier": "prettier --write \"**/*.{ts,js,json}\"",
     "lint:format": "npm run lint:eslint && npm run format:prettier",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "lhci:mobile": "lhci autorun",
+    "lhci:desktop": "lhci autorun --collect.settings.preset=desktop"
   },
   "lint-staged": {
     "*.{css,less,scss,html,json,jsx,tsx,js,ts}": [
@@ -79,6 +81,7 @@
     "@commitlint/config-conventional": "^17.3.0",
     "@graphql-codegen/cli": "^3.3.0",
     "@graphql-codegen/client-preset": "^3.0.0",
+    "@lhci/cli": "^0.12.0",
     "@storybook/addon-actions": "^6.5.15",
     "@storybook/addon-essentials": "^6.5.15",
     "@storybook/addon-interactions": "^6.5.15",
