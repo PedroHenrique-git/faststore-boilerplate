@@ -15,9 +15,9 @@ export const StoreNewsletter: ComponentStory<typeof Newsletter> = () => {
       <Newsletter
         title="Get News and Special Offers!"
         description="Receive our news and promotions in advance. Enjoy and get 10% off your first purchase. For more information click here."
-        email-input-label="Your name"
-        name-input-label="Your email"
-        subscribe-button-label="Subscribe"
+        nameInputLabel="Your name"
+        emailInputLabel="Your email"
+        subscribeButtonLabel="Subscribe"
         icon={{ alt: '', icon: '' }}
       />
     </QueryClientProvider>
