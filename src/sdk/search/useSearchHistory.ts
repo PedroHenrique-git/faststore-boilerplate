@@ -1,13 +1,13 @@
 import { useCallback, useState } from 'react';
 import { useEffectOnce } from 'react-use';
 import { SEARCH_STORE_KEY } from '../constants';
-import { createStore } from '../store';
+import store from '../store';
 
 interface Term {
   value: string;
 }
 
-const historyStore = createStore(SEARCH_STORE_KEY, []);
+const historyStore = store.createStore(SEARCH_STORE_KEY, []);
 
 export function useSearchHistory() {
   const [terms, setTerms] = useState<Term[] | null>(null);

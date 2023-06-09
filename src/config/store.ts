@@ -25,7 +25,7 @@ function generateConfig() {
 
     storeName: 'Open store',
 
-    useLocalLogin: false,
+    useLocalLogin: true,
     useLocalCheckout: false,
     useLocalMyAccount: false,
 

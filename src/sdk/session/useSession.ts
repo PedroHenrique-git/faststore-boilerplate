@@ -4,10 +4,21 @@ import { useAtom } from 'jotai';
 import { useCallback, useMemo } from 'react';
 import { SESSION_STORE_KEY } from '../constants';
 import { sessionAtom } from '../state';
-import { createStore } from '../store';
-import { useValidationSession } from './useValidationSession';
+import store from '../store';
+import { useValidationSession, validateSession } from './useValidationSession';
 
-const sessionStore = createStore(SESSION_STORE_KEY, config.base.session);
+const sessionStore = store.createStore(
+  SESSION_STORE_KEY,
+  config.base.session,
+  async (indexeddb) => {
+    const session = await indexeddb.get(SESSION_STORE_KEY);
+    const validatedSession = await validateSession(session as IStoreSession);
+
+    if (validatedSession) {
+      await indexeddb.set(SESSION_STORE_KEY, validatedSession);
+    }
+  },
+);
 
 export function useSession() {
   const [session, setSession] = useAtom(sessionAtom);

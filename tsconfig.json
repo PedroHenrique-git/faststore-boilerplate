@@ -27,6 +27,13 @@
       "@config/*": ["./src/config/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "cypress", "node"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "cypress",
+    "node",
+    "next.config.js"
+  ],
   "exclude": ["node_modules"]
 }

@@ -1,5 +1,5 @@
 import { config } from '@config/store';
-import { fetchApi } from 'src/sdk/helpers/fetchApi';
+import axios from 'axios';
 import {
   AllContentTypes,
   CmsPage,
@@ -11,7 +11,9 @@ class Cms {
   private endpoint = `https://${config.base.api.storeId}.myvtex.com/_v/cms/api/faststore`;
 
   async getAllContentTypes() {
-    return fetchApi<AllContentTypes>(this.endpoint);
+    const { data } = await axios.get<AllContentTypes>(this.endpoint);
+
+    return data;
   }
 
   async getAllCmsPagesByContentType<T = unknown>(
@@ -35,9 +37,11 @@ class Cms {
       }
     }
 
-    return fetchApi<CmsPageByContentType<T>>(
+    const { data } = await axios.get<CmsPageByContentType<T>>(
       `${this.endpoint}/${contentType}?${queryParams.toString()}`,
     );
+
+    return data;
   }
 
   async getCmsPage<T>(
@@ -56,9 +60,11 @@ class Cms {
       queryParams.set('versionId', versionId);
     }
 
-    return fetchApi<CmsPage<T>>(
+    const { data } = await axios.get<CmsPage<T>>(
       `${this.endpoint}/${contentType}/${documentId}?${queryParams.toString()}`,
     );
+
+    return data;
   }
 }
 
