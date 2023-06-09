@@ -3,7 +3,13 @@ import * as memoryDriver from 'localforage-driver-memory';
 
 localforage.defineDriver(memoryDriver);
 
-class IndexedDBService {
+export interface StorageService {
+  set<T = unknown>(_key: string, _data: T): Promise<T | null>;
+  get<T = unknown>(_key: string): Promise<T | null>;
+  remove(_key: string): Promise<boolean>;
+}
+
+class IndexedDBService implements StorageService {
   private _storage: LocalForage = localforage;
   private storeName = 'STORE_DB';
   private version = 1.0;

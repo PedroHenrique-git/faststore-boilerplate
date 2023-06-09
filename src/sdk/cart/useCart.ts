@@ -1,23 +1,41 @@
+import { IStoreSession } from '@generated/graphql';
 import { useAtom } from 'jotai';
 import { useCallback, useMemo } from 'react';
 import { useIsMutating } from 'react-query';
-import { CART_STORE_KEY } from '../constants';
+import { CART_STORE_KEY, SESSION_STORE_KEY } from '../constants';
 import { useSession } from '../session';
 import { cartAtom } from '../state';
-import { createStore } from '../store';
+import store from '../store';
 import {
   Cart,
   CartItem,
   getItemId,
   isGift,
   useValidationCart,
+  validateCart,
 } from './useValidationCart';
 
-const cartStore = createStore(CART_STORE_KEY, {
-  id: '',
-  messages: [],
-  items: [],
-});
+const cartStore = store.createStore(
+  CART_STORE_KEY,
+  {
+    id: '',
+    messages: [],
+    items: [],
+  },
+  async (indexeddb) => {
+    const cart = await indexeddb.get(CART_STORE_KEY);
+    const session = await indexeddb.get(SESSION_STORE_KEY);
+
+    const validatedCart = await validateCart(
+      cart as Cart,
+      session as IStoreSession,
+    );
+
+    if (validatedCart) {
+      await indexeddb.set(CART_STORE_KEY, validatedCart);
+    }
+  },
+);
 
 export function useCart() {
   const { session } = useSession();

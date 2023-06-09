@@ -1,23 +1,30 @@
-import { config } from '@config/store';
+import VtexId from '@services/vtexid/VtexId';
 import { setCookie } from 'cookies-next';
 import { NextApiRequest, NextApiResponse } from 'next';
-import { API_ENDPOINT } from 'src/sdk/constants';
+import { cookieParser } from 'src/sdk/helpers/cookieParser';
 
-const cookieParser = (cookie: string) => {
-  return cookie
-    .split(';')
-    .map((str) => str.trim())
-    .reduce<Record<string, unknown>>((prev, current) => {
-      const [key, value] = current.split('=');
+function setVtexCookie(
+  cookie: string,
+  req: NextApiRequest,
+  res: NextApiResponse,
+) {
+  const { hostname } = new URL('', `https://${req.headers.host}`);
 
-      return {
-        ...prev,
-        ...(key === 'secure' || key === 'httponly' || key === 'httpOnly'
-          ? { [key]: true }
-          : { [key]: value }),
-      };
-    }, {});
-};
+  const parsedCookie = cookieParser(cookie);
+
+  const cookieName = Object.keys(parsedCookie)[0];
+  const cookieValue = parsedCookie[Object.keys(parsedCookie)[0]];
+
+  setCookie(cookieName, cookieValue, {
+    domain: `.${hostname}`,
+    expires: new Date(parsedCookie.expires),
+    path: parsedCookie.path,
+    secure: !!parsedCookie.secure,
+    httpOnly: !!parsedCookie.httponly,
+    req,
+    res,
+  });
+}
 
 export default async function handler(
   req: NextApiRequest,
@@ -28,32 +35,13 @@ export default async function handler(
   }
 
   try {
-    const request = await fetch(
-      `${API_ENDPOINT}/api/vtexid/pub/authentication/start?scope=${config.base.api.storeId}&locale=${config.base.session.locale}`,
-    );
+    const { data, headers } = await VtexId.start();
 
-    const { hostname } = new URL('', `https://${req.headers.host}`);
-
-    const cookie = request.headers.get('set-cookie');
+    const cookie = headers['set-cookie']?.[0];
 
     if (cookie) {
-      const parsedCookie = cookieParser(cookie);
-
-      const cookieName = Object.keys(parsedCookie)[0];
-      const cookieValue = parsedCookie[Object.keys(parsedCookie)[0]];
-
-      setCookie(cookieName, cookieValue, {
-        domain: hostname,
-        expires: new Date(String(parsedCookie.expires)),
-        path: String(parsedCookie.path),
-        secure: Boolean(parsedCookie.secure),
-        httpOnly: Boolean(parsedCookie.httponly),
-        req,
-        res,
-      });
+      setVtexCookie(cookie, req, res);
     }
-
-    const data = await request.json();
 
     return res.status(200).json({ ...data });
   } catch (error) {
