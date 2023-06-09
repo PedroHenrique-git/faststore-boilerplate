@@ -12,7 +12,7 @@ export default async function handler(
   try {
     const { body } = req;
 
-    const data = VtexId.sendAccessKey({
+    const data = await VtexId.sendAccessKey({
       email: body.email,
       authenticationToken: body.authenticationToken,
     });

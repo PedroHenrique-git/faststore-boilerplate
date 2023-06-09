@@ -1,6 +1,5 @@
-import axios from 'axios';
+import VtexSession from '@services/vtexSession/VtexSession';
 import { NextApiRequest, NextApiResponse } from 'next';
-import { API_ENDPOINT } from 'src/sdk/constants';
 
 export default async function handler(
   req: NextApiRequest,
@@ -11,14 +10,7 @@ export default async function handler(
   }
 
   try {
-    const { data } = await axios.get<SessionResponse>(
-      `${API_ENDPOINT}/api/sessions?items=*`,
-      {
-        headers: {
-          cookie: req.headers['cookie'],
-        },
-      },
-    );
+    const data = await VtexSession.get(req.headers['cookie'] ?? '');
 
     return res.status(200).json({ ...data });
   } catch (error) {

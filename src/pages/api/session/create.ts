@@ -1,7 +1,6 @@
-import axios from 'axios';
+import VtexSession from '@services/vtexSession/VtexSession';
 import { setCookie } from 'cookies-next';
 import { NextApiRequest, NextApiResponse } from 'next';
-import { API_ENDPOINT } from 'src/sdk/constants';
 
 const oneDay = Date.now() + 1 * 24 * 60 * 60 * 1000;
 
@@ -18,19 +17,9 @@ export default async function handler(
 
     const { hostname } = new URL('', `https://${req.headers.host}`);
 
-    const { data } = await axios.post<SessionResponse>(
-      `${API_ENDPOINT}/api/sessions`,
-      {
-        public: {
-          country: { value: country },
-          postalCode: { value: postalCode },
-        },
-      },
-      {
-        headers: {
-          cookie: req.headers['cookie'],
-        },
-      },
+    const data = await VtexSession.create(
+      { country, postalCode },
+      req.headers['cookie'] ?? '',
     );
 
     if (!req.cookies['vtex_session']) {

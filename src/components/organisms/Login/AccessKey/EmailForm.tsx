@@ -7,7 +7,7 @@ import {
   chakra,
 } from '@chakra-ui/react';
 import { yupResolver } from '@hookform/resolvers/yup';
-import axios from 'axios';
+import Auth from '@services/auth/Auth';
 import { useForm } from 'react-hook-form';
 import { useMutation } from 'react-query';
 import { useLoginContext } from '../Login';
@@ -32,18 +32,14 @@ export const EmailForm = () => {
   const { mutate, isLoading } = useMutation({
     mutationKey: 'send-access-key',
     mutationFn: async (values: FormValues) => {
-      const {
-        data: { authenticationToken },
-      } = await axios.get<LoginStart>('/api/auth/start', {
-        withCredentials: true,
-      });
+      const { authenticationToken } = await Auth.start();
 
       setAuthenticationToken(authenticationToken ?? '');
       setUserEmail(values.email);
 
-      await axios.post('/api/auth/accesskey/send', {
+      await Auth.sendAccessKey({
         email: values.email,
-        authenticationToken,
+        authenticationToken: authenticationToken ?? '',
       });
     },
   });

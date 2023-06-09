@@ -7,7 +7,8 @@ import {
   chakra,
 } from '@chakra-ui/react';
 import { yupResolver } from '@hookform/resolvers/yup';
-import axios from 'axios';
+import Auth from '@services/auth/Auth';
+import Session from '@services/session/Session';
 import { useForm } from 'react-hook-form';
 import { useMutation } from 'react-query';
 import { useSession } from 'src/sdk/session';
@@ -19,9 +20,7 @@ interface FormValues {
 }
 
 export const CodeForm = () => {
-  const {
-    session: { country, postalCode },
-  } = useSession();
+  const { session, set } = useSession();
 
   const { changeLoginOption, userEmail, authenticationToken, reset } =
     useLoginContext();
@@ -37,19 +36,28 @@ export const CodeForm = () => {
   const { mutate, isLoading } = useMutation({
     mutationKey: 'send-access-key',
     mutationFn: async (values: FormValues) => {
-      await axios.post(
-        '/api/auth/accesskey/validate',
-        {
-          code: values.code,
-          email: userEmail,
-          authenticationToken,
-        },
-        { withCredentials: true },
-      );
+      await Auth.validateAccessKey({
+        accessKey: values.code,
+        email: userEmail,
+        authenticationToken,
+      });
 
-      await axios.post('/api/session/create', {
-        country: country,
-        postalCode: postalCode,
+      await Session.create({
+        country: session.country,
+        postalCode: session.postalCode ?? '',
+      });
+    },
+    onSuccess() {
+      Session.get().then((vtexSession) => {
+        set({
+          ...session,
+          person: {
+            id: vtexSession?.namespaces?.profile?.id?.value ?? '',
+            email: vtexSession?.namespaces?.profile?.email?.value ?? '',
+            familyName: vtexSession?.namespaces?.profile?.lastName?.value ?? '',
+            givenName: vtexSession?.namespaces?.profile?.firstName?.value ?? '',
+          },
+        });
       });
     },
     onSettled() {
