@@ -3,6 +3,7 @@ import { config } from '@config/store';
 export const isServer = typeof window === 'undefined';
 
 export const API_ENDPOINT = `https://${config.base.api.storeId}.${config.base.api.environment}.com.br`;
+export const ONE_DAY = Date.now() + 1 * 24 * 60 * 60 * 1000;
 export const MAX_PAGES_TO_SHOW = 5;
 export const DEFAULT_PER_PAGE = 12;
 export const SEARCH_STORE_KEY = 'fs::terms::history';

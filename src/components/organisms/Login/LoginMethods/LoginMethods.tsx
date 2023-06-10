@@ -10,7 +10,7 @@ export const LoginMethods = () => {
   }
 
   return (
-    <VStack marginTop={'10'} spacing={'4'}>
+    <VStack spacing={'4'}>
       <Heading
         as={'h3'}
         color={'blackAlpha.700'}
@@ -21,9 +21,6 @@ export const LoginMethods = () => {
       </Heading>
       <Button onClick={() => changeLoginOption('accesskey')}>
         Receive access code by email
-      </Button>
-      <Button onClick={() => changeLoginOption('email-password')}>
-        Login with email and password
       </Button>
     </VStack>
   );

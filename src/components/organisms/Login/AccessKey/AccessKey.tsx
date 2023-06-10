@@ -10,7 +10,7 @@ export const AccessKey = () => {
     authenticationToken && userEmail && selectedLogin === 'accesskey';
 
   return (
-    <VStack marginTop={'10'} spacing={'4'}>
+    <VStack spacing={'4'}>
       <Heading
         as={'h3'}
         color={'blackAlpha.700'}

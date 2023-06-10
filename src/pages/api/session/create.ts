@@ -1,8 +1,7 @@
 import VtexSession from '@services/vtexSession/VtexSession';
 import { setCookie } from 'cookies-next';
 import { NextApiRequest, NextApiResponse } from 'next';
-
-const oneDay = Date.now() + 1 * 24 * 60 * 60 * 1000;
+import { ONE_DAY } from 'src/sdk/constants';
 
 export default async function handler(
   req: NextApiRequest,
@@ -25,7 +24,7 @@ export default async function handler(
     if (!req.cookies['vtex_session']) {
       setCookie('vtex_session', data.sessionToken, {
         domain: `.${hostname}`,
-        expires: new Date(oneDay),
+        expires: new Date(ONE_DAY),
         path: '/',
         secure: true,
         httpOnly: true,
@@ -37,7 +36,7 @@ export default async function handler(
     if (!req.cookies['vtex_segment']) {
       setCookie('vtex_segment', data.segmentToken, {
         domain: `.${hostname}`,
-        expires: new Date(oneDay),
+        expires: new Date(ONE_DAY),
         path: '/',
         secure: true,
         httpOnly: true,

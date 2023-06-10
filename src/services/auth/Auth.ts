@@ -11,6 +11,14 @@ class Auth {
     return { authenticationToken };
   }
 
+  async logout() {
+    const { data } = await axios.get<{ message: string }>('/api/auth/logout', {
+      withCredentials: true,
+    });
+
+    return data;
+  }
+
   async sendAccessKey({
     email,
     authenticationToken,

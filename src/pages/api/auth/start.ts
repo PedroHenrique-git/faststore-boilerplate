@@ -3,7 +3,7 @@ import { setCookie } from 'cookies-next';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { cookieParser } from 'src/sdk/helpers/cookieParser';
 
-function setVtexCookie(
+export function setVtexCookie(
   cookie: string,
   req: NextApiRequest,
   res: NextApiResponse,
