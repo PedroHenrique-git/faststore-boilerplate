@@ -1,8 +1,7 @@
 import VtexId from '@services/vtexid/VtexId';
 import { setCookie } from 'cookies-next';
 import { NextApiRequest, NextApiResponse } from 'next';
-
-const oneDay = Date.now() + 1 * 24 * 60 * 60 * 1000;
+import { ONE_DAY } from 'src/sdk/constants';
 
 export default async function handler(
   req: NextApiRequest,
@@ -24,7 +23,7 @@ export default async function handler(
 
     setCookie(data.authCookie.Name, data.authCookie.Value, {
       domain: `.${hostname}`,
-      expires: new Date(oneDay),
+      expires: new Date(ONE_DAY),
       path: '/',
       secure: true,
       httpOnly: true,
@@ -34,7 +33,7 @@ export default async function handler(
 
     setCookie(data.accountAuthCookie.Name, data.accountAuthCookie.Value, {
       domain: `.${hostname}`,
-      expires: new Date(oneDay),
+      expires: new Date(ONE_DAY),
       path: '/',
       secure: true,
       httpOnly: true,
