@@ -1,6 +1,6 @@
-import { Login } from '@atoms/Login';
 import { Logo } from '@atoms/Logo';
 import { Box, Container } from '@chakra-ui/react';
+import { Auth } from '@molecules/Auth';
 import { MenuDesktop, MenuMobile } from '@molecules/Menu';
 import { Cart } from '@organisms/Cart';
 import { SearchBar } from '@organisms/SearchBar';
@@ -35,7 +35,7 @@ export const Header = ({ menuLinks }: Props) => {
           </Box>
           <SearchBar display={{ base: 'none', lg: 'block' }} />
           <Box display={'flex'} alignItems={'center'} gap={'2'}>
-            <Login />
+            <Auth />
             <Cart />
           </Box>
         </Container>

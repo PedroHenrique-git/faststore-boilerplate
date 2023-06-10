@@ -69,6 +69,24 @@ class VtexId {
 
     return data;
   }
+
+  async logout(cookie: string) {
+    const { data, headers } = await axios.get(
+      `${API_ENDPOINT}/api/vtexid/pub/authentication/logout?scope=${config.base.api.storeId}`,
+      {
+        headers: {
+          Accept: 'text / plain',
+          cookie,
+        },
+        withCredentials: true,
+      },
+    );
+
+    return {
+      data,
+      headers,
+    };
+  }
 }
 
 export default new VtexId();

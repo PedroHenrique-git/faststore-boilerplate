@@ -5,10 +5,12 @@ import {
   FormErrorMessage,
   Input,
   chakra,
+  useToast,
 } from '@chakra-ui/react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import Auth from '@services/auth/Auth';
 import Session from '@services/session/Session';
+import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import { useMutation } from 'react-query';
 import { useSession } from 'src/sdk/session';
@@ -20,6 +22,8 @@ interface FormValues {
 }
 
 export const CodeForm = () => {
+  const toast = useToast();
+  const { push } = useRouter();
   const { session, set } = useSession();
 
   const { changeLoginOption, userEmail, authenticationToken, reset } =
@@ -47,6 +51,16 @@ export const CodeForm = () => {
         postalCode: session.postalCode ?? '',
       });
     },
+    onError() {
+      toast({
+        status: 'error',
+        description:
+          'There was an error entering your login, please try again later.',
+        position: 'bottom-right',
+        isClosable: true,
+        duration: 2000,
+      });
+    },
     onSuccess() {
       Session.get().then((vtexSession) => {
         set({
@@ -59,6 +73,8 @@ export const CodeForm = () => {
           },
         });
       });
+
+      push('/');
     },
     onSettled() {
       reset();
