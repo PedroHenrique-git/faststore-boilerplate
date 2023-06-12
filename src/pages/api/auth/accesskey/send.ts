@@ -1,4 +1,4 @@
-import VtexId from '@services/vtexid/VtexId';
+import VtexId from '@services/vtex-id/VtexId';
 import { NextApiRequest, NextApiResponse } from 'next';
 
 export default async function handler(

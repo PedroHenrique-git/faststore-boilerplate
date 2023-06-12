@@ -1,13 +1,28 @@
+import { MyAccount } from '@organisms/MyAccount';
+import SafeData from '@services/safedata/SafeData';
+import { useSetAtom } from 'jotai';
 import { NextSeo } from 'next-seo';
+import { useQuery } from 'react-query';
+import { userData } from 'src/sdk/state';
 
-function MyAccount() {
+function Page() {
+  const setUserData = useSetAtom(userData);
+
+  useQuery({
+    queryKey: 'my-account-user-data',
+    queryFn: () => SafeData.getUserData(),
+    onSuccess(data) {
+      setUserData({ user: data[0] });
+    },
+  });
+
   return (
     <>
       <NextSeo nofollow noindex />
 
-      <h1>Need implementation</h1>
+      <MyAccount />
     </>
   );
 }
 
-export default MyAccount;
+export default Page;

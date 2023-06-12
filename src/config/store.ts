@@ -38,7 +38,7 @@ function generateConfig() {
     },
 
     api: {
-      storeId: 'storeframework',
+      storeId: String(process.env.STORE_ID),
       workspace: 'master',
       environment: 'vtexcommercestable',
       hideUnavailableItems: true,

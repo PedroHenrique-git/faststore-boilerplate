@@ -1,3 +1,5 @@
+const STORE_ID = process.env.STORE_ID;
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
@@ -11,7 +13,7 @@ const nextConfig = {
     return [
       {
         source: '/vtex/api/:path*',
-        destination: `https://storeframework.myvtex.com/api/:path*`,
+        destination: `https://${STORE_ID}.myvtex.com/api/:path*`,
       },
     ];
   },

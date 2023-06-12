@@ -1,5 +1,6 @@
 import { config } from '@config/store';
 import { IStoreSession } from '@generated/graphql';
+import { User } from '@services/safedata/types';
 import IndexedDBService from '@services/storage/indexeddb';
 import { atom } from 'jotai';
 import { Cart } from '../cart';
@@ -21,9 +22,6 @@ const atomWithAsyncStorage = <T>(key: string, initialValue: T) => {
   return baseAtom;
 };
 
-export const cartSidebarAtom = atom(false);
-export const filterSideBarAtom = atom(false);
-
 export const cartAtom = atomWithAsyncStorage<Cart>(CART_STORE_KEY, {
   id: '',
   messages: [],
@@ -35,9 +33,24 @@ export const sessionAtom = atomWithAsyncStorage<IStoreSession>(
   config.base.session,
 );
 
+export const cartSidebarAtom = atom(false);
+export const filterSideBarAtom = atom(false);
+
 export const paginationAtom = atom({
   totalProducts: 0,
   hasNextPage: false,
   hasPrevPage: false,
   totalPages: 0,
+});
+
+export const userData = atom<{ user: User }>({
+  user: {
+    userId: null,
+    email: null,
+    document: null,
+    firstName: null,
+    lastName: null,
+    phone: null,
+    birthDate: null,
+  },
 });
