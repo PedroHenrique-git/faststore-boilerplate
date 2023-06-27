@@ -14,7 +14,7 @@ import {
   useToast,
 } from '@chakra-ui/react';
 import { yupResolver } from '@hookform/resolvers/yup';
-import SafeData from '@services/safedata/SafeData';
+import SafeData from '@services/safedata';
 import { useAtom } from 'jotai';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';

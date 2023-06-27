@@ -1,4 +1,4 @@
-import VtexSession from '@services/vtex-session/VtexSession';
+import VtexSession from '@services/vtex-session';
 import { setCookie } from 'cookies-next';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { ONE_DAY } from 'src/sdk/constants';

@@ -8,8 +8,8 @@ import {
   useToast,
 } from '@chakra-ui/react';
 import { yupResolver } from '@hookform/resolvers/yup';
-import Auth from '@services/auth/Auth';
-import Session from '@services/session/Session';
+import Auth from '@services/auth';
+import Session from '@services/session';
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import { useMutation } from 'react-query';

@@ -1,5 +1,5 @@
 import { MyAccount } from '@organisms/MyAccount';
-import SafeData from '@services/safedata/SafeData';
+import SafeData from '@services/safedata';
 import { useSetAtom } from 'jotai';
 import { NextSeo } from 'next-seo';
 import { useQuery } from 'react-query';

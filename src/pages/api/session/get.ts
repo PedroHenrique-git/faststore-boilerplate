@@ -1,4 +1,4 @@
-import VtexSession from '@services/vtex-session/VtexSession';
+import VtexSession from '@services/vtex-session';
 import { NextApiRequest, NextApiResponse } from 'next';
 
 export default async function handler(

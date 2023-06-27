@@ -3,7 +3,7 @@ import { Home as HomePage } from '@pages/Home';
 import { GetStaticProps } from 'next';
 import { NextSeo, SiteLinksSearchBoxJsonLd } from 'next-seo';
 import { QueryClient, dehydrate, useQuery } from 'react-query';
-import Cms from 'src/services/cms/Cms';
+import Cms from 'src/services/cms';
 
 const getIndexCms = () => Cms.getAllCmsPagesByContentType('home');
 
