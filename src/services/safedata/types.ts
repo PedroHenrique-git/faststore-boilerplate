@@ -7,3 +7,17 @@ export interface User {
   phone: string | null;
   birthDate: string | null;
 }
+
+export interface Address {
+  id: string | null;
+  postalCode: string | null;
+  city: string | null;
+  state: string | null;
+  country: string | null;
+  street: string | null;
+  number: string | null;
+  neighborhood: string | null;
+  complement: string | null;
+  reference: string | null;
+  geoCoordinates: number[] | null;
+}

@@ -65,7 +65,7 @@ export const LoggedPopup = () => {
         <PopoverBody padding={'5'}>
           <List>
             <ListItem>
-              <Link as={NextLink} href="/myaccount" fontSize={'medium'}>
+              <Link as={NextLink} href="/myaccount/profile" fontSize={'medium'}>
                 My account
               </Link>
             </ListItem>

@@ -1,6 +1,6 @@
 import { config } from '@config/store';
 import { IStoreSession } from '@generated/graphql';
-import { User } from '@services/safedata/types';
+import { Address, User } from '@services/safedata/types';
 import IndexedDBService from '@services/storage/indexeddb';
 import { atom } from 'jotai';
 import { Cart } from '../cart';
@@ -43,7 +43,11 @@ export const paginationAtom = atom({
   totalPages: 0,
 });
 
-export const userData = atom<{ user: User }>({
+export const userData = atom<{
+  user: User;
+  selectedAddress: Address;
+  addresses: Address[];
+}>({
   user: {
     userId: null,
     email: null,
@@ -53,4 +57,18 @@ export const userData = atom<{ user: User }>({
     phone: null,
     birthDate: null,
   },
+  selectedAddress: {
+    id: null,
+    postalCode: null,
+    city: null,
+    state: null,
+    country: null,
+    street: null,
+    number: null,
+    neighborhood: null,
+    complement: null,
+    reference: null,
+    geoCoordinates: null,
+  },
+  addresses: [],
 });
