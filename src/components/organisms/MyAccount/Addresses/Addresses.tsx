@@ -1,14 +1,25 @@
 import { Button, Flex, List, ListItem, Text, VStack } from '@chakra-ui/react';
+import safedata from '@services/safedata';
 import { useAtom } from 'jotai';
 import { useRouter } from 'next/router';
+import { useMutation, useQueryClient } from 'react-query';
 import { userData } from 'src/sdk/state';
 import { MyAccountMenu } from '../MyAccountMenu';
 
 export const Addresses = () => {
+  const queryClient = useQueryClient();
   const [userContent, setUserData] = useAtom(userData);
   const { push } = useRouter();
 
   const { addresses } = userContent;
+
+  const { mutate, isLoading } = useMutation({
+    mutationKey: 'delete-address',
+    mutationFn: async (id: string) => {
+      await safedata.deleteAddress(id);
+      await queryClient.refetchQueries('my-account-user-addresses');
+    },
+  });
 
   return (
     <>
@@ -43,14 +54,29 @@ export const Addresses = () => {
                     {address.postalCode}
                   </Text>
 
-                  <Button
-                    boxShadow={'none'}
-                    onClick={() =>
-                      setUserData({ ...userContent, selectedAddress: address })
-                    }
-                  >
-                    Edit
-                  </Button>
+                  <Flex gap={'1.5'} flexDirection={'column'}>
+                    <Button
+                      boxShadow={'none'}
+                      onClick={() => {
+                        setUserData({
+                          ...userContent,
+                          selectedAddress: address,
+                        });
+
+                        push('/myaccount/addresses/edit');
+                      }}
+                    >
+                      Edit
+                    </Button>
+
+                    <Button
+                      boxShadow={'none'}
+                      onClick={() => mutate(address.id ?? '')}
+                      disabled={isLoading}
+                    >
+                      Delete
+                    </Button>
+                  </Flex>
                 </Flex>
               </ListItem>
             ))}

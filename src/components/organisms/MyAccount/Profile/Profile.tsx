@@ -13,6 +13,7 @@ import {
   chakra,
   useToast,
 } from '@chakra-ui/react';
+import { IStorePerson } from '@generated/graphql';
 import { yupResolver } from '@hookform/resolvers/yup';
 import SafeData from '@services/safedata';
 import { useAtom } from 'jotai';
@@ -73,31 +74,35 @@ export const Profile = () => {
   const { mutate, isLoading } = useMutation({
     mutationKey: 'edit-profile',
     mutationFn: async (values: FormValues) => {
-      const fields = getFilledFields({
-        email: values.email,
-        birthDate: values.birthDate,
-        firstName: values.firstName,
-        lastName: values.lastName,
-        phone: values.phone,
-      });
-
-      const editedUser = await SafeData.updateUserData(person?.id ?? '', {
-        ...fields,
+      const editedUser = await SafeData.updateUserData({
+        ...getFilledFields({
+          email: values.email,
+          birthDate: values.birthDate,
+          firstName: values.firstName,
+          lastName: values.lastName,
+          phone: values.phone,
+        }),
         userId: person?.id ?? userContent.user.userId,
       });
 
       setUserData({
         ...userContent,
-        user: editedUser,
+        user: {
+          ...userContent.user,
+          ...getFilledFields(editedUser),
+        },
       });
 
       await set({
         ...session,
         person: {
-          email: editedUser.email ?? '',
-          familyName: editedUser.lastName ?? '',
-          givenName: editedUser.firstName ?? '',
-          id: editedUser.userId ?? '',
+          ...session.person,
+          ...getFilledFields<IStorePerson>({
+            email: editedUser.email ?? '',
+            familyName: editedUser.lastName ?? '',
+            givenName: editedUser.firstName ?? '',
+            id: editedUser.userId ?? '',
+          }),
         },
       });
     },

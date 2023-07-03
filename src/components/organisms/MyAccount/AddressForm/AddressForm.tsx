@@ -12,24 +12,24 @@ import {
 } from '@chakra-ui/react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import checkout from '@services/checkout';
-import MasterDataService from '@services/masterdata';
+import safedata from '@services/safedata';
 import { Address } from '@services/safedata/types';
+import { useAtom } from 'jotai';
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
-import { useMutation, useQuery } from 'react-query';
-import { useSession } from 'src/sdk/session';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
+import { userData } from 'src/sdk/state';
 import { FormSchema } from './schema';
 
 type FormValues = Omit<Address, 'id'>;
 
-const masterdata = new MasterDataService('AD');
-
-export const CreateAddress = () => {
-  const {
-    session: { person },
-  } = useSession();
+export const AddressForm = () => {
   const { push } = useRouter();
   const toast = useToast();
+  const [userContent, setUserData] = useAtom(userData);
+  const queryClient = useQueryClient();
+
+  const { selectedAddress } = userContent;
 
   const {
     register,
@@ -39,6 +39,20 @@ export const CreateAddress = () => {
     setValue,
   } = useForm<FormValues>({
     resolver: yupResolver(FormSchema),
+    values: {
+      addressName: selectedAddress?.addressName ?? '',
+      city: selectedAddress?.city ?? '',
+      complement: selectedAddress?.complement ?? '',
+      country: selectedAddress?.country ?? '',
+      geoCoordinates: selectedAddress?.geoCoordinates ?? [],
+      neighborhood: selectedAddress?.neighborhood ?? '',
+      number: selectedAddress?.number ?? '',
+      postalCode: selectedAddress?.postalCode ?? '',
+      reference: selectedAddress?.reference ?? '',
+      state: selectedAddress?.state ?? '',
+      street: selectedAddress?.street ?? '',
+      userId: selectedAddress?.userId ?? '',
+    },
   });
 
   const postalCode = watch('postalCode') ?? '';
@@ -62,13 +76,23 @@ export const CreateAddress = () => {
   });
 
   const { mutate, isLoading } = useMutation({
-    mutationKey: 'create-address',
+    mutationKey: 'address-update-create',
     mutationFn: async (values: FormValues) => {
-      await masterdata.create({
-        ...values,
-        userId: person?.id,
-        addressName: `address-${values.city}`,
-      });
+      if (selectedAddress) {
+        await safedata.updateAddress(selectedAddress.id ?? '', {
+          ...values,
+          addressName: `address-${values.city}`,
+        });
+
+        setUserData({ ...userContent, selectedAddress: null });
+      } else {
+        await safedata.createAddress({
+          ...values,
+          addressName: `address-${values.city}`,
+        });
+      }
+
+      await queryClient.refetchQueries('my-account-user-addresses');
     },
     onSuccess() {
       push('/myaccount/addresses');
@@ -87,7 +111,7 @@ export const CreateAddress = () => {
   return (
     <Box margin={'2rem auto'} maxW={'600px'}>
       <Heading size="md" marginBottom={'2rem'} textAlign={'center'}>
-        Create address
+        {selectedAddress ? 'Update address' : 'Create address'}
       </Heading>
 
       <chakra.form onSubmit={handleSubmit((values) => mutate(values))}>

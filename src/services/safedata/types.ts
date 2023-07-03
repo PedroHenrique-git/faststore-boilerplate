@@ -1,4 +1,5 @@
 export interface User {
+  id: string | null;
   userId: string | null;
   email: string | null;
   document: string | null;
@@ -20,4 +21,6 @@ export interface Address {
   complement: string | null;
   reference: string | null;
   geoCoordinates: number[] | null;
+  userId: string | null;
+  addressName: string | null;
 }

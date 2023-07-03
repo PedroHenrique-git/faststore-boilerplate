@@ -2,35 +2,42 @@ import axios from 'axios';
 import { Address, User } from './types';
 
 class SafeData {
-  private http = axios.create({
-    baseURL: '/api/vtex/io/safedata',
-  });
+  private http = axios.create();
 
   async getUserData() {
-    const { data } = await this.http.get<User[]>(
-      '/CL/search?_fields=email,document,firstName,lastName,phone,birthDate,userId',
-    );
+    const { data } = await this.http.get<User>('/api/safedata/CL');
 
     return data;
   }
 
-  async getUserAddresses(userId: string) {
-    const { data } = await this.http.get<Address[]>(
-      `/AD/search?userId=${userId}&_fields=id,postalCode,state,city,neighborhood,street,number,complement,country`,
-    );
+  async getUserAddresses() {
+    const { data } = await this.http.get<Address[]>(`/api/safedata/AD`);
 
     return data;
   }
 
   async createAddress(address: Omit<Address, 'id'>) {
-    const { data } = await this.http.post<Address>('/AD/documents', address);
+    const { data } = await this.http.post<Address>('/api/safedata/AD', address);
 
     return data;
   }
 
-  async updateUserData(userId: string, newData: Partial<User>) {
-    const { data } = await this.http.patch<User>(
-      `/CL/documents/${userId}`,
+  async updateAddress(id: string, address: Omit<Address, 'id'>) {
+    const { data } = await this.http.patch<Address>(
+      `/api/safedata/AD/${id}`,
+      address,
+    );
+
+    return data;
+  }
+
+  async deleteAddress(id: string) {
+    return this.http.delete(`/api/safedata/AD/${id}`);
+  }
+
+  async updateUserData(newData: Partial<User>) {
+    const { data } = await this.http.patch<Partial<User>>(
+      '/api/safedata/CL',
       newData,
     );
 

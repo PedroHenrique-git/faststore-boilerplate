@@ -45,10 +45,11 @@ export const paginationAtom = atom({
 
 export const userData = atom<{
   user: User;
-  selectedAddress: Address;
+  selectedAddress: Address | null;
   addresses: Address[];
 }>({
   user: {
+    id: null,
     userId: null,
     email: null,
     document: null,
@@ -57,18 +58,6 @@ export const userData = atom<{
     phone: null,
     birthDate: null,
   },
-  selectedAddress: {
-    id: null,
-    postalCode: null,
-    city: null,
-    state: null,
-    country: null,
-    street: null,
-    number: null,
-    neighborhood: null,
-    complement: null,
-    reference: null,
-    geoCoordinates: null,
-  },
+  selectedAddress: null,
   addresses: [],
 });

@@ -10,9 +10,10 @@ export const SEARCH_STORE_KEY = 'fs::terms::history';
 export const CART_STORE_KEY = 'fs::cart';
 export const SESSION_STORE_KEY = 'fs::session';
 
-export const ENTITIES_WHITE_LIST: Record<string, string[]> = {
-  AD: ['POST'],
-};
+export const ENTITIES_CONFIG: Record<
+  string,
+  { methods: string[]; secret: boolean }
+> = {};
 
 export const POSTAL_CODE_REGEX: Record<
   string,

@@ -13,8 +13,10 @@ function Page() {
     queryKey: 'my-account-user-data',
     queryFn: () => safedata.getUserData(),
     onSuccess(data) {
-      setUser({ ...user, user: data[0] });
+      setUser({ ...user, user: data });
     },
+    cacheTime: 0,
+    staleTime: 0,
   });
 
   return (
