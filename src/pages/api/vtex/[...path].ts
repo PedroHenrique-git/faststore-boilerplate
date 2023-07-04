@@ -45,6 +45,13 @@ function handler(req: NextApiRequest, res: NextApiResponse) {
     proxy.on('proxyReq', (proxyReq) => {
       const parsedUrl = new URL(proxyReq.path, 'http://localhost');
 
+      const authToken =
+        req.cookies[`VtexIdclientAutCookie_${process.env.STORE_ID}`];
+
+      if (authToken) {
+        proxyReq.setHeader('VtexIdclientAutCookie', authToken);
+      }
+
       for (const name of res.getHeaderNames()) {
         const value = res.getHeader(name);
 

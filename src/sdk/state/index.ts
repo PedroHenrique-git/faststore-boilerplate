@@ -3,6 +3,7 @@ import { IStoreSession } from '@generated/graphql';
 import { Address, User } from '@services/safedata/types';
 import IndexedDBService from '@services/storage/indexeddb';
 import { atom } from 'jotai';
+import { Order, OrderDetail } from 'src/services/orders/types';
 import { Cart } from '../cart';
 import { CART_STORE_KEY, SESSION_STORE_KEY } from '../constants';
 
@@ -46,6 +47,8 @@ export const paginationAtom = atom({
 export const userData = atom<{
   user: User;
   selectedAddress: Address | null;
+  selectedOrder: OrderDetail | null;
+  orders: Order[];
   addresses: Address[];
 }>({
   user: {
@@ -59,5 +62,7 @@ export const userData = atom<{
     birthDate: null,
   },
   selectedAddress: null,
+  selectedOrder: null,
   addresses: [],
+  orders: [],
 });
