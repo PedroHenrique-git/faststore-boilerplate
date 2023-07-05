@@ -1,4 +1,4 @@
-import VtexId from '@services/vtexid/VtexId';
+import VtexId from '@services/vtex-id';
 import { setCookie } from 'cookies-next';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { cookieParser } from 'src/sdk/helpers/cookieParser';

@@ -10,7 +10,7 @@ import {
   PopoverTrigger,
   useToast,
 } from '@chakra-ui/react';
-import Auth from '@services/auth/Auth';
+import Auth from '@services/auth';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 import { AiOutlineUser } from 'react-icons/ai';
@@ -65,7 +65,7 @@ export const LoggedPopup = () => {
         <PopoverBody padding={'5'}>
           <List>
             <ListItem>
-              <Link as={NextLink} href="/myaccount" fontSize={'medium'}>
+              <Link as={NextLink} href="/myaccount/profile" fontSize={'medium'}>
                 My account
               </Link>
             </ListItem>

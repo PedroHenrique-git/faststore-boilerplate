@@ -4,7 +4,7 @@ import {
   ProductPageQueryVariables,
 } from '@generated/graphql';
 import { Pdp } from '@pages/Pdp';
-import Cms from '@services/cms/Cms';
+import Cms from '@services/cms';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { BreadcrumbJsonLd, NextSeo, ProductJsonLd } from 'next-seo';
 import { DehydratedState, QueryClient, dehydrate, useQuery } from 'react-query';
