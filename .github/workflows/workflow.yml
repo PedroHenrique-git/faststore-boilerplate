@@ -22,6 +22,7 @@ jobs:
           wait-on: 'http://localhost:3000'
     env:
       NEXT_PUBLIC_HOST: 'http://127.0.0.1:3000'
+      STORE_ID: 'storeframework'
   lighthouse:
     name: Lighthouse CI
     runs-on: ubuntu-latest
@@ -44,3 +45,4 @@ jobs:
           LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
     env:
       NEXT_PUBLIC_HOST: 'http://127.0.0.1:3000'
+      STORE_ID: 'storeframework'
