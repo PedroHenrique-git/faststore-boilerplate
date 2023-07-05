@@ -1,4 +1,12 @@
-import { Button, Flex, List, ListItem, Text, VStack } from '@chakra-ui/react';
+import {
+  Box,
+  Button,
+  Flex,
+  List,
+  ListItem,
+  Text,
+  VStack,
+} from '@chakra-ui/react';
 import safedata from '@services/safedata';
 import { useAtom } from 'jotai';
 import { useRouter } from 'next/router';
@@ -22,7 +30,7 @@ export const Addresses = () => {
   });
 
   return (
-    <>
+    <Box as="section" minH={'100vh'}>
       <Flex
         alignItems={{ base: 'flex-start', lg: 'center' }}
         justifyContent={{ base: 'flex-start', lg: 'space-between' }}
@@ -102,6 +110,6 @@ export const Addresses = () => {
           </VStack>
         </>
       )}
-    </>
+    </Box>
   );
 };

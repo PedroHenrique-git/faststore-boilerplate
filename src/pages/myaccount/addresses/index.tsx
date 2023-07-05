@@ -1,4 +1,5 @@
 import { Addresses } from '@organisms/MyAccount/Addresses';
+import { Error } from '@organisms/MyAccount/Error';
 import safedata from '@services/safedata';
 import { useAtom } from 'jotai';
 import { NextSeo } from 'next-seo';
@@ -36,7 +37,7 @@ function Page() {
 
   const [user, setUser] = useAtom(userData);
 
-  const { isLoading } = useQuery({
+  const { isLoading, isError } = useQuery({
     queryKey: 'my-account-user-addresses',
     queryFn: () => safedata.getUserAddresses(),
     onSuccess(data) {
@@ -48,6 +49,16 @@ function Page() {
   });
 
   useClearSelectedAddress();
+
+  if (isError) {
+    return (
+      <>
+        <NextSeo nofollow noindex />
+
+        <Error message="Error loading your addresses, please try again in a few minutes" />
+      </>
+    );
+  }
 
   return (
     <>

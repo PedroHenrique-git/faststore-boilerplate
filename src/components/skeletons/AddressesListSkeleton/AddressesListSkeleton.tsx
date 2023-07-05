@@ -1,8 +1,8 @@
-import { Flex, List, ListItem, Skeleton } from '@chakra-ui/react';
+import { Box, Flex, List, ListItem, Skeleton } from '@chakra-ui/react';
 
 export const AddressesListSkeleton = () => {
   return (
-    <>
+    <Box as="section" minH={'100vh'}>
       <Flex
         alignItems={{ base: 'flex-start', lg: 'center' }}
         justifyContent={{ base: 'flex-start', lg: 'space-between' }}
@@ -39,6 +39,7 @@ export const AddressesListSkeleton = () => {
             </Flex>
           </Flex>
         </ListItem>
+
         <ListItem
           boxShadow={'base'}
           borderRadius="xl"
@@ -60,6 +61,73 @@ export const AddressesListSkeleton = () => {
             </Flex>
           </Flex>
         </ListItem>
+
+        <ListItem
+          boxShadow={'base'}
+          borderRadius="xl"
+          padding={'5'}
+          marginBottom={'4'}
+        >
+          <Flex alignItems={'center'} justifyContent={'space-between'}>
+            <Skeleton w={'30%'} h={'30px'} />
+
+            <Flex
+              gap={'1.5'}
+              flexDirection={'column'}
+              justifyContent={'flex-end'}
+              alignItems={'flex-end'}
+              w={'30%'}
+            >
+              <Skeleton w={'30%'} h={'25px'} />
+              <Skeleton w={'30%'} h={'25px'} />
+            </Flex>
+          </Flex>
+        </ListItem>
+
+        <ListItem
+          boxShadow={'base'}
+          borderRadius="xl"
+          padding={'5'}
+          marginBottom={'4'}
+        >
+          <Flex alignItems={'center'} justifyContent={'space-between'}>
+            <Skeleton w={'30%'} h={'30px'} />
+
+            <Flex
+              gap={'1.5'}
+              flexDirection={'column'}
+              justifyContent={'flex-end'}
+              alignItems={'flex-end'}
+              w={'30%'}
+            >
+              <Skeleton w={'30%'} h={'25px'} />
+              <Skeleton w={'30%'} h={'25px'} />
+            </Flex>
+          </Flex>
+        </ListItem>
+
+        <ListItem
+          boxShadow={'base'}
+          borderRadius="xl"
+          padding={'5'}
+          marginBottom={'4'}
+        >
+          <Flex alignItems={'center'} justifyContent={'space-between'}>
+            <Skeleton w={'30%'} h={'30px'} />
+
+            <Flex
+              gap={'1.5'}
+              flexDirection={'column'}
+              justifyContent={'flex-end'}
+              alignItems={'flex-end'}
+              w={'30%'}
+            >
+              <Skeleton w={'30%'} h={'25px'} />
+              <Skeleton w={'30%'} h={'25px'} />
+            </Flex>
+          </Flex>
+        </ListItem>
+
         <ListItem
           boxShadow={'base'}
           borderRadius="xl"
@@ -82,6 +150,6 @@ export const AddressesListSkeleton = () => {
           </Flex>
         </ListItem>
       </List>
-    </>
+    </Box>
   );
 };

@@ -1,3 +1,4 @@
+import { Error } from '@organisms/MyAccount/Error';
 import { Profile } from '@organisms/MyAccount/Profile';
 import safedata from '@services/safedata';
 import { useAtom } from 'jotai';
@@ -9,7 +10,7 @@ import { userData } from 'src/sdk/state';
 function Page() {
   const [user, setUser] = useAtom(userData);
 
-  const { isLoading } = useQuery({
+  const { isLoading, isError } = useQuery({
     queryKey: 'my-account-user-data',
     queryFn: () => safedata.getUserData(),
     onSuccess(data) {
@@ -18,6 +19,16 @@ function Page() {
     cacheTime: 0,
     staleTime: 0,
   });
+
+  if (isError) {
+    return (
+      <>
+        <NextSeo nofollow noindex />
+
+        <Error message="Error loading your profile, please try again in a few minutes" />
+      </>
+    );
+  }
 
   return (
     <>

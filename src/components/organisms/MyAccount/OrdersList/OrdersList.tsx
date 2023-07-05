@@ -1,5 +1,6 @@
 import {
   Badge,
+  Box,
   Flex,
   Link,
   List,
@@ -21,7 +22,7 @@ export const OrdersList = () => {
   const { orders } = userContent;
 
   return (
-    <>
+    <Box as="section" minH={'100vh'}>
       <MyAccountMenu />
 
       {orders.length ? (
@@ -97,6 +98,6 @@ export const OrdersList = () => {
           </VStack>
         </>
       )}
-    </>
+    </Box>
   );
 };

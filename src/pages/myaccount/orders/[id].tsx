@@ -4,6 +4,7 @@ import { useAtom } from 'jotai';
 import { NextSeo } from 'next-seo';
 import { useRouter } from 'next/router';
 import { useQuery } from 'react-query';
+import { OrderDetailSkeleton } from 'src/components/skeletons/OrderDetailSkeleton';
 import { userData } from 'src/sdk/state';
 
 interface Params {
@@ -16,7 +17,7 @@ function Page() {
 
   const { id }: Params = query;
 
-  useQuery({
+  const { isLoading } = useQuery({
     queryKey: id,
     queryFn: () => orders.getOrderDetails(id ?? ''),
     cacheTime: 0,
@@ -31,7 +32,7 @@ function Page() {
     <>
       <NextSeo nofollow noindex />
 
-      <OrderDetail />
+      {isLoading ? <OrderDetailSkeleton /> : <OrderDetail />}
     </>
   );
 }
