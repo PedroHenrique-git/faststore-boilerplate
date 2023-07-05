@@ -109,13 +109,14 @@ export const OrderDetail = () => {
                       justifyContent={'space-between'}
                     >
                       <Text pt="2" fontSize="smaller">
-                        {t.name.split(' ').at(-1)}
+                        {t.name}
                       </Text>
                       <Text pt="2" fontSize="smaller">
                         {formatter({ price: t.value / 100 })}
                       </Text>
                     </ListItem>
                   ))}
+
                   <ListItem display={'flex'} justifyContent={'space-between'}>
                     <Text pt="2" fontSize="smaller">
                       Total
