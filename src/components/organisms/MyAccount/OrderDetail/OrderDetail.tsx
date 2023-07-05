@@ -152,12 +152,12 @@ export const OrderDetail = () => {
           <Stack divider={<StackDivider />} spacing="2">
             {selectedOrder?.items.map((i) => (
               <ListItem key={i.id}>
-                <Flex>
+                <Flex gap={'4'} alignItems={'center'}>
                   <Image
-                    borderRadius="full"
-                    boxSize="90px"
                     src={i.imageUrl}
                     alt={i.name}
+                    objectFit={'cover'}
+                    boxSize={'90px'}
                   />
 
                   <Flex flexDirection={'column'}>

@@ -7,7 +7,7 @@ class OrdersService {
   });
 
   getOrdersList() {
-    return this.http.get<OrdersList>('?per_page=5');
+    return this.http.get<OrdersList>(`?per_page=5`);
   }
 
   getOrderDetails(id: string) {
