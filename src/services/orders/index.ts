@@ -13,6 +13,12 @@ class OrdersService {
   getOrderDetails(id: string) {
     return this.http<OrderDetail>(`/${id}`);
   }
+
+  cancelOrder(id: string, reason: string) {
+    this.http.defaults.baseURL = '/api/vtex/oms/pvt/orders';
+
+    return this.http.post(`/${id}/cancel`, { reason });
+  }
 }
 
 export default new OrdersService();
