@@ -1,4 +1,5 @@
 import { OrderDetail } from '@organisms/MyAccount';
+import { Error } from '@organisms/MyAccount/Error';
 import orders from '@services/orders';
 import { useAtom } from 'jotai';
 import { NextSeo } from 'next-seo';
@@ -17,7 +18,7 @@ function Page() {
 
   const { id }: Params = query;
 
-  const { isLoading } = useQuery({
+  const { isLoading, isError } = useQuery({
     queryKey: id,
     queryFn: () => orders.getOrderDetails(id ?? ''),
     cacheTime: 0,
@@ -27,6 +28,16 @@ function Page() {
       setUserContent({ ...userContent, selectedOrder: data });
     },
   });
+
+  if (isError) {
+    return (
+      <>
+        <NextSeo nofollow noindex />
+
+        <Error message="Error listing order details" />
+      </>
+    );
+  }
 
   return (
     <>

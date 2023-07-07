@@ -27,6 +27,8 @@ export const OrderDetailSkeleton = () => {
         />
       </Flex>
 
+      <Skeleton w={'30%'} h={'30px'} margin={'2rem 0'} />
+
       <Box as="section">
         <Skeleton w={'30%'} h={'20px'} marginBottom={'2rem'} />
 

@@ -1,4 +1,4 @@
-import { OrdersList } from '@organisms/MyAccount';
+import { MyAccountMenu, OrdersList } from '@organisms/MyAccount';
 import { Error } from '@organisms/MyAccount/Error';
 import orders from '@services/orders';
 import { useAtom } from 'jotai';
@@ -24,6 +24,8 @@ function Page() {
     return (
       <>
         <NextSeo nofollow noindex />
+
+        <MyAccountMenu />
 
         <Error message="Error loading your orders, please try again in a few minutes" />
       </>

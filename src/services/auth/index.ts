@@ -1,5 +1,16 @@
 import axios from 'axios';
 
+interface SendAccessKeyDTO {
+  email: string;
+  authenticationToken: string;
+}
+
+interface ValidateAccessKeyDTO {
+  accessKey: string;
+  email: string;
+  authenticationToken: string;
+}
+
 class Auth {
   async start() {
     const {
@@ -19,13 +30,7 @@ class Auth {
     return data;
   }
 
-  async sendAccessKey({
-    email,
-    authenticationToken,
-  }: {
-    email: string;
-    authenticationToken: string;
-  }) {
+  async sendAccessKey({ email, authenticationToken }: SendAccessKeyDTO) {
     return axios.post('/api/auth/accesskey/send', {
       email,
       authenticationToken,
@@ -36,11 +41,7 @@ class Auth {
     accessKey,
     email,
     authenticationToken,
-  }: {
-    accessKey: string;
-    email: string;
-    authenticationToken: string;
-  }) {
+  }: ValidateAccessKeyDTO) {
     return axios.post(
       '/api/auth/accesskey/validate',
       {

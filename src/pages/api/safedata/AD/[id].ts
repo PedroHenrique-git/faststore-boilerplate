@@ -1,12 +1,12 @@
 import MasterDataService from '@services/masterdata';
 import { Address } from '@services/safedata/types';
-import { AxiosError } from 'axios';
 import { NextApiResponse } from 'next';
 import { label } from 'next-api-middleware';
 import {
   ExtendedApiRequest,
   attachUser,
 } from 'src/server/middlewares/attach-user';
+import errorHandler from 'src/server/utils/error-handler';
 
 interface Params {
   id?: string;
@@ -39,16 +39,7 @@ const middleware = {
 
       return res.status(200).json({ ...req.body });
     } catch (err) {
-      if (err instanceof AxiosError) {
-        const status = err.response?.status ?? 500;
-        const message = err.response?.data?.Message ?? 'Internal server error';
-
-        return res.status(status).json({
-          message,
-        });
-      }
-
-      return res.status(500).json({ message: 'Internal server error' });
+      return errorHandler(req, res, err);
     }
   },
   PUT: async (req: ExtendedApiRequest, res: NextApiResponse) => {
@@ -75,16 +66,7 @@ const middleware = {
 
       return res.status(200).json({ ...req.body });
     } catch (err) {
-      if (err instanceof AxiosError) {
-        const status = err.response?.status ?? 500;
-        const message = err.response?.data?.Message ?? 'Internal server error';
-
-        return res.status(status).json({
-          message,
-        });
-      }
-
-      return res.status(500).json({ message: 'Internal server error' });
+      return errorHandler(req, res, err);
     }
   },
   DELETE: async (req: ExtendedApiRequest, res: NextApiResponse) => {
@@ -109,16 +91,7 @@ const middleware = {
 
       return res.status(200).json({ message: `address deleted ${id}` });
     } catch (err) {
-      if (err instanceof AxiosError) {
-        const status = err.response?.status ?? 500;
-        const message = err.response?.data?.Message ?? 'Internal server error';
-
-        return res.status(status).json({
-          message,
-        });
-      }
-
-      return res.status(500).json({ message: 'Internal server error' });
+      return errorHandler(req, res, err);
     }
   },
 };
