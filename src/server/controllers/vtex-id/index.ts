@@ -5,7 +5,7 @@ import FormData from 'form-data';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { API_ENDPOINT, ONE_DAY } from 'src/sdk/constants';
 import errorHandler from 'src/server/utils/error-handler';
-import { setVtexCookie } from 'src/server/utils/set-cookie';
+import setVtexCookies from 'src/server/utils/set-vtex-cookies';
 
 interface SendAccessKeyDTO {
   email?: string;
@@ -33,11 +33,9 @@ class VtexId {
         `/api/vtexid/pub/authentication/start?scope=${config.base.api.storeId}&locale=${config.base.session.locale}`,
       );
 
-      const cookie = headers['set-cookie']?.[0];
+      const cookiesFromVtex = headers['set-cookie'];
 
-      if (cookie) {
-        setVtexCookie(cookie, req, res);
-      }
+      setVtexCookies(cookiesFromVtex, req, res);
 
       return res.status(200).json({ ...data });
     } catch (error) {
@@ -65,11 +63,7 @@ class VtexId {
       const { hostname } = new URL('', `https://${req.headers.host}`);
       const cookies = headersFromVtex['set-cookie'];
 
-      if (cookies) {
-        for (const cookie of cookies) {
-          setVtexCookie(cookie, req, res);
-        }
-      }
+      setVtexCookies(cookies, req, res);
 
       deleteCookie('vtex_session', {
         domain: `.${hostname}`,
