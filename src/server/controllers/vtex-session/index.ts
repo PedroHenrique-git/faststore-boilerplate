@@ -25,7 +25,7 @@ class VtexSession {
       const { hostname } = new URL('', `https://${req.headers.host}`);
 
       const { data } = await this.http.post<SessionResponse>(
-        `${API_ENDPOINT}/api/sessions`,
+        `/api/sessions`,
         {
           public: {
             country: { value: country },
@@ -78,7 +78,7 @@ class VtexSession {
       const { data } = await this.http.get<{
         id: string;
         namespaces: Record<string, Record<string, { value: string }>>;
-      }>(`${API_ENDPOINT}/api/sessions?items=*`, {
+      }>(`/api/sessions?items=*`, {
         headers: {
           cookie: req.headers['cookie'],
         },

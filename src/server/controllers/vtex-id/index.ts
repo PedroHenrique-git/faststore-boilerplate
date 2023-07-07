@@ -105,7 +105,7 @@ class VtexId {
       form.append('authenticationToken', authenticationToken);
 
       const { data } = await this.http.post(
-        `${API_ENDPOINT}/api/vtexid/pub/authentication/accesskey/send`,
+        `/api/vtexid/pub/authentication/accesskey/send`,
         form,
         {
           headers: form.getHeaders(),
@@ -136,7 +136,7 @@ class VtexId {
       encoded.set('authenticationToken', authenticationToken ?? '');
 
       const { data } = await this.http.post<AuthResponse>(
-        `${API_ENDPOINT}/api/vtexid/pub/authentication/accesskey/validate`,
+        `/api/vtexid/pub/authentication/accesskey/validate`,
         encoded,
         {
           headers: {
