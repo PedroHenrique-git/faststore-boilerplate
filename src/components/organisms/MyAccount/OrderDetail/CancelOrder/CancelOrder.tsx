@@ -53,6 +53,7 @@ export const CancelOrder = ({
     },
     onSettled() {
       handleCloseModal();
+      setReason('');
     },
   });
 

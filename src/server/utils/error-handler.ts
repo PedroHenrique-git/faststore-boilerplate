@@ -1,5 +1,6 @@
 import { AxiosError } from 'axios';
 import { NextApiRequest, NextApiResponse } from 'next';
+import AppError from '../exception/app-error';
 
 export default function errorHandler(
   _: NextApiRequest,
@@ -7,11 +8,14 @@ export default function errorHandler(
   err: unknown,
 ) {
   if (err instanceof AxiosError) {
-    const status = err.response?.status ?? 500;
-    const message = err.response?.data?.Message ?? 'Internal server error';
+    return res.status(err.response?.status ?? 500).json({
+      message: err.response?.data?.Message ?? 'Internal server error',
+    });
+  }
 
-    return res.status(status).json({
-      message: message,
+  if (err instanceof AppError) {
+    return res.status(err.code ?? 500).json({
+      message: err.message ?? 'Internal server error',
     });
   }
 

@@ -17,7 +17,7 @@ import getCompleteName from 'src/sdk/helpers/getCompleteName';
 import mapPayments from 'src/sdk/helpers/mapPayments';
 import { useFormatPrice } from 'src/sdk/product';
 import { userData } from 'src/sdk/state';
-import { OrderActions } from './OrderActions';
+import { OrderActions } from '../OrderActions/OrderActions';
 
 export const OrderDetailInfo = () => {
   const { formatter } = useFormatPrice();

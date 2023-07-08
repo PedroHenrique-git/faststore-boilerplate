@@ -2,7 +2,7 @@ import { Box } from '@chakra-ui/react';
 import { MyAccountMenu } from '../MyAccountMenu';
 import { OrderDetailInfo } from './OrderDetailInfo';
 import { OrderDetailPackage } from './OrderDetailPackage';
-import { OrderDetailProductsList } from './OrderDetailProductsList';
+import { OrderDetailProductsList } from './OrderDetailProductList';
 
 export const OrderDetail = () => {
   return (
