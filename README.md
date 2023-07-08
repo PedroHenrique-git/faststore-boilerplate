@@ -30,7 +30,7 @@ for all features to work correctly you must create an .env file following the ex
 
 3.  [react use](https://github.com/streamich/react-use)
 
-4.  [jest](https://jestjs.io/pt-BR/)
+4.  [cypress](https://www.cypress.io/)
 
 5.  [storybook](https://storybook.js.org/)
 
