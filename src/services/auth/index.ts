@@ -1,15 +1,5 @@
 import axios from 'axios';
-
-interface SendAccessKeyDTO {
-  email: string;
-  authenticationToken: string;
-}
-
-interface ValidateAccessKeyDTO {
-  accessKey: string;
-  email: string;
-  authenticationToken: string;
-}
+import { SendAccessKeyDTO, ValidateAccessKeyDTO } from './auth.dto';
 
 class Auth {
   async start() {

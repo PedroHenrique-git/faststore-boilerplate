@@ -2,12 +2,10 @@ import axios from 'axios';
 import { setCookie } from 'cookies-next';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { API_ENDPOINT, ONE_DAY } from 'src/sdk/constants';
+import AppError from 'src/server/exception/app-error';
 import errorHandler from 'src/server/utils/error-handler';
-
-interface CreateSessionDTO {
-  country: string;
-  postalCode: string;
-}
+import setVtexCookies from 'src/server/utils/set-vtex-cookies';
+import { CreateSessionDTO } from './vtex-session.dto';
 
 class VtexSession {
   private http = axios.create({
@@ -17,27 +15,32 @@ class VtexSession {
   async create(req: NextApiRequest, res: NextApiResponse) {
     try {
       if (req.method !== 'POST') {
-        return res.status(405).json({ message: 'method not allowed' });
+        throw new AppError('Method not allowed', 405);
       }
 
       const { country, postalCode }: CreateSessionDTO = req.body;
 
       const { hostname } = new URL('', `https://${req.headers.host}`);
 
-      const { data } = await this.http.post<SessionResponse>(
-        `/api/sessions`,
-        {
-          public: {
-            country: { value: country },
-            postalCode: { value: postalCode },
+      const { data, headers: headersFromVtex } =
+        await this.http.post<SessionResponse>(
+          `/api/sessions`,
+          {
+            public: {
+              country: { value: country },
+              postalCode: { value: postalCode },
+            },
           },
-        },
-        {
-          headers: {
-            cookie: req.headers['cookie'],
+          {
+            headers: {
+              cookie: req.headers['cookie'],
+            },
           },
-        },
-      );
+        );
+
+      const cookiesFromVtex = headersFromVtex['set-cookie'];
+
+      setVtexCookies(cookiesFromVtex, req, res);
 
       if (!req.cookies['vtex_session']) {
         setCookie('vtex_session', data.sessionToken, {
@@ -72,10 +75,10 @@ class VtexSession {
   async get(req: NextApiRequest, res: NextApiResponse) {
     try {
       if (req.method !== 'GET') {
-        return res.status(405).json({ message: 'method not allowed' });
+        throw new AppError('Method not allowed', 405);
       }
 
-      const { data } = await this.http.get<{
+      const { data, headers: headersFromVtex } = await this.http.get<{
         id: string;
         namespaces: Record<string, Record<string, { value: string }>>;
       }>(`/api/sessions?items=*`, {
@@ -83,6 +86,10 @@ class VtexSession {
           cookie: req.headers['cookie'],
         },
       });
+
+      const cookiesFromVtex = headersFromVtex['set-cookie'];
+
+      setVtexCookies(cookiesFromVtex, req, res);
 
       return res.status(200).json({ ...data });
     } catch (error) {

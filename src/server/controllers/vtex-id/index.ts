@@ -4,19 +4,10 @@ import { deleteCookie, setCookie } from 'cookies-next';
 import FormData from 'form-data';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { API_ENDPOINT, ONE_DAY } from 'src/sdk/constants';
+import AppError from 'src/server/exception/app-error';
 import errorHandler from 'src/server/utils/error-handler';
 import setVtexCookies from 'src/server/utils/set-vtex-cookies';
-
-interface SendAccessKeyDTO {
-  email?: string;
-  authenticationToken?: string;
-}
-
-interface ValidateAccessKeyDTO {
-  code?: string;
-  email?: string;
-  authenticationToken?: string;
-}
+import { SendAccessKeyDTO, ValidateAccessKeyDTO } from './vtex-id.dto';
 
 class VtexId {
   private http = axios.create({
@@ -26,14 +17,15 @@ class VtexId {
   async start(req: NextApiRequest, res: NextApiResponse) {
     try {
       if (req.method !== 'GET') {
-        return res.status(405).json({ message: 'method not allowed' });
+        throw new AppError('Method not allowed', 405);
       }
 
-      const { data, headers } = await this.http.get<LoginStart>(
-        `/api/vtexid/pub/authentication/start?scope=${config.base.api.storeId}&locale=${config.base.session.locale}`,
-      );
+      const { data, headers: headersFromVtex } =
+        await this.http.get<LoginStart>(
+          `/api/vtexid/pub/authentication/start?scope=${config.base.api.storeId}&locale=${config.base.session.locale}`,
+        );
 
-      const cookiesFromVtex = headers['set-cookie'];
+      const cookiesFromVtex = headersFromVtex['set-cookie'];
 
       setVtexCookies(cookiesFromVtex, req, res);
 
@@ -46,7 +38,7 @@ class VtexId {
   async logout(req: NextApiRequest, res: NextApiResponse) {
     try {
       if (req.method !== 'GET') {
-        return res.status(405).json({ message: 'method not allowed' });
+        throw new AppError('Method not allowed', 405);
       }
 
       const { data, headers: headersFromVtex } = await this.http.get(
@@ -61,6 +53,7 @@ class VtexId {
       );
 
       const { hostname } = new URL('', `https://${req.headers.host}`);
+
       const cookies = headersFromVtex['set-cookie'];
 
       setVtexCookies(cookies, req, res);
@@ -94,7 +87,7 @@ class VtexId {
   async sendAccessKey(req: NextApiRequest, res: NextApiResponse) {
     try {
       if (req.method !== 'POST') {
-        return res.status(405).json({ message: 'method not allowed' });
+        throw new AppError('Method not allowed', 405);
       }
 
       const { authenticationToken, email }: SendAccessKeyDTO = req.body;
@@ -104,13 +97,17 @@ class VtexId {
       form.append('email', email);
       form.append('authenticationToken', authenticationToken);
 
-      const { data } = await this.http.post(
+      const { data, headers: headersFromVtex } = await this.http.post(
         `/api/vtexid/pub/authentication/accesskey/send`,
         form,
         {
           headers: form.getHeaders(),
         },
       );
+
+      const cookiesFromVtex = headersFromVtex['set-cookie'];
+
+      setVtexCookies(cookiesFromVtex, req, res);
 
       return res.status(200).json({ ...data });
     } catch (error) {
@@ -121,7 +118,7 @@ class VtexId {
   async validateAccessKey(req: NextApiRequest, res: NextApiResponse) {
     try {
       if (req.method !== 'POST') {
-        return res.status(405).json({ message: 'method not allowed' });
+        throw new AppError('Method not allowed', 405);
       }
 
       const { code, email, authenticationToken }: ValidateAccessKeyDTO =
@@ -135,16 +132,21 @@ class VtexId {
       encoded.set('email', email ?? '');
       encoded.set('authenticationToken', authenticationToken ?? '');
 
-      const { data } = await this.http.post<AuthResponse>(
-        `/api/vtexid/pub/authentication/accesskey/validate`,
-        encoded,
-        {
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-            cookie: req.headers['cookie'],
+      const { data, headers: headersFromVtex } =
+        await this.http.post<AuthResponse>(
+          `/api/vtexid/pub/authentication/accesskey/validate`,
+          encoded,
+          {
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded',
+              cookie: req.headers['cookie'],
+            },
           },
-        },
-      );
+        );
+
+      const cookiesFromVtex = headersFromVtex['set-cookie'];
+
+      setVtexCookies(cookiesFromVtex, req, res);
 
       setCookie(data.authCookie.Name, data.authCookie.Value, {
         domain: `.${hostname}`,

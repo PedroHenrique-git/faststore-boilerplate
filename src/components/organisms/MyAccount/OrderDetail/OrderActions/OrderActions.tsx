@@ -7,7 +7,7 @@ import {
   useDisclosure,
 } from '@chakra-ui/react';
 import { MdOutlineKeyboardArrowDown } from 'react-icons/md';
-import { CancelOrder } from './CancelOrder';
+import { CancelOrder } from '../CancelOrder';
 
 interface Props {
   orderId: string;
