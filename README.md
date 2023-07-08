@@ -2,21 +2,25 @@
 
 a starter to create headless applications using vtex apis
 
+### Usage
+
+for all features to work correctly you must create an .env file following the example of .env.example and fill it in with your store data
+
 ### Features at the moment
 
 1. home
 2. pdp (product page)
 3. plp (product listing page)
 4. cms integration
-5. Seo
+5. seo
+6. google analytics
+7. e2e tests
+8. login (only by code at the moment)
+9. my account (basic features: profile, addresses and orders)
 
 ### Future Features
 
-1. analytics
-2. e2e tests
-3. integration login
-4. integration my account
-5. integration checkout
+1. checkout
 
 ### Technologies
 
